@@ -3,65 +3,64 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { 
   Award, TrendingUp, Building, CheckCircle, 
-  ArrowRight, Landmark, Factory, Warehouse, 
-  Target, Shield, Users, Calendar, Star, Zap, Scale, Gavel, Handshake
+  ArrowRight, Target, Shield, Users, Calendar, Star, Zap, Scale, Gavel
 } from "lucide-react";
 
 const TrackRecord = () => {
   const transactions = [
     {
-      amount: "₹165 Crore",
-      title: "Sugar Mill Property",
-      location: "Chengalpattu District",
-      description: "Successfully identified a buyer for a 90+ acre sugar mill property in Chengalpattu District under an NCLT process",
-      icon: Factory,
-      color: "from-orange-500 to-red-500",
-      bgColor: "bg-orange-50"
-    },
-    {
       amount: "₹107 Crore",
       title: "Land Parcel",
       location: "Near Chennai",
       description: "Facilitated a high-value SARFAESI sale by identifying a buyer for 254 acres of land near Chennai, successfully concluding the transaction",
-      icon: Landmark,
-      color: "from-green-500 to-emerald-500",
-      bgColor: "bg-green-50"
+      image: "src/images/Barrenland.jpeg",
+      imageAlt: "Land Parcel Near Chennai",
+      fallbackImage: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      amount: "₹165 Crore",
+      title: "Sugar Mill Property",
+      location: "Chengalpattu District",
+      description: "Successfully identified a buyer for a 90+ acre sugar mill property in Chengalpattu District under an NCLT process",
+      image: "src/images/Sugarmill.jpeg",
+      imageAlt: "Sugar Mill Property",
+      fallbackImage: "https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
     },
     {
       amount: "₹17 Crore",
       title: "Industrial Land",
       location: "Near Oragadam, Chennai",
       description: "Enabled the sale of 27 acres of industrial land near Oragadam, Chennai to a logistics company",
-      icon: Warehouse,
-      color: "from-amber-500 to-yellow-500",
-      bgColor: "bg-amber-50"
+      image: "src/images/Orangadam.jpeg",
+      imageAlt: "Industrial Land",
+      fallbackImage: "https://images.unsplash.com/photo-1566917506920-5c6a15c50ed1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
     },
     {
       amount: "₹16 Crore",
       title: "Agricultural Land",
       location: "Near Puducherry",
       description: "Identified an investor for 75 acres of land near Puducherry",
-      icon: Building,
-      color: "from-teal-500 to-green-500",
-      bgColor: "bg-teal-50"
+      image: "src/images/Agriland.jpeg",
+      imageAlt: "Agricultural Land",
+      fallbackImage: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
     },
     {
       amount: "₹66 Crore",
       title: "Battery Manufacturing Facility",
       location: "Near Hosur",
       description: "Successfully identified a buyer for a battery manufacturing facility near Hosur",
-      icon: Factory,
-      color: "from-blue-500 to-cyan-500",
-      bgColor: "bg-blue-50"
+      image: "src/images/Battery.jpeg",
+      imageAlt: "Battery Manufacturing Facility",
+      fallbackImage: "https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
     },
     {
       amount: "₹66 Crore",
       title: "Wind Turbine Manufacturing Plant",
       location: "Near Thiruvallur",
       description: "Facilitated buyer identification for a wind turbine manufacturing plant near Thiruvallur",
-      icon: Factory,
-      color: "from-purple-500 to-indigo-500",
-      bgColor: "bg-purple-50"
+      image: "src/images/Windturbine.jpeg",
+      imageAlt: "Wind Turbine Manufacturing Plant",
+      fallbackImage: "https://images.unsplash.com/photo-1466611653911-95081537e5b7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
     }
   ];
 
@@ -103,10 +102,6 @@ const TrackRecord = () => {
         </div>
         <div className="container-custom relative z-10">
           <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
-              <Award className="w-4 h-4 text-primary-orange" />
-              <span className="text-sm font-semibold">Key Achievements</span>
-            </div>
             <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
               Track Record
             </h1>
@@ -118,10 +113,6 @@ const TrackRecord = () => {
       <section className="py-16 bg-white">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto">
-            <div className="inline-flex items-center gap-2 bg-primary-orange/10 px-4 py-2 rounded-full mb-4">
-              <Star className="w-4 h-4 text-primary-orange" />
-              <span className="text-sm font-semibold text-primary-orange">Key Achievements</span>
-            </div>
             <p className="text-gray-700 text-lg leading-relaxed mb-8">
               Our company has a proven track record in facilitating the resolution and monetisation of high-value stressed assets across multiple sectors. 
               We consistently deliver strong outcomes for banks, financial institutions, and stakeholders through strategic buyer identification and efficient execution.
@@ -134,28 +125,43 @@ const TrackRecord = () => {
       <section className="py-16 bg-primary-grey">
         <div className="container-custom">
           <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 bg-primary-orange/10 px-4 py-2 rounded-full mb-4">
-              <TrendingUp className="w-4 h-4 text-primary-orange" />
-              <span className="text-sm font-semibold text-primary-orange">Success Stories</span>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-primary-dark mb-4">Select Transaction Highlights</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-primary-dark mb-4">Transaction Highlights</h2>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-6">
             {transactions.map((transaction, idx) => (
               <div 
                 key={idx} 
-                className={`${transaction.bgColor} rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 border-l-4 border-primary-orange`}
+                className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden"
               >
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                  <div className="flex-1">
-                    <div className="text-2xl font-bold text-primary-orange mb-2">{transaction.amount}</div>
-                    <h3 className="text-xl font-bold text-primary-dark mb-1">{transaction.title}</h3>
-                    <p className="text-gray-600 text-sm mb-2">{transaction.location}</p>
-                    <p className="text-gray-700">{transaction.description}</p>
+                <div className="flex flex-col md:flex-row">
+                  {/* Image Section */}
+                  <div className="md:w-72 h-48 md:h-auto relative overflow-hidden bg-gray-200">
+                    <img 
+                      src={transaction.image}
+                      alt={transaction.imageAlt}
+                      className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = transaction.fallbackImage;
+                      }}
+                    />
+                    <div className="absolute top-4 left-4 bg-primary-orange text-white px-3 py-1 rounded-full text-sm font-bold">
+                      {transaction.amount}
+                    </div>
                   </div>
-                  <div className={`bg-gradient-to-br ${transaction.color} p-3 rounded-lg flex-shrink-0 self-start`}>
-                    <transaction.icon className="w-8 h-8 text-white" />
+                  
+                  {/* Content Section */}
+                  <div className="flex-1 p-6">
+                    <h3 className="text-xl font-bold text-primary-dark mb-1">{transaction.title}</h3>
+                    <p className="text-gray-500 text-sm mb-3 flex items-center gap-1">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                      {transaction.location}
+                    </p>
+                    <p className="text-gray-700 leading-relaxed">{transaction.description}</p>
                   </div>
                 </div>
               </div>
@@ -169,10 +175,6 @@ const TrackRecord = () => {
         <div className="container-custom">
           <div className="grid md:grid-cols-2 gap-12 items-start">
             <div>
-              <div className="inline-flex items-center gap-2 bg-primary-orange/10 px-4 py-2 rounded-full mb-4">
-                <Zap className="w-4 h-4 text-primary-orange" />
-                <span className="text-sm font-semibold text-primary-orange">Our Expertise</span>
-              </div>
               <h2 className="text-3xl md:text-4xl font-bold text-primary-dark mb-6">Execution Strength</h2>
               <p className="text-gray-700 mb-6 leading-relaxed">
                 In addition to the above, we have coordinated and supported several other high-value transactions through:
@@ -197,7 +199,7 @@ const TrackRecord = () => {
                 <img 
                   src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
                   alt="Success Story" 
-                  className="rounded-2xl shadow-2xl relative z-10"
+                  className="rounded-2xl shadow-2xl relative z-10 w-full"
                 />
                 <div className="absolute -bottom-6 -right-6 bg-primary-orange rounded-xl p-4 shadow-lg z-20">
                   <CheckCircle className="w-8 h-8 text-white" />
@@ -228,5 +230,12 @@ const TrackRecord = () => {
     </div>
   );
 };
+
+// Additional icon components
+const Handshake = ({ className }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+  </svg>
+);
 
 export default TrackRecord;

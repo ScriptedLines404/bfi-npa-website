@@ -1,7 +1,7 @@
 /* src/components/Navbar.jsx */
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { Menu, X, Building2 } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,15 +19,18 @@ const Navbar = () => {
   return (
     <nav className="bg-primary-dark sticky top-0 z-50 shadow-lg">
       <div className="container-custom">
-        <div className="flex justify-between items-center py-4">
+        <div className="flex justify-between items-center py-3">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 group">
-            <div className="bg-primary-orange p-2 rounded-lg">
-              <Building2 className="w-6 h-6 text-white" />
-            </div>
-            <span className="text-xl font-heading font-bold text-white group-hover:text-primary-orange transition-colors">
-              BFI-NPA
-            </span>
+          <Link to="/" className="flex items-center">
+            <img 
+              src="/src/images/BFI-NPA_Logo-1.png" 
+              alt="BFI-NPA" 
+              className="h-12 w-auto object-contain"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = "https://via.placeholder.com/120x40/0A2540/FFFFFF?text=BFI-NPA";
+              }}
+            />
           </Link>
 
           {/* Desktop Menu */}
@@ -37,7 +40,7 @@ const Navbar = () => {
                 key={link.name}
                 to={link.path}
                 className={({ isActive }) =>
-                  `text-white hover:text-primary-orange transition-colors ${
+                  `text-white hover:text-primary-orange transition-colors text-sm ${
                     isActive ? "text-primary-orange font-semibold" : ""
                   }`
                 }
@@ -65,7 +68,7 @@ const Navbar = () => {
                 to={link.path}
                 onClick={() => setIsOpen(false)}
                 className={({ isActive }) =>
-                  `block text-white hover:text-primary-orange transition-colors ${
+                  `block text-white hover:text-primary-orange transition-colors py-2 ${
                     isActive ? "text-primary-orange font-semibold" : ""
                   }`
                 }
