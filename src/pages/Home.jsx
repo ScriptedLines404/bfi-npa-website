@@ -117,23 +117,7 @@ const Home = () => {
                   <CheckCircle className="text-primary-orange" />
                   <span className="text-primary-dark font-semibold">SARFAESI | NCLT | DRT Experts</span>
                 </div>
-              </div>
-
-              {/* Buttons */}
-              <div className="flex flex-wrap gap-4">
-                <button 
-                  onClick={handleNavigateToContact}
-                  className="btn-primary"
-                >
-                  Get Free Case Evaluation
-                </button>
-                <button 
-                  onClick={handleNavigateToContact}
-                  className="btn-outline flex items-center gap-2"
-                >
-                  <Phone size={18} /> Call Now
-                </button>
-              </div>
+              </div>              
             </div>
             
             <div className="hidden md:block">
