@@ -1,12 +1,16 @@
 /* src/pages/About.jsx */
 import React from "react";
+import { Link } from "react-router-dom";
 import { 
   Target, Eye, MapPin, Award, Briefcase, Scale, 
   Shield, Users, Building, TrendingUp, FileText, 
   CheckCircle, Mail, Phone, Calendar, Heart, 
   Star, ArrowRight, Sparkles, Zap, Globe, 
-  Clock, BarChart, Handshake, Crown, Gavel, Quote
+  Clock, BarChart, Handshake, Crown, Gavel
 } from "lucide-react";
+import SectionTitle from "../components/SectionTitle";
+import AnimatedCard from "../components/AnimatedCard";
+import AnimatedSection from "../components/AnimatedSection";
 
 const About = () => {
   const leaders = [
@@ -16,8 +20,7 @@ const About = () => {
       experience: "28+ years", 
       expertise: "SARFAESI, DRT, NCLT specialist", 
       background: "Former Promoter-Director of BFI Factoring Services Pvt. Ltd. (2002-2021)",
-      achievements: "Successfully led 16+ branches, managed large recovery portfolios",
-      image: "media/image1.png"
+      achievements: "Successfully led 16+ branches, managed large recovery portfolios"
     },
     { 
       name: "Mr. A. Velraja", 
@@ -25,8 +28,7 @@ const About = () => {
       experience: "Extensive experience", 
       expertise: "Vehicle finance & repossession operations", 
       background: "Progressed from Executive to Branch Manager across NBFCs",
-      achievements: "Expertise in business development and field operations",
-      image: "media/image2.png"
+      achievements: "Expertise in business development and field operations"
     },
   ];
 
@@ -65,7 +67,7 @@ const About = () => {
 
   return (
     <div className="animate-fade-in">
-      {/* Top Banner with Parallax Effect */}
+      {/* Top Banner with Parallax Effect - No Animation */}
       <div className="relative bg-gradient-to-r from-primary-dark via-primary-dark to-primary-dark/95 text-white py-24 overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-0 w-64 h-64 bg-primary-orange rounded-full blur-3xl"></div>
@@ -92,7 +94,7 @@ const About = () => {
       <section className="py-20 bg-white">
         <div className="container-custom">
           <div className="grid md:grid-cols-2 gap-16 items-center">
-            <div className="order-2 md:order-1">
+            <AnimatedSection direction="left" threshold={0.3}>
               <div className="inline-flex items-center gap-2 bg-primary-orange/10 px-4 py-2 rounded-full mb-4">
                 <Building className="w-4 h-4 text-primary-orange" />
                 <span className="text-sm font-semibold text-primary-orange">Company Overview</span>
@@ -114,15 +116,16 @@ const About = () => {
               {/* Stats Cards */}
               <div className="grid grid-cols-2 gap-4 mt-8">
                 {stats.map((stat, idx) => (
-                  <div key={idx} className={`bg-gradient-to-br ${stat.color} rounded-xl p-4 text-white shadow-lg`}>
+                  <AnimatedCard key={idx} delay={idx * 100} direction="up" className={`bg-gradient-to-br ${stat.color} rounded-xl p-4 text-white shadow-lg`}>
                     <stat.icon className="w-8 h-8 mb-2 opacity-80" />
                     <div className="text-2xl font-bold">{stat.value}</div>
                     <div className="text-sm opacity-90">{stat.label}</div>
-                  </div>
+                  </AnimatedCard>
                 ))}
               </div>
-            </div>
-            <div className="order-1 md:order-2">
+            </AnimatedSection>
+            
+            <AnimatedSection direction="right" threshold={0.3}>
               <div className="relative">
                 <div className="absolute -inset-4 bg-gradient-to-r from-primary-orange/20 to-primary-orange/10 rounded-2xl blur-xl"></div>
                 <img 
@@ -134,7 +137,7 @@ const About = () => {
                   <CheckCircle className="w-8 h-8 text-white" />
                 </div>
               </div>
-            </div>
+            </AnimatedSection>
           </div>
         </div>
       </section>
@@ -142,19 +145,14 @@ const About = () => {
       {/* Leadership */}
       <section className="py-20 bg-gradient-to-b from-primary-grey to-white">
         <div className="container-custom">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 bg-primary-orange/10 px-4 py-2 rounded-full mb-4">
-              <Users className="w-4 h-4 text-primary-orange" />
-              <span className="text-sm font-semibold text-primary-orange">Leadership Team</span>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-primary-dark mb-4">Meet Our Leadership</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Our leadership team combines decades of industry experience with strong execution capabilities
-            </p>
-          </div>
+          <SectionTitle 
+            title="Meet Our Leadership" 
+            subtitle="Our leadership team combines decades of industry experience with strong execution capabilities"
+          />
+          
           <div className="grid md:grid-cols-2 gap-8 mt-8">
             {leaders.map((leader, idx) => (
-              <div key={idx} className="group bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden">
+              <AnimatedCard key={idx} delay={idx * 150} direction="up" className="group bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden">
                 <div className="relative h-32 bg-gradient-to-r from-primary-orange to-primary-orange/80">
                   <div className="absolute -bottom-12 left-6">
                     <div className="w-24 h-24 bg-white rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-500">
@@ -174,7 +172,7 @@ const About = () => {
                     <p className="text-sm text-gray-500">{leader.achievements}</p>
                   </div>
                 </div>
-              </div>
+              </AnimatedCard>
             ))}
           </div>
         </div>
@@ -183,22 +181,32 @@ const About = () => {
       {/* Institutional Associations */}
       <section className="py-20 bg-white">
         <div className="container-custom">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 bg-primary-orange/10 px-4 py-2 rounded-full mb-4">
-              <Globe className="w-4 h-4 text-primary-orange" />
-              <span className="text-sm font-semibold text-primary-orange">Our Network</span>
+          <SectionTitle 
+            title="Institutional Associations" 
+            subtitle="We are empanelled with leading financial institutions across India"
+          />
+          
+          <AnimatedSection direction="up" threshold={0.3}>
+            <div className="max-w-4xl mx-auto text-center mb-12">
+              <p className="text-gray-700 mb-4 leading-relaxed">
+                We are empanelled with leading <strong className="text-primary-orange">Nationalised Banks</strong>, 
+                <strong className="text-primary-orange"> Private Sector Banks</strong>, and 
+                <strong className="text-primary-orange"> Asset Reconstruction Companies (ARCs)</strong> across key financial hubs such as 
+                Chennai, Mumbai and Delhi, along with select Non-Banking Financial Companies (NBFCs).
+              </p>
+              <p className="text-gray-600 italic">
+                Our strong institutional associations reflect the trust placed in us by prominent financial institutions, 
+                enabling us to consistently deliver effective recovery and resolution solutions.
+              </p>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-primary-dark mb-4">Institutional Associations</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              We are empanelled with leading financial institutions across India
-            </p>
-          </div>
+          </AnimatedSection>
+          
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {["Nationalised Banks", "Private Sector Banks", "Asset Reconstruction Companies", "Non-Banking Financial Companies"].map((type, idx) => (
-              <div key={idx} className="group bg-gradient-to-br from-primary-grey to-white rounded-xl p-6 text-center shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+              <AnimatedCard key={idx} delay={idx * 100} direction="up" className="group bg-gradient-to-br from-primary-grey to-white rounded-xl p-6 text-center shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                 <Building className="w-12 h-12 text-primary-orange mx-auto mb-3 group-hover:scale-110 transition-transform" />
                 <span className="font-semibold text-primary-dark">{type}</span>
-              </div>
+              </AnimatedCard>
             ))}
           </div>
         </div>
@@ -207,37 +215,32 @@ const About = () => {
       {/* Execution Experience */}
       <section className="py-20 bg-primary-grey">
         <div className="container-custom">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 bg-primary-orange/10 px-4 py-2 rounded-full mb-4">
-              <Zap className="w-4 h-4 text-primary-orange" />
-              <span className="text-sm font-semibold text-primary-orange">On-Ground Excellence</span>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-primary-dark mb-4">Execution Experience</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              End-to-end recovery and resolution solutions with extensive experience in taking physical possession of secured assets
-            </p>
-          </div>
+          <SectionTitle 
+            title="Execution Experience" 
+            subtitle="End-to-end recovery and resolution solutions with extensive experience in taking physical possession of secured assets"
+          />
           
           <div className="grid md:grid-cols-2 gap-12 mt-8">
-            <div>
+            <AnimatedSection direction="left" threshold={0.3}>
               <h3 className="text-2xl font-bold text-primary-dark mb-6 flex items-center gap-2">
                 <Briefcase className="text-primary-orange" /> Asset Classes Handled
               </h3>
-              <ul className="space-y-3">
+              <div className="space-y-3">
                 {assetClasses.map((asset, idx) => (
-                  <li key={idx} className="flex items-start gap-3 p-3 bg-white rounded-lg hover:shadow-md transition-all">
+                  <AnimatedCard key={idx} delay={idx * 50} direction="up" className="flex items-start gap-3 p-3 bg-white rounded-lg hover:shadow-md transition-all">
                     <CheckCircle className="text-primary-orange mt-1 flex-shrink-0" size={18} />
                     <span className="text-gray-700 text-sm">{asset}</span>
-                  </li>
+                  </AnimatedCard>
                 ))}
-              </ul>
-            </div>
-            <div>
+              </div>
+            </AnimatedSection>
+            
+            <AnimatedSection direction="right" threshold={0.3}>
               <h3 className="text-2xl font-bold text-primary-dark mb-6 flex items-center gap-2">
                 <Scale className="text-primary-orange" /> Statutory Authority Experience
               </h3>
               <div className="space-y-4">
-                <div className="bg-white rounded-xl p-5 shadow-md hover:shadow-lg transition-all">
+                <AnimatedCard delay={100} direction="up" className="bg-white rounded-xl p-5 shadow-md hover:shadow-lg transition-all">
                   <div className="flex items-center gap-3 mb-2">
                     <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
                       <Scale className="w-5 h-5 text-blue-600" />
@@ -245,8 +248,9 @@ const About = () => {
                     <p className="font-semibold text-primary-dark">DRT, CMM & CJM Authorities</p>
                   </div>
                   <p className="text-gray-600">Orders obtained from specialized tribunals and courts</p>
-                </div>
-                <div className="bg-white rounded-xl p-5 shadow-md hover:shadow-lg transition-all">
+                </AnimatedCard>
+                
+                <AnimatedCard delay={200} direction="up" className="bg-white rounded-xl p-5 shadow-md hover:shadow-lg transition-all">
                   <div className="flex items-center gap-3 mb-2">
                     <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
                       <Gavel className="w-5 h-5 text-green-600" />
@@ -254,12 +258,13 @@ const About = () => {
                     <p className="font-semibold text-primary-dark">SARFAESI Act</p>
                   </div>
                   <p className="text-gray-600">Direct possession without court intervention</p>
-                </div>
-                <div className="bg-gradient-to-r from-primary-orange/10 to-primary-orange/5 rounded-xl p-5 border-l-4 border-primary-orange">
+                </AnimatedCard>
+                
+                <AnimatedCard delay={300} direction="up" className="bg-gradient-to-r from-primary-orange/10 to-primary-orange/5 rounded-xl p-5 border-l-4 border-primary-orange">
                   <p className="font-semibold text-primary-dark">Diverse on-ground experience handling complex, sensitive, and high-value possessions with efficiency, compliance, and professionalism</p>
-                </div>
+                </AnimatedCard>
               </div>
-            </div>
+            </AnimatedSection>
           </div>
         </div>
       </section>
@@ -268,7 +273,7 @@ const About = () => {
       <section className="py-20 bg-white">
         <div className="container-custom">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="order-2 md:order-1">
+            <AnimatedSection direction="left" threshold={0.3}>
               <div className="inline-flex items-center gap-2 bg-primary-orange/10 px-4 py-2 rounded-full mb-4">
                 <TrendingUp className="w-4 h-4 text-primary-orange" />
                 <span className="text-sm font-semibold text-primary-orange">Expertise</span>
@@ -277,18 +282,19 @@ const About = () => {
               <p className="text-gray-700 mb-8 text-lg">
                 Deep expertise in preparing and positioning stressed assets for successful e-auction sales, maximizing value realisation.
               </p>
-              <ul className="space-y-4">
+              <div className="space-y-4">
                 {specializedCapabilities.map((cap, idx) => (
-                  <li key={idx} className="flex items-center gap-3 group">
+                  <AnimatedCard key={idx} delay={idx * 100} direction="left" className="flex items-center gap-3 group">
                     <div className="w-8 h-8 bg-primary-orange/10 rounded-lg flex items-center justify-center group-hover:bg-primary-orange transition-colors">
                       <CheckCircle className="text-primary-orange group-hover:text-white" size={16} />
                     </div>
                     <span className="text-gray-700 group-hover:text-primary-dark transition-colors">{cap}</span>
-                  </li>
+                  </AnimatedCard>
                 ))}
-              </ul>
-            </div>
-            <div className="order-1 md:order-2">
+              </div>
+            </AnimatedSection>
+            
+            <AnimatedSection direction="right" threshold={0.3}>
               <div className="relative">
                 <div className="absolute -inset-4 bg-gradient-to-r from-primary-orange/20 to-primary-orange/10 rounded-2xl blur-xl"></div>
                 <img 
@@ -297,7 +303,7 @@ const About = () => {
                   className="rounded-2xl shadow-2xl relative z-10"
                 />
               </div>
-            </div>
+            </AnimatedSection>
           </div>
         </div>
       </section>
@@ -305,33 +311,30 @@ const About = () => {
       {/* Why Choose Us */}
       <section className="py-20 bg-primary-grey">
         <div className="container-custom">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 bg-primary-orange/10 px-4 py-2 rounded-full mb-4">
-              <Star className="w-4 h-4 text-primary-orange" />
-              <span className="text-sm font-semibold text-primary-orange">Why Choose Us</span>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-primary-dark mb-4">Why Choose BFI-NPA?</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              We combine expertise, ethics, and execution to deliver exceptional results
-            </p>
-          </div>
+          <SectionTitle 
+            title="Why Choose BFI-NPA?" 
+            subtitle="We combine expertise, ethics, and execution to deliver exceptional results"
+          />
+          
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
             {whyChooseUs.map((reason, idx) => (
-              <div key={idx} className="group bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+              <AnimatedCard key={idx} delay={idx * 100} direction="up" className="group bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                 <div className="w-14 h-14 bg-primary-orange/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-primary-orange transition-colors">
                   <reason.icon className="w-7 h-7 text-primary-orange group-hover:text-white transition-colors" />
                 </div>
                 <h3 className="text-xl font-bold text-primary-dark mb-2">{reason.title}</h3>
                 <p className="text-gray-600 text-sm">{reason.desc}</p>
-              </div>
+              </AnimatedCard>
             ))}
           </div>
           
-          <div className="mt-12 text-center bg-gradient-to-r from-primary-dark to-primary-dark/95 text-white rounded-2xl p-10 shadow-2xl">
-            <Quote className="w-12 h-12 text-primary-orange mx-auto mb-4 opacity-50" />
+          <AnimatedCard delay={500} direction="up" className="mt-12 text-center bg-gradient-to-r from-primary-dark to-primary-dark/95 text-white rounded-2xl p-10 shadow-2xl">
+            <svg className="w-12 h-12 text-primary-orange mx-auto mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+            </svg>
             <p className="text-3xl md:text-4xl font-bold italic mb-3">"If we don't perform, we don't get paid."</p>
             <p className="text-gray-300 text-lg">Our Philosophy - Results-Driven Excellence</p>
-          </div>
+          </AnimatedCard>
         </div>
       </section>
 
@@ -339,7 +342,7 @@ const About = () => {
       <section className="py-20 bg-white">
         <div className="container-custom">
           <div className="grid md:grid-cols-2 gap-8">
-            <div className="group bg-gradient-to-br from-primary-grey to-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all">
+            <AnimatedCard delay={100} direction="left" className="group bg-gradient-to-br from-primary-grey to-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all">
               <div className="w-16 h-16 bg-primary-orange/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-primary-orange transition-colors">
                 <Target className="w-8 h-8 text-primary-orange group-hover:text-white transition-colors" />
               </div>
@@ -347,8 +350,9 @@ const About = () => {
               <p className="text-gray-600 leading-relaxed">
                 To enable businesses and financial institutions to recover outstanding dues efficiently and ethically, allowing them to focus on growth while we manage the complexities of debt resolution.
               </p>
-            </div>
-            <div className="group bg-gradient-to-br from-primary-grey to-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all">
+            </AnimatedCard>
+            
+            <AnimatedCard delay={200} direction="right" className="group bg-gradient-to-br from-primary-grey to-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all">
               <div className="w-16 h-16 bg-primary-orange/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-primary-orange transition-colors">
                 <Eye className="w-8 h-8 text-primary-orange group-hover:text-white transition-colors" />
               </div>
@@ -363,7 +367,7 @@ const About = () => {
                   <span>To become the preferred recovery and resolution partner through performance, reliability, and trust</span>
                 </li>
               </ul>
-            </div>
+            </AnimatedCard>
           </div>
         </div>
       </section>
@@ -372,7 +376,7 @@ const About = () => {
       <section className="py-20 bg-primary-grey">
         <div className="container-custom">
           <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all">
+            <AnimatedCard delay={100} direction="up" className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all">
               <div className="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center mb-6">
                 <Shield className="w-8 h-8 text-blue-600" />
               </div>
@@ -395,8 +399,9 @@ const About = () => {
               <p className="text-gray-600 text-sm bg-primary-grey p-3 rounded-lg">
                 We also execute Non-Disclosure Agreements (NDAs) to ensure complete protection of client data and sensitive information.
               </p>
-            </div>
-            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all">
+            </AnimatedCard>
+            
+            <AnimatedCard delay={200} direction="up" className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all">
               <div className="w-16 h-16 bg-green-100 rounded-xl flex items-center justify-center mb-6">
                 <Award className="w-8 h-8 text-green-600" />
               </div>
@@ -420,7 +425,7 @@ const About = () => {
                   <span>Tailored recovery strategies for each case</span>
                 </li>
               </ul>
-            </div>
+            </AnimatedCard>
           </div>
         </div>
       </section>
@@ -432,22 +437,24 @@ const About = () => {
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-primary-orange rounded-full blur-3xl"></div>
         </div>
         <div className="container-custom text-center relative z-10">
-          <Handshake className="w-16 h-16 text-primary-orange mx-auto mb-6" />
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">Partner With Us</h2>
-          <p className="text-xl mb-6 max-w-3xl mx-auto leading-relaxed">
-            At BFI-NPA Resolution Services Private Limited, we believe in building long-term partnerships that deliver measurable results.
-          </p>
-          <p className="text-lg mb-8 text-gray-300">
-            We invite you to entrust us with your recovery assignments across Tamil Nadu and experience our expertise, efficiency, and commitment firsthand.
-          </p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <button className="bg-primary-orange text-white font-semibold py-3 px-8 rounded-xl shadow-lg hover:bg-primary-orange/90 transition-all duration-300 hover:scale-105">
-              Get Free Consultation
-            </button>
-            <button className="border-2 border-white text-white font-semibold py-3 px-8 rounded-xl hover:bg-white hover:text-primary-dark transition-all duration-300">
-              Contact Us
-            </button>
-          </div>
+          <AnimatedSection direction="up" threshold={0.3}>
+            <Handshake className="w-16 h-16 text-primary-orange mx-auto mb-6" />
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">Partner With Us</h2>
+            <p className="text-xl mb-6 max-w-3xl mx-auto leading-relaxed">
+              At BFI-NPA Resolution Services Private Limited, we believe in building long-term partnerships that deliver measurable results.
+            </p>
+            <p className="text-lg mb-8 text-gray-300">
+              We invite you to entrust us with your recovery assignments across Tamil Nadu and experience our expertise, efficiency, and commitment firsthand.
+            </p>
+            <div className="flex flex-wrap gap-4 justify-center">
+              <Link to="/contact" className="bg-primary-orange text-white font-semibold py-3 px-8 rounded-xl shadow-lg hover:bg-primary-orange/90 transition-all duration-300 hover:scale-105">
+                Get Free Consultation
+              </Link>
+              <Link to="/contact" className="border-2 border-white text-white font-semibold py-3 px-8 rounded-xl hover:bg-white hover:text-primary-dark transition-all duration-300">
+                Contact Us
+              </Link>
+            </div>
+          </AnimatedSection>
         </div>
       </section>
 
@@ -455,12 +462,9 @@ const About = () => {
       <section className="py-20 bg-white">
         <div className="container-custom">
           <div className="max-w-3xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 bg-primary-orange/10 px-4 py-2 rounded-full mb-4">
-              <MapPin className="w-4 h-4 text-primary-orange" />
-              <span className="text-sm font-semibold text-primary-orange">Get in Touch</span>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-primary-dark mb-6">Contact Us</h2>
-            <div className="bg-gradient-to-br from-primary-grey to-white rounded-2xl p-8 shadow-xl mt-6">
+            <SectionTitle title="Contact Us" />
+            
+            <AnimatedCard delay={200} direction="up" className="bg-gradient-to-br from-primary-grey to-white rounded-2xl p-8 shadow-xl mt-6">
               <Building className="w-12 h-12 text-primary-orange mx-auto mb-4" />
               <p className="font-bold text-primary-dark text-xl mb-2">BFI-NPA Resolution Services Pvt. Ltd</p>
               <p className="text-gray-600">51, Ramakrishna Mutt Road, 1st Floor, Mylapore</p>
@@ -479,7 +483,7 @@ const About = () => {
                   <span className="text-gray-700 group-hover:text-primary-orange transition-colors">+91-9444035070</span>
                 </div>
               </div>
-            </div>
+            </AnimatedCard>
           </div>
         </div>
       </section>

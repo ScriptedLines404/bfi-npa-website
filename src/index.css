@@ -104,3 +104,29 @@
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   }
 }
+/* Smooth animation styles */
+.animated-char {
+  display: inline-block;
+  will-change: transform, opacity, filter;
+  transition: all 0.3s ease;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Ensure cards have proper transform style */
+.card, .btn-primary, .btn-outline {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Scroll animation container */
+section {
+  overflow-x: hidden;
+}
+
+/* Improve scroll performance */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

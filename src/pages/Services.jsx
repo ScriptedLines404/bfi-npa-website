@@ -5,6 +5,9 @@ import {
   Briefcase, Gavel, Scale, Search, TrendingUp, Shield,
   CheckCircle, ArrowRight, Clock, FileText, Building, Users 
 } from "lucide-react";
+import SectionTitle from "../components/SectionTitle";
+import AnimatedCard from "../components/AnimatedCard";
+import AnimatedSection from "../components/AnimatedSection";
 
 const Services = () => {
   const location = useLocation();
@@ -136,20 +139,36 @@ const Services = () => {
 
   return (
     <div className="animate-fade-in">
-      <div className="bg-primary-dark text-white py-16 text-center">
-        <div className="container-custom">
-          <h1 className="text-4xl md:text-5xl font-bold">Our Services</h1>
-          <p className="text-xl mt-4">Comprehensive NPA Resolution Solutions</p>
+      {/* Hero Section - No Animation */}
+      <div className="relative bg-gradient-to-r from-primary-dark via-primary-dark to-primary-dark/95 text-white py-24 overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 left-0 w-64 h-64 bg-primary-orange rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-primary-orange rounded-full blur-3xl"></div>
+        </div>
+        <div className="container-custom relative z-10">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
+              <Briefcase className="w-4 h-4 text-primary-orange" />
+              <span className="text-sm font-semibold">Our Expertise</span>
+            </div>
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+              Our Services
+            </h1>
+            <p className="text-xl max-w-3xl mx-auto text-gray-200 leading-relaxed">
+              Comprehensive NPA Resolution Solutions tailored to your needs
+            </p>
+          </div>
         </div>
       </div>
 
+      {/* Main Content with Sidebar */}
       <section className="py-16">
         <div className="container-custom">
           <div className="grid lg:grid-cols-4 gap-8">
             {/* Sidebar */}
             <div className="lg:col-span-1">
-              <div className="bg-primary-grey rounded-xl p-4 sticky top-24">
-                <h3 className="font-bold text-lg mb-4 px-3">Our Services</h3>
+              <AnimatedCard delay={100} direction="right" className="bg-primary-grey rounded-xl p-4 sticky top-24">
+                <h3 className="font-bold text-lg mb-4 px-3 text-primary-dark">Our Services</h3>
                 {services.map((service, idx) => (
                   <button
                     key={idx}
@@ -172,75 +191,80 @@ const Services = () => {
                     className={`w-full text-left px-4 py-3 rounded-lg transition-all flex items-center gap-3 ${
                       activeService === idx 
                         ? "bg-primary-orange text-white" 
-                        : "hover:bg-primary-orange/10"
+                        : "hover:bg-primary-orange/10 text-gray-700"
                     }`}
                   >
                     <service.icon size={20} />
                     <span className="text-sm">{service.title}</span>
                   </button>
                 ))}
-              </div>
+              </AnimatedCard>
             </div>
 
             {/* Content Panel */}
             <div className="lg:col-span-3">
               {services.map((service, idx) => (
-                <div 
+                <AnimatedCard 
                   key={idx}
-                  id={service.id}
-                  className={`card mb-8 scroll-mt-24 ${activeService === idx ? 'ring-2 ring-primary-orange' : ''}`}
-                  style={{ display: activeService === idx ? 'block' : 'none' }}
+                  delay={200}
+                  direction="left"
+                  className={`mb-8 ${activeService === idx ? 'block' : 'hidden'}`}
                 >
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="p-3 bg-primary-orange/10 rounded-lg">
-                      {React.createElement(service.icon, { 
-                        className: "w-10 h-10 text-primary-orange" 
-                      })}
+                  <div 
+                    id={service.id}
+                    className={`card scroll-mt-24 ${activeService === idx ? 'ring-2 ring-primary-orange' : ''}`}
+                  >
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className="p-3 bg-primary-orange/10 rounded-lg">
+                        {React.createElement(service.icon, { 
+                          className: "w-10 h-10 text-primary-orange" 
+                        })}
+                      </div>
+                      <h2 className="text-3xl font-bold text-primary-dark">
+                        {service.title}
+                      </h2>
                     </div>
-                    <h2 className="text-3xl font-bold text-primary-dark">
-                      {service.title}
-                    </h2>
-                  </div>
-                  
-                  <p className="text-primary-orange font-semibold text-lg mb-3">
-                    {service.shortDesc}
-                  </p>
-                  <p className="text-gray-700 text-lg mb-4">
-                    {service.description}
-                  </p>
-                  <p className="text-gray-600 mb-6">
-                    {service.longDescription}
-                  </p>
-                  
-                  <div className="mb-8">
-                    <h3 className="font-bold text-xl mb-3 text-primary-dark">Key Benefits:</h3>
-                    <ul className="space-y-2">
-                      {service.benefits.map((benefit, bidx) => (
-                        <li key={bidx} className="flex items-center gap-2">
-                          <CheckCircle className="text-primary-orange" size={18} />
-                          <span className="text-gray-700">{benefit}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                    
+                    <p className="text-primary-orange font-semibold text-lg mb-3">
+                      {service.shortDesc}
+                    </p>
+                    <p className="text-gray-700 text-lg mb-4">
+                      {service.description}
+                    </p>
+                    <p className="text-gray-600 mb-6">
+                      {service.longDescription}
+                    </p>
+                    
+                    <div className="mb-8">
+                      <h3 className="font-bold text-xl mb-3 text-primary-dark">Key Benefits:</h3>
+                      <ul className="space-y-2">
+                        {service.benefits.map((benefit, bidx) => (
+                          <li key={bidx} className="flex items-center gap-2">
+                            <CheckCircle className="text-primary-orange" size={18} />
+                            <span className="text-gray-700">{benefit}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
 
-                  <div className="bg-primary-grey rounded-lg p-4">
-                    <h3 className="font-bold text-xl mb-3 text-primary-dark">Our Process:</h3>
-                    <div className="flex flex-wrap gap-4">
-                      {service.process.map((step, sidx) => (
-                        <div key={sidx} className="flex items-center">
-                          <div className="bg-primary-orange text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-2">
-                            {sidx + 1}
+                    <div className="bg-primary-grey rounded-lg p-4">
+                      <h3 className="font-bold text-xl mb-3 text-primary-dark">Our Process:</h3>
+                      <div className="flex flex-wrap gap-4">
+                        {service.process.map((step, sidx) => (
+                          <div key={sidx} className="flex items-center">
+                            <div className="bg-primary-orange text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-2">
+                              {sidx + 1}
+                            </div>
+                            <span className="text-gray-700 text-sm">{step}</span>
+                            {sidx < service.process.length - 1 && (
+                              <ArrowRight className="text-primary-orange mx-2" size={16} />
+                            )}
                           </div>
-                          <span className="text-gray-700 text-sm">{step}</span>
-                          {sidx < service.process.length - 1 && (
-                            <ArrowRight className="text-primary-orange mx-2" size={16} />
-                          )}
-                        </div>
-                      ))}
+                        ))}
+                      </div>
                     </div>
                   </div>
-                </div>
+                </AnimatedCard>
               ))}
             </div>
           </div>
@@ -250,37 +274,81 @@ const Services = () => {
       {/* Additional Service Highlights */}
       <section className="py-16 bg-primary-grey">
         <div className="container-custom">
-          <h2 className="section-title text-center">Why Choose Our Services?</h2>
+          <SectionTitle 
+            title="Why Choose Our Services?" 
+            subtitle="We combine expertise, efficiency, and compliance to deliver exceptional results"
+          />
+          
           <div className="grid md:grid-cols-3 gap-8 mt-8">
-            <div className="text-center p-6">
-              <Clock className="w-12 h-12 text-primary-orange mx-auto mb-4" />
-              <h3 className="text-xl font-bold mb-2">Fast Execution</h3>
+            <AnimatedCard delay={100} direction="up" className="text-center p-6 bg-white rounded-xl shadow-md hover:shadow-xl transition-all">
+              <div className="w-16 h-16 bg-primary-orange/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Clock className="w-8 h-8 text-primary-orange" />
+              </div>
+              <h3 className="text-xl font-bold text-primary-dark mb-2">Fast Execution</h3>
               <p className="text-gray-600">Time-bound recovery processes with dedicated teams</p>
-            </div>
-            <div className="text-center p-6">
-              <TrendingUp className="w-12 h-12 text-primary-orange mx-auto mb-4" />
-              <h3 className="text-xl font-bold mb-2">Maximized Recovery</h3>
+            </AnimatedCard>
+            
+            <AnimatedCard delay={200} direction="up" className="text-center p-6 bg-white rounded-xl shadow-md hover:shadow-xl transition-all">
+              <div className="w-16 h-16 bg-primary-orange/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <TrendingUp className="w-8 h-8 text-primary-orange" />
+              </div>
+              <h3 className="text-xl font-bold text-primary-dark mb-2">Maximized Recovery</h3>
               <p className="text-gray-600">Strategic approach to achieve highest recovery value</p>
-            </div>
-            <div className="text-center p-6">
-              <FileText className="w-12 h-12 text-primary-orange mx-auto mb-4" />
-              <h3 className="text-xl font-bold mb-2">Legal Compliance</h3>
+            </AnimatedCard>
+            
+            <AnimatedCard delay={300} direction="up" className="text-center p-6 bg-white rounded-xl shadow-md hover:shadow-xl transition-all">
+              <div className="w-16 h-16 bg-primary-orange/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <FileText className="w-8 h-8 text-primary-orange" />
+              </div>
+              <h3 className="text-xl font-bold text-primary-dark mb-2">Legal Compliance</h3>
               <p className="text-gray-600">All actions strictly within legal framework</p>
-            </div>
+            </AnimatedCard>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-16 bg-primary-dark text-white">
+      {/* Service Stats Section */}
+      <section className="py-16 bg-white">
+        <div className="container-custom">
+          <div className="grid md:grid-cols-4 gap-6">
+            <AnimatedCard delay={100} direction="up" className="text-center p-6 bg-primary-grey rounded-xl shadow-md hover:shadow-xl transition-all">
+              <div className="text-3xl font-bold text-primary-orange mb-2">1000+</div>
+              <p className="text-gray-600">Cr Transactions</p>
+            </AnimatedCard>
+            
+            <AnimatedCard delay={200} direction="up" className="text-center p-6 bg-primary-grey rounded-xl shadow-md hover:shadow-xl transition-all">
+              <div className="text-3xl font-bold text-primary-orange mb-2">25+</div>
+              <p className="text-gray-600">Years Experience</p>
+            </AnimatedCard>
+            
+            <AnimatedCard delay={300} direction="up" className="text-center p-6 bg-primary-grey rounded-xl shadow-md hover:shadow-xl transition-all">
+              <div className="text-3xl font-bold text-primary-orange mb-2">100%</div>
+              <p className="text-gray-600">Success-Based Fees</p>
+            </AnimatedCard>
+            
+            <AnimatedCard delay={400} direction="up" className="text-center p-6 bg-primary-grey rounded-xl shadow-md hover:shadow-xl transition-all">
+              <div className="text-3xl font-bold text-primary-orange mb-2">50+</div>
+              <p className="text-gray-600">Happy Clients</p>
+            </AnimatedCard>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section - No Animation */}
+      <section className="py-20 bg-primary-dark text-white">
         <div className="container-custom text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">Need Expert Recovery Services?</h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
             Let our experienced team handle your recovery needs with professionalism and efficiency
           </p>
-          <Link to="/contact" className="btn-primary inline-block">
-            Schedule Consultation
-          </Link>
+          <div className="flex flex-wrap gap-4 justify-center">
+            <Link to="/contact" className="btn-primary">
+              Get Free Consultation
+            </Link>
+            <Link to="/track-record" className="btn-outline border-white text-white hover:bg-white hover:text-primary-dark">
+              View Our Track Record
+            </Link>
+          </div>
         </div>
       </section>
     </div>

@@ -8,6 +8,9 @@ import {
   Landmark, Users, Briefcase, Zap, Award,
   TrendingUp, Clock, Target
 } from "lucide-react";
+import SectionTitle from "../components/SectionTitle";
+import AnimatedCard from "../components/AnimatedCard";
+import AnimatedSection from "../components/AnimatedSection";
 
 const LegalMechanisms = () => {
   const location = useLocation();
@@ -96,7 +99,6 @@ const LegalMechanisms = () => {
         "Promote business continuity (if possible)",
         "Improve credit discipline"
       ],
-      whoCanUse: ["Banks", "Financial Institutions", "Operational creditors (vendors, suppliers)", "Corporates"],
       process: [
         "Default Occurs - Borrower fails to repay debt (above threshold limit)",
         "Case Filed - Application filed before National Company Law Tribunal (NCLT)",
@@ -118,8 +120,9 @@ const LegalMechanisms = () => {
         "Sale of company as a going concern",
         "Liquidation (last option)"
       ],
-      example: "A company defaults on ₹200 Cr loan. Case filed under IBC. NCLT admits case. Investor submits resolution plan. Company is taken over for ₹120 Cr.",
+      whoUses: ["Banks", "Financial Institutions", "Operational creditors (vendors, suppliers)", "Corporates"],
       importance: "Time-bound process (180–330 days), improves recovery rates, prevents value erosion, encourages serious bidders/investors",
+      example: "A company defaults on ₹200 Cr loan. Case filed under IBC. NCLT admits case. Investor submits resolution plan. Company is taken over for ₹120 Cr.",
       color: "bg-red-50",
       borderColor: "border-red-200",
       iconColor: "text-red-600"
@@ -160,12 +163,22 @@ const LegalMechanisms = () => {
 
   return (
     <div className="animate-fade-in">
-      {/* Hero Section */}
-      <div className="bg-gradient-to-r from-primary-dark to-primary-dark/90 text-white py-20">
-        <div className="container-custom">
+      {/* Hero Section - No Animation */}
+      <div className="relative bg-gradient-to-r from-primary-dark via-primary-dark to-primary-dark/95 text-white py-24 overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 left-0 w-64 h-64 bg-primary-orange rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-primary-orange rounded-full blur-3xl"></div>
+        </div>
+        <div className="container-custom relative z-10">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">Legal Mechanisms for NPAs</h1>
-            <p className="text-xl leading-relaxed">
+            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
+              <BookOpen className="w-4 h-4 text-primary-orange" />
+              <span className="text-sm font-semibold">Legal Frameworks</span>
+            </div>
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+              Legal Mechanisms for NPAs
+            </h1>
+            <p className="text-xl max-w-3xl mx-auto text-gray-200 leading-relaxed">
               Comprehensive legal frameworks enabling effective recovery and resolution of stressed assets through 
               specialized tribunals, enforcement mechanisms, and insolvency proceedings.
             </p>
@@ -179,8 +192,8 @@ const LegalMechanisms = () => {
           <div className="grid lg:grid-cols-4 gap-8">
             {/* Sidebar */}
             <div className="lg:col-span-1">
-              <div className="bg-primary-grey rounded-xl p-4 sticky top-24">
-                <h3 className="font-bold text-lg mb-4 px-3">Legal Frameworks</h3>
+              <AnimatedCard delay={100} direction="right" className="bg-primary-grey rounded-xl p-4 sticky top-24">
+                <h3 className="font-bold text-lg mb-4 px-3 text-primary-dark">Legal Frameworks</h3>
                 {legalFrameworks.map((framework, idx) => (
                   <button
                     key={idx}
@@ -203,243 +216,248 @@ const LegalMechanisms = () => {
                     className={`w-full text-left px-4 py-3 rounded-lg transition-all flex items-center gap-3 ${
                       activeFramework === idx 
                         ? "bg-primary-orange text-white" 
-                        : "hover:bg-primary-orange/10"
+                        : "hover:bg-primary-orange/10 text-gray-700"
                     }`}
                   >
                     <framework.icon size={20} />
                     <span className="text-sm">{framework.title}</span>
                   </button>
                 ))}
-              </div>
+              </AnimatedCard>
             </div>
 
             {/* Content Panel */}
             <div className="lg:col-span-3">
               {legalFrameworks.map((framework, idx) => (
-                <div 
+                <AnimatedCard 
                   key={idx}
-                  id={framework.id}
-                  className={`card mb-8 scroll-mt-24 ${activeFramework === idx ? 'ring-2 ring-primary-orange' : ''}`}
-                  style={{ display: activeFramework === idx ? 'block' : 'none' }}
+                  delay={200}
+                  direction="left"
+                  className={`mb-8 ${activeFramework === idx ? 'block' : 'hidden'}`}
                 >
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className={`p-3 ${framework.color} rounded-lg`}>
-                      {React.createElement(framework.icon, { 
-                        className: `w-10 h-10 ${framework.iconColor}` 
-                      })}
-                    </div>
-                    <div>
-                      <h2 className="text-3xl font-bold text-primary-dark">
-                        {framework.title}
-                      </h2>
-                      <p className="text-sm text-gray-500 mt-1">{framework.fullName}</p>
-                    </div>
-                  </div>
-                  
-                  {/* Definition */}
-                  <div className="mb-6">
-                    <p className="text-primary-orange font-semibold text-lg mb-2">What is {framework.title}?</p>
-                    <p className="text-gray-700 text-lg leading-relaxed">{framework.definition}</p>
-                  </div>
-
-                  {/* Simple Explanation */}
-                  <div className="mb-6 bg-primary-grey rounded-lg p-4">
-                    <p className="font-bold text-primary-dark mb-2 flex items-center gap-2">
-                      <BookOpen size={18} /> Simple Explanation
-                    </p>
-                    <p className="text-gray-700">{framework.simpleExplanation}</p>
-                  </div>
-
-                  {/* Key Features for SARFAESI */}
-                  {framework.keyFeatures && (
-                    <div className="mb-6">
-                      <h3 className="font-bold text-xl mb-3 text-primary-dark">Key Features:</h3>
-                      <ul className="space-y-2">
-                        {framework.keyFeatures.map((feature, fidx) => (
-                          <li key={fidx} className="flex items-center gap-2">
-                            <CheckCircle className="text-primary-orange" size={18} />
-                            <span className="text-gray-700">{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  {/* Key Feature for RDDB */}
-                  {framework.keyFeature && (
-                    <div className="mb-6">
-                      <h3 className="font-bold text-xl mb-3 text-primary-dark">Key Feature:</h3>
-                      <p className="text-gray-700">{framework.keyFeature}</p>
-                    </div>
-                  )}
-
-                  {/* Main Objective for IBC */}
-                  {framework.mainObjective && (
-                    <div className="mb-6">
-                      <h3 className="font-bold text-xl mb-3 text-primary-dark">Main Objective:</h3>
-                      <ul className="space-y-2">
-                        {framework.mainObjective.map((objective, oidx) => (
-                          <li key={oidx} className="flex items-center gap-2">
-                            <Target className="text-primary-orange" size={18} />
-                            <span className="text-gray-700">{objective}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  {/* Who Can Use */}
-                  <div className="mb-6">
-                    <h3 className="font-bold text-xl mb-3 text-primary-dark flex items-center gap-2">
-                      <Users size={20} /> Who Can Use {framework.title}?
-                    </h3>
-                    <ul className="space-y-2">
-                      {framework.whoCanUse.map((user, uidx) => (
-                        <li key={uidx} className="flex items-center gap-2">
-                          <CheckCircle className="text-primary-orange" size={18} />
-                          <span className="text-gray-700">{user}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* How it Works */}
-                  <div className="mb-6">
-                    <h3 className="font-bold text-xl mb-3 text-primary-dark flex items-center gap-2">
-                      <Zap size={20} /> How {framework.title} Works
-                    </h3>
-                    <div className="space-y-3">
-                      {framework.process.map((step, sidx) => (
-                        <div key={sidx} className="flex items-start gap-3">
-                          <div className="bg-primary-orange text-white rounded-full w-6 h-6 flex items-center justify-center font-bold text-sm flex-shrink-0 mt-0.5">
-                            {sidx + 1}
-                          </div>
-                          <span className="text-gray-700">{step}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Types of Actions (RDDB) */}
-                  {framework.actions && (
-                    <div className="mb-6">
-                      <h3 className="font-bold text-xl mb-3 text-primary-dark">Types of Actions Under {framework.title}:</h3>
-                      <ul className="space-y-2">
-                        {framework.actions.map((action, aidx) => (
-                          <li key={aidx} className="flex items-center gap-2">
-                            <ArrowRight className="text-primary-orange" size={18} />
-                            <span className="text-gray-700">{action}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  {/* Example for SARFAESI or IBC */}
-                  {framework.example && (
-                    <div className="mb-6 bg-primary-grey rounded-lg p-4">
-                      <h3 className="font-bold text-primary-dark mb-2 flex items-center gap-2">
-                        <Landmark size={18} /> Example
-                      </h3>
-                      <p className="text-gray-700">{framework.example}</p>
-                    </div>
-                  )}
-
-                  {/* Authorities Involved (SARFAESI) */}
-                  {framework.authorities && (
-                    <div className="mb-6">
-                      <h3 className="font-bold text-xl mb-3 text-primary-dark">Important Authorities Involved:</h3>
-                      <ul className="space-y-2">
-                        {framework.authorities.map((authority, aidx) => (
-                          <li key={aidx} className="flex items-center gap-2">
-                            <Shield className="text-primary-orange" size={18} />
-                            <span className="text-gray-700">{authority}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  {/* Participants for IBC */}
-                  {framework.participants && (
-                    <div className="mb-6">
-                      <h3 className="font-bold text-xl mb-3 text-primary-dark">Key Participants in {framework.title}:</h3>
-                      <ul className="space-y-2">
-                        {framework.participants.map((participant, pidx) => (
-                          <li key={pidx} className="flex items-center gap-2">
-                            <Users className="text-primary-orange" size={18} />
-                            <span className="text-gray-700">{participant}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  {/* Resolution Types for IBC */}
-                  {framework.resolutionTypes && (
-                    <div className="mb-6">
-                      <h3 className="font-bold text-xl mb-3 text-primary-dark">Types of Resolution Under {framework.title}:</h3>
-                      <ul className="space-y-2">
-                        {framework.resolutionTypes.map((type, tidx) => (
-                          <li key={tidx} className="flex items-center gap-2">
-                            <TrendingUp className="text-primary-orange" size={18} />
-                            <span className="text-gray-700">{type}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  {/* When Used for RDDB */}
-                  {framework.whenUsed && (
-                    <div className="mb-6">
-                      <h3 className="font-bold text-xl mb-3 text-primary-dark">When is {framework.title} Used?</h3>
-                      <ul className="space-y-2">
-                        {framework.whenUsed.map((use, uidx) => (
-                          <li key={uidx} className="flex items-center gap-2">
-                            <Clock className="text-primary-orange" size={18} />
-                            <span className="text-gray-700">{use}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  {/* VS Comparison for RDDB */}
-                  {framework.vsSARFAESI && (
-                    <div className="mb-6 bg-primary-grey rounded-lg p-4">
-                      <h3 className="font-bold text-primary-dark mb-3">RDDB vs SARFAESI (Quick Difference):</h3>
-                      <div className="grid grid-cols-2 gap-4">
-                        <div>
-                          <p className="font-semibold text-primary-dark">RDDB Act:</p>
-                          <p className="text-gray-600 text-sm">{framework.vsSARFAESI.rdbb}</p>
-                        </div>
-                        <div>
-                          <p className="font-semibold text-primary-dark">SARFAESI:</p>
-                          <p className="text-gray-600 text-sm">{framework.vsSARFAESI.sarfaesi}</p>
-                        </div>
+                  <div 
+                    id={framework.id}
+                    className={`card scroll-mt-24 ${activeFramework === idx ? 'ring-2 ring-primary-orange' : ''}`}
+                  >
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className={`p-3 ${framework.color} rounded-lg`}>
+                        {React.createElement(framework.icon, { 
+                          className: `w-10 h-10 ${framework.iconColor}` 
+                        })}
+                      </div>
+                      <div>
+                        <h2 className="text-3xl font-bold text-primary-dark">
+                          {framework.title}
+                        </h2>
+                        <p className="text-sm text-gray-500 mt-1">{framework.fullName}</p>
                       </div>
                     </div>
-                  )}
-
-                  {/* Importance */}
-                  <div className="mb-6 bg-green-50 rounded-lg p-4">
-                    <h3 className="font-bold text-xl mb-2 text-green-700 flex items-center gap-2">
-                      <Award size={20} /> Why {framework.title} is Important
-                    </h3>
-                    <p className="text-gray-700">{framework.importance}</p>
-                  </div>
-
-                  {/* Limitations for SARFAESI */}
-                  {framework.limitations && (
-                    <div className="bg-yellow-50 rounded-lg p-4">
-                      <h3 className="font-bold text-xl mb-2 text-yellow-700 flex items-center gap-2">
-                        <AlertCircle size={20} /> Limitations
-                      </h3>
-                      <p className="text-gray-700">{framework.limitations}</p>
+                    
+                    {/* Definition */}
+                    <div className="mb-6">
+                      <p className="text-primary-orange font-semibold text-lg mb-2">What is {framework.title}?</p>
+                      <p className="text-gray-700 text-lg leading-relaxed">{framework.definition}</p>
                     </div>
-                  )}
-                </div>
+
+                    {/* Simple Explanation */}
+                    <div className="mb-6 bg-primary-grey rounded-lg p-4">
+                      <p className="font-bold text-primary-dark mb-2 flex items-center gap-2">
+                        <BookOpen size={18} /> Simple Explanation
+                      </p>
+                      <p className="text-gray-700">{framework.simpleExplanation}</p>
+                    </div>
+
+                    {/* Key Features for SARFAESI */}
+                    {framework.keyFeatures && (
+                      <div className="mb-6">
+                        <h3 className="font-bold text-xl mb-3 text-primary-dark">Key Features:</h3>
+                        <ul className="space-y-2">
+                          {framework.keyFeatures.map((feature, fidx) => (
+                            <li key={fidx} className="flex items-center gap-2">
+                              <CheckCircle className="text-primary-orange" size={18} />
+                              <span className="text-gray-700">{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {/* Key Feature for RDDB */}
+                    {framework.keyFeature && (
+                      <div className="mb-6">
+                        <h3 className="font-bold text-xl mb-3 text-primary-dark">Key Feature:</h3>
+                        <p className="text-gray-700">{framework.keyFeature}</p>
+                      </div>
+                    )}
+
+                    {/* Main Objective for IBC */}
+                    {framework.mainObjective && (
+                      <div className="mb-6">
+                        <h3 className="font-bold text-xl mb-3 text-primary-dark">Main Objective:</h3>
+                        <ul className="space-y-2">
+                          {framework.mainObjective.map((objective, oidx) => (
+                            <li key={oidx} className="flex items-center gap-2">
+                              <Target className="text-primary-orange" size={18} />
+                              <span className="text-gray-700">{objective}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {/* Who Can Use */}
+                    <div className="mb-6">
+                      <h3 className="font-bold text-xl mb-3 text-primary-dark flex items-center gap-2">
+                        <Users size={20} /> Who Can Use {framework.title}?
+                      </h3>
+                      <ul className="space-y-2">
+                        {framework.whoCanUse.map((user, uidx) => (
+                          <li key={uidx} className="flex items-center gap-2">
+                            <CheckCircle className="text-primary-orange" size={18} />
+                            <span className="text-gray-700">{user}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* How it Works */}
+                    <div className="mb-6">
+                      <h3 className="font-bold text-xl mb-3 text-primary-dark flex items-center gap-2">
+                        <Zap size={20} /> How {framework.title} Works
+                      </h3>
+                      <div className="space-y-3">
+                        {framework.process.map((step, sidx) => (
+                          <div key={sidx} className="flex items-start gap-3">
+                            <div className="bg-primary-orange text-white rounded-full w-6 h-6 flex items-center justify-center font-bold text-sm flex-shrink-0 mt-0.5">
+                              {sidx + 1}
+                            </div>
+                            <span className="text-gray-700">{step}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Types of Actions (RDDB) */}
+                    {framework.actions && (
+                      <div className="mb-6">
+                        <h3 className="font-bold text-xl mb-3 text-primary-dark">Types of Actions Under {framework.title}:</h3>
+                        <ul className="space-y-2">
+                          {framework.actions.map((action, aidx) => (
+                            <li key={aidx} className="flex items-center gap-2">
+                              <ArrowRight className="text-primary-orange" size={18} />
+                              <span className="text-gray-700">{action}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {/* Example for SARFAESI or IBC */}
+                    {framework.example && (
+                      <div className="mb-6 bg-primary-grey rounded-lg p-4">
+                        <h3 className="font-bold text-primary-dark mb-2 flex items-center gap-2">
+                          <Landmark size={18} /> Example
+                        </h3>
+                        <p className="text-gray-700">{framework.example}</p>
+                      </div>
+                    )}
+
+                    {/* Authorities Involved (SARFAESI) */}
+                    {framework.authorities && (
+                      <div className="mb-6">
+                        <h3 className="font-bold text-xl mb-3 text-primary-dark">Important Authorities Involved:</h3>
+                        <ul className="space-y-2">
+                          {framework.authorities.map((authority, aidx) => (
+                            <li key={aidx} className="flex items-center gap-2">
+                              <Shield className="text-primary-orange" size={18} />
+                              <span className="text-gray-700">{authority}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {/* Participants for IBC */}
+                    {framework.participants && (
+                      <div className="mb-6">
+                        <h3 className="font-bold text-xl mb-3 text-primary-dark">Key Participants in {framework.title}:</h3>
+                        <ul className="space-y-2">
+                          {framework.participants.map((participant, pidx) => (
+                            <li key={pidx} className="flex items-center gap-2">
+                              <Users className="text-primary-orange" size={18} />
+                              <span className="text-gray-700">{participant}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {/* Resolution Types for IBC */}
+                    {framework.resolutionTypes && (
+                      <div className="mb-6">
+                        <h3 className="font-bold text-xl mb-3 text-primary-dark">Types of Resolution Under {framework.title}:</h3>
+                        <ul className="space-y-2">
+                          {framework.resolutionTypes.map((type, tidx) => (
+                            <li key={tidx} className="flex items-center gap-2">
+                              <TrendingUp className="text-primary-orange" size={18} />
+                              <span className="text-gray-700">{type}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {/* When Used for RDDB */}
+                    {framework.whenUsed && (
+                      <div className="mb-6">
+                        <h3 className="font-bold text-xl mb-3 text-primary-dark">When is {framework.title} Used?</h3>
+                        <ul className="space-y-2">
+                          {framework.whenUsed.map((use, uidx) => (
+                            <li key={uidx} className="flex items-center gap-2">
+                              <Clock className="text-primary-orange" size={18} />
+                              <span className="text-gray-700">{use}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {/* VS Comparison for RDDB */}
+                    {framework.vsSARFAESI && (
+                      <div className="mb-6 bg-primary-grey rounded-lg p-4">
+                        <h3 className="font-bold text-primary-dark mb-3">RDDB vs SARFAESI (Quick Difference):</h3>
+                        <div className="grid grid-cols-2 gap-4">
+                          <div>
+                            <p className="font-semibold text-primary-dark">RDDB Act:</p>
+                            <p className="text-gray-600 text-sm">{framework.vsSARFAESI.rdbb}</p>
+                          </div>
+                          <div>
+                            <p className="font-semibold text-primary-dark">SARFAESI:</p>
+                            <p className="text-gray-600 text-sm">{framework.vsSARFAESI.sarfaesi}</p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Importance */}
+                    <div className="mb-6 bg-green-50 rounded-lg p-4">
+                      <h3 className="font-bold text-xl mb-2 text-green-700 flex items-center gap-2">
+                        <Award size={20} /> Why {framework.title} is Important
+                      </h3>
+                      <p className="text-gray-700">{framework.importance}</p>
+                    </div>
+
+                    {/* Limitations for SARFAESI */}
+                    {framework.limitations && (
+                      <div className="bg-yellow-50 rounded-lg p-4">
+                        <h3 className="font-bold text-xl mb-2 text-yellow-700 flex items-center gap-2">
+                          <AlertCircle size={20} /> Limitations
+                        </h3>
+                        <p className="text-gray-700">{framework.limitations}</p>
+                      </div>
+                    )}
+                  </div>
+                </AnimatedCard>
               ))}
             </div>
           </div>
@@ -449,34 +467,71 @@ const LegalMechanisms = () => {
       {/* Comparison Table */}
       <section className="py-16 bg-primary-grey">
         <div className="container-custom">
-          <h2 className="section-title text-center">IBC vs SARFAESI vs RDDB (Quick View)</h2>
-          <div className="overflow-x-auto">
-            <table className="min-w-full bg-white rounded-xl shadow-lg overflow-hidden">
-              <thead className="bg-primary-dark text-white">
-                <tr>
-                  <th className="px-6 py-4 text-left">Feature</th>
-                  <th className="px-6 py-4 text-left">IBC</th>
-                  <th className="px-6 py-4 text-left">SARFAESI</th>
-                  <th className="px-6 py-4 text-left">RDDB</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200">
-                {comparisonTable.map((row, idx) => (
-                  <tr key={idx} className="hover:bg-gray-50 transition-colors">
-                    <td className="px-6 py-4 font-semibold text-primary-dark">{row.feature}</td>
-                    <td className="px-6 py-4 text-gray-600">{row.ibc}</td>
-                    <td className="px-6 py-4 text-gray-600">{row.sarfaesi}</td>
-                    <td className="px-6 py-4 text-gray-600">{row.rdbb}</td>
+          <SectionTitle 
+            title="IBC vs SARFAESI vs RDDB" 
+            subtitle="Quick comparison of the three major legal frameworks for NPA recovery"
+          />
+          
+          <AnimatedSection direction="up" threshold={0.3}>
+            <div className="overflow-x-auto">
+              <table className="min-w-full bg-white rounded-xl shadow-lg overflow-hidden">
+                <thead className="bg-primary-dark text-white">
+                  <tr>
+                    <th className="px-6 py-4 text-left">Feature</th>
+                    <th className="px-6 py-4 text-left">IBC</th>
+                    <th className="px-6 py-4 text-left">SARFAESI</th>
+                    <th className="px-6 py-4 text-left">RDDB</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  {comparisonTable.map((row, idx) => (
+                    <tr key={idx} className="hover:bg-gray-50 transition-colors">
+                      <td className="px-6 py-4 font-semibold text-primary-dark">{row.feature}</td>
+                      <td className="px-6 py-4 text-gray-600">{row.ibc}</td>
+                      <td className="px-6 py-4 text-gray-600">{row.sarfaesi}</td>
+                      <td className="px-6 py-4 text-gray-600">{row.rdbb}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="py-16 bg-white">
+        <div className="container-custom">
+          <div className="grid md:grid-cols-3 gap-6">
+            <AnimatedCard delay={100} direction="up" className="text-center p-6 bg-primary-grey rounded-xl shadow-md hover:shadow-xl transition-all">
+              <div className="w-16 h-16 bg-primary-orange/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Scale className="w-8 h-8 text-primary-orange" />
+              </div>
+              <div className="text-2xl font-bold text-primary-dark">DRT</div>
+              <p className="text-gray-600 text-sm">Debt Recovery Tribunals</p>
+            </AnimatedCard>
+            
+            <AnimatedCard delay={200} direction="up" className="text-center p-6 bg-primary-grey rounded-xl shadow-md hover:shadow-xl transition-all">
+              <div className="w-16 h-16 bg-primary-orange/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Gavel className="w-8 h-8 text-primary-orange" />
+              </div>
+              <div className="text-2xl font-bold text-primary-dark">NCLT</div>
+              <p className="text-gray-600 text-sm">National Company Law Tribunal</p>
+            </AnimatedCard>
+            
+            <AnimatedCard delay={300} direction="up" className="text-center p-6 bg-primary-grey rounded-xl shadow-md hover:shadow-xl transition-all">
+              <div className="w-16 h-16 bg-primary-orange/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Building className="w-8 h-8 text-primary-orange" />
+              </div>
+              <div className="text-2xl font-bold text-primary-dark">DRAT</div>
+              <p className="text-gray-600 text-sm">Debt Recovery Appellate Tribunal</p>
+            </AnimatedCard>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-16 bg-primary-dark text-white">
+      {/* CTA Section - No Animation */}
+      <section className="py-20 bg-primary-dark text-white">
         <div className="container-custom text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">Need Expert Legal Assistance?</h2>
           <p className="text-xl mb-8 max-w-3xl mx-auto">
