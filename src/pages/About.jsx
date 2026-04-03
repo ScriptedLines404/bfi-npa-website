@@ -1,6 +1,6 @@
 /* src/pages/About.jsx */
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { 
   Target, Eye, MapPin, Award, Briefcase, Scale, 
   Shield, Users, Building, TrendingUp, FileText, 
@@ -13,6 +13,8 @@ import AnimatedCard from "../components/AnimatedCard";
 import AnimatedSection from "../components/AnimatedSection";
 
 const About = () => {
+  const navigate = useNavigate();
+
   const leaders = [
     { 
       name: "Mr. A. Velmurugan", 
@@ -51,11 +53,11 @@ const About = () => {
   ];
 
   const whyChooseUs = [
-    { icon: Shield, title: "No-Risk Engagement Model", desc: "100% success-based fee structure" },
-    { icon: Crown, title: "Experienced Leadership", desc: "Decades of proven industry expertise" },
-    { icon: Handshake, title: "Strong Institutional Relationships", desc: "Trusted by leading financial institutions" },
-    { icon: Zap, title: "End-to-End Execution Capability", desc: "Complete recovery solutions" },
-    { icon: Heart, title: "Ethical Approach", desc: "Transparent & professional practices" }
+    { icon: Shield, title: "No-Risk Engagement Model", desc: "100% success-based fee structure - you pay only when we deliver results" },
+    { icon: Crown, title: "Experienced Leadership", desc: "28+ years of combined industry expertise with proven track record" },
+    { icon: Handshake, title: "Strong Institutional Relationships", desc: "Empanelled with leading banks, ARCs, and NBFCs across India" },
+    { icon: Zap, title: "End-to-End Execution Capability", desc: "Complete recovery solutions from identification to asset monetization" },
+    { icon: Heart, title: "Ethical & Transparent Approach", desc: "Professional practices with strict confidentiality and compliance" }
   ];
 
   const stats = [
@@ -65,40 +67,43 @@ const About = () => {
     { icon: Award, value: "100%", label: "Success-Based Fees", color: "from-purple-500 to-purple-600" }
   ];
 
+  const handleNavigateToContact = () => {
+    navigate("/contact");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <div className="animate-fade-in">
-      {/* Top Banner with Parallax Effect - No Animation */}
-      <div className="relative bg-gradient-to-r from-primary-dark via-primary-dark to-primary-dark/95 text-white py-24 overflow-hidden">
+      {/* Hero Section - Light Background */}
+      <div className="relative bg-gradient-to-r from-primary-grey to-white text-primary-dark py-20 overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-0 w-64 h-64 bg-primary-orange rounded-full blur-3xl"></div>
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-primary-orange rounded-full blur-3xl"></div>
         </div>
         <div className="container-custom relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
-              <Sparkles className="w-4 h-4 text-primary-orange" />
-              <span className="text-sm font-semibold">Est. 2020</span>
+          <AnimatedSection direction="up" threshold={0.3}>
+            <div className="max-w-4xl mx-auto text-center">
+              <div className="inline-flex items-center gap-2 bg-primary-orange/10 px-4 py-2 rounded-full mb-6">
+                <Sparkles className="w-4 h-4 text-primary-orange" />
+                <span className="text-sm font-semibold text-primary-orange">Est. 2020</span>
+              </div>
+              <h1 className="text-5xl md:text-6xl font-bold mb-6 text-primary-dark">
+                About BFI-NPA
+              </h1>
+              <p className="text-xl max-w-3xl mx-auto text-gray-600 leading-relaxed">
+                Professionally managed company specializing in Stressed Asset Resolution encompassing debt collection, 
+                enforcement, and property disposition
+              </p>
             </div>
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-              About BFI-NPA
-            </h1>
-            <p className="text-xl max-w-3xl mx-auto text-gray-200 leading-relaxed">
-              Professionally managed company specializing in Stressed Asset Resolution encompassing debt collection, 
-              enforcement, and property disposition
-            </p>
-          </div>
+          </AnimatedSection>
         </div>
       </div>
 
-      {/* Company Overview */}
+      {/* Company Overview - White Background */}
       <section className="py-20 bg-white">
         <div className="container-custom">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <AnimatedSection direction="left" threshold={0.3}>
-              <div className="inline-flex items-center gap-2 bg-primary-orange/10 px-4 py-2 rounded-full mb-4">
-                <Building className="w-4 h-4 text-primary-orange" />
-                <span className="text-sm font-semibold text-primary-orange">Company Overview</span>
-              </div>
               <h2 className="text-3xl md:text-4xl font-bold text-primary-dark mb-6">
                 Your Trusted Partner in<br />
                 <span className="text-primary-orange">Stressed Asset Resolution</span>
@@ -112,17 +117,6 @@ const About = () => {
               <p className="text-gray-700 leading-relaxed">
                 Our clientele includes Banks, NBFCs, ARCs, Corporates, and Financial Institutions. We are committed to providing services that are efficient, cost-effective, and driven by integrity, transparency, and professional excellence.
               </p>
-              
-              {/* Stats Cards */}
-              <div className="grid grid-cols-2 gap-4 mt-8">
-                {stats.map((stat, idx) => (
-                  <AnimatedCard key={idx} delay={idx * 100} direction="up" className={`bg-gradient-to-br ${stat.color} rounded-xl p-4 text-white shadow-lg`}>
-                    <stat.icon className="w-8 h-8 mb-2 opacity-80" />
-                    <div className="text-2xl font-bold">{stat.value}</div>
-                    <div className="text-sm opacity-90">{stat.label}</div>
-                  </AnimatedCard>
-                ))}
-              </div>
             </AnimatedSection>
             
             <AnimatedSection direction="right" threshold={0.3}>
@@ -142,8 +136,8 @@ const About = () => {
         </div>
       </section>
 
-      {/* Leadership */}
-      <section className="py-20 bg-gradient-to-b from-primary-grey to-white">
+      {/* Leadership - Light Grey Background */}
+      <section className="py-20 bg-primary-grey">
         <div className="container-custom">
           <SectionTitle 
             title="Meet Our Leadership" 
@@ -178,41 +172,7 @@ const About = () => {
         </div>
       </section>
 
-      {/* Institutional Associations */}
-      <section className="py-20 bg-white">
-        <div className="container-custom">
-          <SectionTitle 
-            title="Institutional Associations" 
-            subtitle="We are empanelled with leading financial institutions across India"
-          />
-          
-          <AnimatedSection direction="up" threshold={0.3}>
-            <div className="max-w-4xl mx-auto text-center mb-12">
-              <p className="text-gray-700 mb-4 leading-relaxed">
-                We are empanelled with leading <strong className="text-primary-orange">Nationalised Banks</strong>, 
-                <strong className="text-primary-orange"> Private Sector Banks</strong>, and 
-                <strong className="text-primary-orange"> Asset Reconstruction Companies (ARCs)</strong> across key financial hubs such as 
-                Chennai, Mumbai and Delhi, along with select Non-Banking Financial Companies (NBFCs).
-              </p>
-              <p className="text-gray-600 italic">
-                Our strong institutional associations reflect the trust placed in us by prominent financial institutions, 
-                enabling us to consistently deliver effective recovery and resolution solutions.
-              </p>
-            </div>
-          </AnimatedSection>
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {["Nationalised Banks", "Private Sector Banks", "Asset Reconstruction Companies", "Non-Banking Financial Companies"].map((type, idx) => (
-              <AnimatedCard key={idx} delay={idx * 100} direction="up" className="group bg-gradient-to-br from-primary-grey to-white rounded-xl p-6 text-center shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                <Building className="w-12 h-12 text-primary-orange mx-auto mb-3 group-hover:scale-110 transition-transform" />
-                <span className="font-semibold text-primary-dark">{type}</span>
-              </AnimatedCard>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Execution Experience */}
+      {/* Execution Experience - Light Grey Background */}
       <section className="py-20 bg-primary-grey">
         <div className="container-custom">
           <SectionTitle 
@@ -269,7 +229,7 @@ const About = () => {
         </div>
       </section>
 
-      {/* Specialized Capabilities */}
+      {/* Specialized Capabilities - White Background */}
       <section className="py-20 bg-white">
         <div className="container-custom">
           <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -308,43 +268,14 @@ const About = () => {
         </div>
       </section>
 
-      {/* Why Choose Us */}
+      {/* Mission, Ethics & Commitment Section - Light Grey Background */}
       <section className="py-20 bg-primary-grey">
         <div className="container-custom">
-          <SectionTitle 
-            title="Why Choose BFI-NPA?" 
-            subtitle="We combine expertise, ethics, and execution to deliver exceptional results"
-          />
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-            {whyChooseUs.map((reason, idx) => (
-              <AnimatedCard key={idx} delay={idx * 100} direction="up" className="group bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                <div className="w-14 h-14 bg-primary-orange/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-primary-orange transition-colors">
-                  <reason.icon className="w-7 h-7 text-primary-orange group-hover:text-white transition-colors" />
-                </div>
-                <h3 className="text-xl font-bold text-primary-dark mb-2">{reason.title}</h3>
-                <p className="text-gray-600 text-sm">{reason.desc}</p>
-              </AnimatedCard>
-            ))}
-          </div>
-          
-          <AnimatedCard delay={500} direction="up" className="mt-12 text-center bg-gradient-to-r from-primary-dark to-primary-dark/95 text-white rounded-2xl p-10 shadow-2xl">
-            <svg className="w-12 h-12 text-primary-orange mx-auto mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-            </svg>
-            <p className="text-3xl md:text-4xl font-bold italic mb-3">"If we don't perform, we don't get paid."</p>
-            <p className="text-gray-300 text-lg">Our Philosophy - Results-Driven Excellence</p>
-          </AnimatedCard>
-        </div>
-      </section>
-
-      {/* Mission & Objectives */}
-      <section className="py-20 bg-white">
-        <div className="container-custom">
           <div className="grid md:grid-cols-2 gap-8">
-            <AnimatedCard delay={100} direction="left" className="group bg-gradient-to-br from-primary-grey to-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all">
-              <div className="w-16 h-16 bg-primary-orange/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-primary-orange transition-colors">
-                <Target className="w-8 h-8 text-primary-orange group-hover:text-white transition-colors" />
+            {/* Our Mission - Matching Ethics & Confidentiality style */}
+            <AnimatedCard delay={100} direction="up" className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all">
+              <div className="w-16 h-16 bg-primary-orange/10 rounded-xl flex items-center justify-center mb-6">
+                <Target className="w-8 h-8 text-primary-orange" />
               </div>
               <h3 className="text-2xl font-bold text-primary-dark mb-4">Our Mission</h3>
               <p className="text-gray-600 leading-relaxed">
@@ -352,30 +283,25 @@ const About = () => {
               </p>
             </AnimatedCard>
             
-            <AnimatedCard delay={200} direction="right" className="group bg-gradient-to-br from-primary-grey to-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all">
-              <div className="w-16 h-16 bg-primary-orange/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-primary-orange transition-colors">
-                <Eye className="w-8 h-8 text-primary-orange group-hover:text-white transition-colors" />
+            {/* Our Objectives - Matching Our Commitment style */}
+            <AnimatedCard delay={200} direction="up" className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all">
+              <div className="w-16 h-16 bg-primary-orange/10 rounded-xl flex items-center justify-center mb-6">
+                <Eye className="w-8 h-8 text-primary-orange" />
               </div>
               <h3 className="text-2xl font-bold text-primary-dark mb-4">Our Objectives</h3>
               <ul className="space-y-3 text-gray-600">
                 <li className="flex items-start gap-2">
-                  <ArrowRight className="text-primary-orange mt-1 flex-shrink-0" size={18} />
+                  <CheckCircle className="text-primary-orange mt-1 flex-shrink-0" size={18} />
                   <span>To maximize recovery within the shortest possible timeframe</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <ArrowRight className="text-primary-orange mt-1 flex-shrink-0" size={18} />
+                  <CheckCircle className="text-primary-orange mt-1 flex-shrink-0" size={18} />
                   <span>To become the preferred recovery and resolution partner through performance, reliability, and trust</span>
                 </li>
               </ul>
             </AnimatedCard>
-          </div>
-        </div>
-      </section>
 
-      {/* Ethics & Commitment */}
-      <section className="py-20 bg-primary-grey">
-        <div className="container-custom">
-          <div className="grid md:grid-cols-2 gap-8">
+            {/* Ethics & Confidentiality */}
             <AnimatedCard delay={100} direction="up" className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all">
               <div className="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center mb-6">
                 <Shield className="w-8 h-8 text-blue-600" />
@@ -401,6 +327,7 @@ const About = () => {
               </p>
             </AnimatedCard>
             
+            {/* Our Commitment */}
             <AnimatedCard delay={200} direction="up" className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all">
               <div className="w-16 h-16 bg-green-100 rounded-xl flex items-center justify-center mb-6">
                 <Award className="w-8 h-8 text-green-600" />
@@ -429,62 +356,28 @@ const About = () => {
           </div>
         </div>
       </section>
-
-      {/* Partner With Us */}
-      <section className="py-20 bg-gradient-to-r from-primary-dark to-primary-dark/95 text-white relative overflow-hidden">
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-0 left-0 w-96 h-96 bg-primary-orange rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-primary-orange rounded-full blur-3xl"></div>
-        </div>
-        <div className="container-custom text-center relative z-10">
+      
+      {/* CTA Banner - White Background */}
+      <section className="py-16 bg-white">
+        <div className="container-custom text-center">
           <AnimatedSection direction="up" threshold={0.3}>
             <Handshake className="w-16 h-16 text-primary-orange mx-auto mb-6" />
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">Partner With Us</h2>
-            <p className="text-xl mb-6 max-w-3xl mx-auto leading-relaxed">
+            <h2 className="text-4xl md:text-5xl font-bold text-primary-dark mb-6">Partner With Us</h2>
+            <p className="text-xl mb-6 max-w-3xl mx-auto text-gray-600 leading-relaxed">
               At BFI-NPA Resolution Services Private Limited, we believe in building long-term partnerships that deliver measurable results.
             </p>
-            <p className="text-lg mb-8 text-gray-300">
+            <p className="text-lg mb-8 text-gray-500">
               We invite you to entrust us with your recovery assignments across Tamil Nadu and experience our expertise, efficiency, and commitment firsthand.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
-              <Link to="/contact" className="bg-primary-orange text-white font-semibold py-3 px-8 rounded-xl shadow-lg hover:bg-primary-orange/90 transition-all duration-300 hover:scale-105">
+              <button onClick={handleNavigateToContact} className="btn-primary">
                 Get Free Consultation
-              </Link>
-              <Link to="/contact" className="border-2 border-white text-white font-semibold py-3 px-8 rounded-xl hover:bg-white hover:text-primary-dark transition-all duration-300">
+              </button>
+              <button onClick={handleNavigateToContact} className="btn-outline">
                 Contact Us
-              </Link>
+              </button>
             </div>
           </AnimatedSection>
-        </div>
-      </section>
-
-      {/* Contact Information */}
-      <section className="py-20 bg-white">
-        <div className="container-custom">
-          <div className="max-w-3xl mx-auto text-center">
-            <SectionTitle title="Contact Us" />
-            
-            <AnimatedCard delay={200} direction="up" className="bg-gradient-to-br from-primary-grey to-white rounded-2xl p-8 shadow-xl mt-6">
-              <Building className="w-12 h-12 text-primary-orange mx-auto mb-4" />
-              <p className="font-bold text-primary-dark text-xl mb-2">BFI-NPA Resolution Services Pvt. Ltd</p>
-              <p className="text-gray-600">51, Ramakrishna Mutt Road, 1st Floor, Mylapore</p>
-              <p className="text-gray-600 mb-6">Chennai - 600004</p>
-              <div className="flex flex-col md:flex-row justify-center gap-6 pt-4 border-t border-gray-200">
-                <div className="flex items-center justify-center gap-3 group">
-                  <div className="w-10 h-10 bg-primary-orange/10 rounded-full flex items-center justify-center group-hover:bg-primary-orange transition-colors">
-                    <Mail className="text-primary-orange group-hover:text-white" size={18} />
-                  </div>
-                  <span className="text-gray-700 group-hover:text-primary-orange transition-colors">bfirspl@gmail.com</span>
-                </div>
-                <div className="flex items-center justify-center gap-3 group">
-                  <div className="w-10 h-10 bg-primary-orange/10 rounded-full flex items-center justify-center group-hover:bg-primary-orange transition-colors">
-                    <Phone className="text-primary-orange group-hover:text-white" size={18} />
-                  </div>
-                  <span className="text-gray-700 group-hover:text-primary-orange transition-colors">+91-9444035070</span>
-                </div>
-              </div>
-            </AnimatedCard>
-          </div>
         </div>
       </section>
     </div>
