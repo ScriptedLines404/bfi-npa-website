@@ -3,13 +3,13 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { 
   Clock, Gavel, Users, Scale, Hammer, Landmark, Search, Shield, 
-  ArrowRight, Phone, CheckCircle, Briefcase, TrendingUp, Building 
+  ArrowRight, Phone, CheckCircle, Briefcase, TrendingUp, Building,
+  Award, Target, Zap, Heart, Crown, Handshake, Star
 } from "lucide-react";
 import AnimatedCounter from "../components/AnimatedCounter";
 import SectionTitle from "../components/SectionTitle";
 import AnimatedCard from "../components/AnimatedCard";
 import AnimatedSection from "../components/AnimatedSection";
-import AnimatedText from "../components/AnimatedText";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -30,10 +30,13 @@ const Home = () => {
     { icon: Shield, title: "Custodial, Security & Handover", desc: "Asset protection, registration support, and possession handover", serviceId: "custody-services" },
   ];
 
-  const results = [
-    { amount: 165, client: "Padmaadevi Sugar", type: "Sugar Industry" },
-    { amount: 107, client: "IVRCL Land", type: "Real Estate" },
-    { amount: 81, client: "Siva Industries", type: "Manufacturing" },
+  const trackRecordStats = [
+    { amount: "₹165 Cr", client: "Padmaadevi Sugar", type: "Sugar Industry - NCLT Process", description: "Successfully identified buyer for 90+ acre sugar mill property" },
+    { amount: "₹107 Cr", client: "Land Parcel", type: "Real Estate - SARFAESI Sale", description: "Facilitated sale of 254 acres of land near Chennai" },
+    { amount: "₹66 Cr", client: "Battery Manufacturing Facility", type: "Manufacturing", description: "Successfully identified buyer near Hosur" },
+    { amount: "₹66 Cr", client: "Wind Turbine Plant", type: "Energy", description: "Facilitated buyer identification near Thiruvallur" },
+    { amount: "₹17 Cr", client: "Industrial Land", type: "Logistics", description: "Enabled sale of 27 acres near Oragadam, Chennai" },
+    { amount: "₹16 Cr", client: "Agricultural Land", type: "Land Asset", description: "Identified investor for 75 acres near Puducherry" },
   ];
 
   const institutionalPartners = [
@@ -43,7 +46,14 @@ const Home = () => {
     { name: "Non-Banking Financial Companies", icon: Briefcase }
   ];
 
-  const whyChooseItems = ["Success-based fees", "Fast execution", "Legal expertise", "Ethical approach"];
+  const whyChooseItems = [
+    { icon: Shield, title: "No-Risk Engagement Model", desc: "100% success-based fee structure - you pay only when we deliver results" },
+    { icon: Crown, title: "Experienced Leadership", desc: "28+ years of combined industry expertise with proven track record" },
+    { icon: Handshake, title: "Strong Institutional Relationships", desc: "Empanelled with leading banks, ARCs, and NBFCs across India" },
+    { icon: Zap, title: "End-to-End Execution Capability", desc: "Complete recovery solutions from identification to asset monetization" },
+    { icon: Target, title: "Strategic Buyer Identification", desc: "Extensive network of investors and buyers for stressed assets" },
+    { icon: Heart, title: "Ethical & Transparent Approach", desc: "Professional practices with strict confidentiality and compliance" }
+  ];
 
   const handleNavigateToContact = () => {
     navigate("/contact");
@@ -51,19 +61,20 @@ const Home = () => {
   };
 
   const handleNavigateToService = (serviceId) => {
-    navigate(`/services#${serviceId}`);
+    // Store the target service ID in sessionStorage to handle on the services page
+    sessionStorage.setItem('targetService', serviceId);
+    navigate("/services");
     window.scrollTo({ top: 0, behavior: "auto" });
-    setTimeout(() => {
-      const element = document.getElementById(serviceId);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-    }, 100);
+  };
+
+  const handleNavigateToTrackRecord = () => {
+    navigate("/track-record");
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
     <div className="animate-fade-in">
-      {/* Hero Section - No animation */}
+      {/* Hero Section */}
       <section className="bg-white py-20">
         <div className="container-custom">
           <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -92,13 +103,6 @@ const Home = () => {
                   <CheckCircle className="text-primary-orange" />
                   <span className="text-primary-dark font-semibold">SARFAESI | NCLT | DRT Experts</span>
                 </div>
-              </div>
-              
-              <div className="flex flex-wrap gap-4">
-                <button onClick={handleNavigateToContact} className="btn-primary">Get Free Case Evaluation</button>
-                <button onClick={handleNavigateToContact} className="btn-outline flex items-center gap-2">
-                  <Phone size={18} /> Call Now
-                </button>
               </div>
             </div>
             
@@ -231,38 +235,39 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Results Section */}
-      <section className="py-20 bg-white">
+      {/* Track Record Results Section */}
+      <section className="py-20 bg-primary-grey">
         <div className="container-custom">
           <SectionTitle 
             title="Proven Results That Speak" 
             subtitle="Real success stories from our valued clients"
           />
           
-          <div className="grid md:grid-cols-3 gap-8 mt-12">
-            {results.map((result, idx) => (
-              <AnimatedCard key={idx} className="text-center p-6 bg-primary-grey rounded-xl hover:shadow-xl transition-all" delay={idx * 150} direction="up">
-                <div className="text-4xl md:text-5xl font-bold text-primary-orange mb-2">
-                  ₹{result.amount} Cr
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+            {trackRecordStats.map((result, idx) => (
+              <AnimatedCard key={idx} className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all" delay={idx * 100} direction="up">
+                <div className="text-3xl md:text-4xl font-bold text-primary-orange mb-2">
+                  {result.amount}
                 </div>
-                <p className="text-xl font-semibold mb-1 text-primary-dark">{result.client}</p>
-                <p className="text-gray-600">{result.type}</p>
+                <h3 className="text-lg font-bold text-primary-dark mb-1">{result.client}</h3>
+                <p className="text-sm text-primary-orange font-semibold mb-2">{result.type}</p>
+                <p className="text-gray-600 text-sm">{result.description}</p>
               </AnimatedCard>
             ))}
           </div>
           
           <div className="text-center mt-10">
             <AnimatedCard delay={300} direction="up">
-              <Link to="/track-record" className="btn-primary inline-block">
-                View All Case Studies
-              </Link>
+              <button onClick={handleNavigateToTrackRecord} className="btn-primary inline-block">
+                View Full Track Record
+              </button>
             </AnimatedCard>
           </div>
         </div>
       </section>
 
       {/* Institutional Associations Section */}
-      <section className="py-20 bg-primary-grey">
+      <section className="py-20 bg-white">
         <div className="container-custom">
           <SectionTitle 
             title="Institutional Associations" 
@@ -286,7 +291,7 @@ const Home = () => {
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {institutionalPartners.map((item, idx) => (
-              <AnimatedCard key={idx} className="group bg-white rounded-xl p-6 text-center shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1" delay={idx * 100} direction="up">
+              <AnimatedCard key={idx} className="group bg-primary-grey rounded-xl p-6 text-center shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1" delay={idx * 100} direction="up">
                 <item.icon className="w-12 h-12 text-primary-orange mx-auto mb-3 group-hover:scale-110 transition-transform" />
                 <span className="font-semibold text-primary-dark">{item.name}</span>
               </AnimatedCard>
@@ -295,47 +300,53 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Why Choose Us Section */}
-      <section className="py-20 bg-white">
+      {/* Why Choose Us Section - Expanded */}
+      <section className="py-20 bg-primary-grey">
         <div className="container-custom">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <SectionTitle title="Why Choose Us" />
-              
-              <div className="space-y-4 mt-8">
-                {whyChooseItems.map((item, idx) => (
-                  <AnimatedCard key={idx} className="flex items-center gap-3" delay={idx * 100} direction="left">
-                    <CheckCircle className="text-primary-orange" />
-                    <span className="text-lg text-primary-dark">{item}</span>
-                  </AnimatedCard>
-                ))}
-              </div>
-            </div>
-            
-            <AnimatedCard delay={300} direction="right">
-              <img 
-                src="https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                alt="Business Trust" 
-                className="rounded-xl shadow-xl w-full"
-              />
-            </AnimatedCard>
+          <SectionTitle 
+            title="Why Choose BFI-NPA?" 
+            subtitle="We combine expertise, ethics, and execution to deliver exceptional results"
+          />
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+            {whyChooseItems.map((item, idx) => (
+              <AnimatedCard key={idx} className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all hover:-translate-y-1" delay={idx * 100} direction="up">
+                <div className="w-14 h-14 bg-primary-orange/10 rounded-xl flex items-center justify-center mb-4">
+                  <item.icon className="w-7 h-7 text-primary-orange" />
+                </div>
+                <h3 className="text-xl font-bold text-primary-dark mb-2">{item.title}</h3>
+                <p className="text-gray-600 text-sm">{item.desc}</p>
+              </AnimatedCard>
+            ))}
+          </div>
+
+          <div className="mt-12 text-center bg-gradient-to-r from-primary-dark to-primary-dark/95 text-white rounded-2xl p-10 shadow-2xl">
+            <svg className="w-12 h-12 text-primary-orange mx-auto mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+            </svg>
+            <p className="text-3xl md:text-4xl font-bold italic mb-3">"If we don't perform, we don't get paid."</p>
+            <p className="text-gray-300 text-lg">Our Philosophy - Results-Driven Excellence</p>
           </div>
         </div>
       </section>
 
-      {/* CTA Banner - No animation */}
-      <section className="bg-primary-dark py-16">
+      {/* CTA Banner - Light Background */}
+      <section className="py-16 bg-white">
         <div className="container-custom text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-            Have NPAs to Resolve? Let's Fix It.
-          </h2>
-          <Link 
-            to="/contact" 
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="btn-primary inline-block text-lg px-8 py-3"
-          >
-            Get Free Consultation
-          </Link>
+          <AnimatedSection direction="up" threshold={0.3}>
+            <h2 className="text-3xl md:text-4xl font-bold text-primary-dark mb-6">
+              Have NPAs to Resolve? Let's Fix It.
+            </h2>
+            <p className="text-xl mb-8 text-gray-600 max-w-2xl mx-auto">
+              Get in touch with our experts today for a free consultation
+            </p>
+            <button 
+              onClick={handleNavigateToContact}
+              className="btn-primary inline-block text-lg px-8 py-3"
+            >
+              Get Free Consultation
+            </button>
+          </AnimatedSection>
         </div>
       </section>
     </div>

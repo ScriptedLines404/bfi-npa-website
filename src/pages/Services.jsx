@@ -147,6 +147,41 @@ const Services = () => {
     }
   }, [location, services]);
 
+  // Handle navigation from home page using sessionStorage
+  useEffect(() => {
+    const targetService = sessionStorage.getItem('targetService');
+    if (targetService) {
+      // Clear the stored value
+      sessionStorage.removeItem('targetService');
+      
+      // Find the service index
+      const serviceIndex = services.findIndex(service => service.id === targetService);
+      if (serviceIndex !== -1) {
+        // Set active service
+        setActiveService(serviceIndex);
+        
+        // Update container transform
+        if (containerRef.current) {
+          containerRef.current.style.transform = `translateY(-${serviceIndex * viewportHeight}px)`;
+        }
+        
+        // Scroll to the service after a short delay
+        setTimeout(() => {
+          const element = document.getElementById(targetService);
+          if (element) {
+            const offset = 80;
+            const elementPosition = element.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - offset;
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: "smooth"
+            });
+          }
+        }, 300);
+      }
+    }
+  }, [services]);
+
   useEffect(() => {
     if (containerRef.current && !isTransitioning) {
       containerRef.current.style.transform = `translateY(-${activeService * viewportHeight}px)`;
@@ -338,6 +373,7 @@ const Services = () => {
                     {services.map((service, idx) => (
                       <div
                         key={idx}
+                        id={service.id}
                         className="w-full overflow-y-auto hide-scrollbar"
                         style={{ height: `${viewportHeight}px` }}
                         ref={el => contentScrollRefs.current[idx] = el}

@@ -21,7 +21,9 @@ const Navbar = () => {
       <div className="container-custom">
         <div className="flex justify-between items-center py-3">
           {/* Logo */}
-          <Link to="/" className="flex items-center">
+          <Link to="/" 
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="flex items-center">
             <img 
               src="/src/images/BFI-NPA_Logo-1.png" 
               alt="BFI-NPA" 
@@ -39,6 +41,7 @@ const Navbar = () => {
               <NavLink
                 key={link.name}
                 to={link.path}
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                 className={({ isActive }) =>
                   `text-white hover:text-primary-orange transition-colors text-sm ${
                     isActive ? "text-primary-orange font-semibold" : ""
@@ -66,7 +69,7 @@ const Navbar = () => {
               <NavLink
                 key={link.name}
                 to={link.path}
-                onClick={() => setIsOpen(false)}
+                onClick={() => { setIsOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                 className={({ isActive }) =>
                   `block text-white hover:text-primary-orange transition-colors py-2 ${
                     isActive ? "text-primary-orange font-semibold" : ""
