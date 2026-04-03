@@ -1,9 +1,9 @@
 /* src/pages/Services.jsx */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { 
   Briefcase, Gavel, Scale, Search, TrendingUp, Shield,
-  CheckCircle, ArrowRight, Clock, FileText, Building, Users 
+  CheckCircle, ArrowRight, Clock, FileText, Building, Users, Award 
 } from "lucide-react";
 import SectionTitle from "../components/SectionTitle";
 import AnimatedCard from "../components/AnimatedCard";
@@ -12,7 +12,12 @@ import AnimatedSection from "../components/AnimatedSection";
 const Services = () => {
   const location = useLocation();
   const [activeService, setActiveService] = useState(0);
-  const [hasScrolledToHash, setHasScrolledToHash] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const containerRef = useRef(null);
+  const viewportRef = useRef(null);
+  const scrollTimeoutRef = useRef(null);
+  const wheelDeltaRef = useRef(0);
+  const contentScrollRefs = useRef([]);
   
   const services = [
     {
@@ -113,171 +118,335 @@ const Services = () => {
     }
   ];
 
+  const viewportHeight = 550;
+  const pageScrollAmount = 200;
+
+  const isContentAtTop = (index) => {
+    const element = contentScrollRefs.current[index];
+    if (!element) return true;
+    return element.scrollTop <= 5;
+  };
+
+  const isContentAtBottom = (index) => {
+    const element = contentScrollRefs.current[index];
+    if (!element) return true;
+    return element.scrollTop + element.clientHeight >= element.scrollHeight - 5;
+  };
+
   // Handle hash navigation from home page
   useEffect(() => {
     const hash = location.hash.replace('#', '');
-    if (hash && !hasScrolledToHash) {
+    if (hash) {
       const serviceIndex = services.findIndex(service => service.id === hash);
       if (serviceIndex !== -1) {
         setActiveService(serviceIndex);
-        setHasScrolledToHash(true);
+        if (containerRef.current) {
+          containerRef.current.style.transform = `translateY(-${serviceIndex * viewportHeight}px)`;
+        }
+      }
+    }
+  }, [location, services]);
+
+  useEffect(() => {
+    if (containerRef.current && !isTransitioning) {
+      containerRef.current.style.transform = `translateY(-${activeService * viewportHeight}px)`;
+    }
+  }, [activeService, viewportHeight, isTransitioning]);
+
+  // Handle wheel scroll with content scroll detection
+  const handleWheel = useCallback((e) => {
+    if (isTransitioning) return;
+
+    const currentContent = contentScrollRefs.current[activeService];
+    const direction = e.deltaY > 0 ? 'down' : 'up';
+    
+    if (currentContent) {
+      const isAtTop = isContentAtTop(activeService);
+      const isAtBottom = isContentAtBottom(activeService);
+      
+      if (direction === 'down' && !isAtBottom) {
+        return;
+      }
+      
+      if (direction === 'up' && !isAtTop) {
+        return;
+      }
+    }
+    
+    e.preventDefault();
+    wheelDeltaRef.current += e.deltaY;
+    
+    if (scrollTimeoutRef.current) {
+      clearTimeout(scrollTimeoutRef.current);
+    }
+    
+    const threshold = 50;
+    
+    if (Math.abs(wheelDeltaRef.current) >= threshold) {
+      const navigateDirection = wheelDeltaRef.current > 0 ? 'down' : 'up';
+      wheelDeltaRef.current = 0;
+      
+      if (navigateDirection === 'up' && activeService === 0) {
+        window.scrollBy({ top: -pageScrollAmount, behavior: 'smooth' });
+        return;
+      }
+      
+      if (navigateDirection === 'down' && activeService === services.length - 1) {
+        window.scrollBy({ top: pageScrollAmount, behavior: 'smooth' });
+        return;
+      }
+      
+      const newIndex = navigateDirection === 'down' ? activeService + 1 : activeService - 1;
+      
+      if (newIndex >= 0 && newIndex < services.length) {
+        setIsTransitioning(true);
+        setActiveService(newIndex);
+        
+        if (containerRef.current) {
+          containerRef.current.style.transform = `translateY(-${newIndex * viewportHeight}px)`;
+        }
+        
         setTimeout(() => {
-          const element = document.getElementById(hash);
-          if (element) {
-            const offset = 80;
-            const elementPosition = element.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.pageYOffset - offset;
-            window.scrollTo({
-              top: offsetPosition,
-              behavior: "smooth"
-            });
+          setIsTransitioning(false);
+          if (contentScrollRefs.current[newIndex]) {
+            contentScrollRefs.current[newIndex].scrollTop = 0;
           }
         }, 500);
       }
     }
-  }, [location, services, hasScrolledToHash]);
+    
+    scrollTimeoutRef.current = setTimeout(() => {
+      wheelDeltaRef.current = 0;
+    }, 150);
+  }, [isTransitioning, activeService, services.length, viewportHeight, pageScrollAmount]);
+
+  const handleServiceClick = (index) => {
+    if (index === activeService || isTransitioning) return;
+    
+    setIsTransitioning(true);
+    setActiveService(index);
+    
+    if (containerRef.current) {
+      containerRef.current.style.transform = `translateY(-${index * viewportHeight}px)`;
+    }
+    
+    setTimeout(() => {
+      setIsTransitioning(false);
+      if (contentScrollRefs.current[index]) {
+        contentScrollRefs.current[index].scrollTop = 0;
+      }
+    }, 500);
+  };
+
+  useEffect(() => {
+    const viewport = viewportRef.current;
+    if (viewport) {
+      viewport.addEventListener('wheel', handleWheel, { passive: false });
+      return () => {
+        viewport.removeEventListener('wheel', handleWheel);
+      };
+    }
+  }, [handleWheel]);
+
+  // Function to handle navigation with scroll to top
+  const handleNavigateToContact = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(() => {
+      window.location.href = '/contact';
+    }, 100);
+  };
+
+  const handleNavigateToTrackRecord = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(() => {
+      window.location.href = '/track-record';
+    }, 100);
+  };
 
   return (
     <div className="animate-fade-in">
-      {/* Hero Section - No Animation */}
-      <div className="relative bg-gradient-to-r from-primary-dark via-primary-dark to-primary-dark/95 text-white py-24 overflow-hidden">
+      {/* Hero Section - Light Background */}
+      <div className="relative bg-gradient-to-r from-primary-grey to-white text-primary-dark py-20 overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-0 w-64 h-64 bg-primary-orange rounded-full blur-3xl"></div>
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-primary-orange rounded-full blur-3xl"></div>
         </div>
         <div className="container-custom relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
-              <Briefcase className="w-4 h-4 text-primary-orange" />
-              <span className="text-sm font-semibold">Our Expertise</span>
+          <AnimatedSection direction="up" threshold={0.3}>
+            <div className="max-w-4xl mx-auto text-center">
+              <div className="inline-flex items-center gap-2 bg-primary-orange/10 px-4 py-2 rounded-full mb-6">
+                <Briefcase className="w-4 h-4 text-primary-orange" />
+                <span className="text-sm font-semibold text-primary-orange">Our Expertise</span>
+              </div>
+              <h1 className="text-5xl md:text-6xl font-bold mb-6 text-primary-dark">
+                Our Services
+              </h1>
+              <p className="text-xl max-w-3xl mx-auto text-gray-600 leading-relaxed">
+                Comprehensive NPA Resolution Solutions tailored to your needs
+              </p>
             </div>
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-              Our Services
-            </h1>
-            <p className="text-xl max-w-3xl mx-auto text-gray-200 leading-relaxed">
-              Comprehensive NPA Resolution Solutions tailored to your needs
-            </p>
-          </div>
+          </AnimatedSection>
         </div>
       </div>
 
-      {/* Main Content with Sidebar */}
-      <section className="py-16">
+      {/* Main Content with Sidebar and Viewport - White Background */}
+      <section className="py-16 bg-white">
         <div className="container-custom">
-          <div className="grid lg:grid-cols-4 gap-8">
-            {/* Sidebar */}
-            <div className="lg:col-span-1">
+          <div className="flex flex-col lg:flex-row gap-8">
+            {/* Left Sidebar - Fixed */}
+            <div className="lg:w-1/3 xl:w-1/4">
               <AnimatedCard delay={100} direction="right" className="bg-primary-grey rounded-xl p-4 sticky top-24">
                 <h3 className="font-bold text-lg mb-4 px-3 text-primary-dark">Our Services</h3>
-                {services.map((service, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => {
-                      setActiveService(idx);
-                      setHasScrolledToHash(false);
-                      setTimeout(() => {
-                        const element = document.getElementById(service.id);
-                        if (element) {
-                          const offset = 80;
-                          const elementPosition = element.getBoundingClientRect().top;
-                          const offsetPosition = elementPosition + window.pageYOffset - offset;
-                          window.scrollTo({
-                            top: offsetPosition,
-                            behavior: "smooth"
-                          });
-                        }
-                      }, 100);
-                    }}
-                    className={`w-full text-left px-4 py-3 rounded-lg transition-all flex items-center gap-3 ${
-                      activeService === idx 
-                        ? "bg-primary-orange text-white" 
-                        : "hover:bg-primary-orange/10 text-gray-700"
-                    }`}
-                  >
-                    <service.icon size={20} />
-                    <span className="text-sm">{service.title}</span>
-                  </button>
-                ))}
+                <div className="space-y-1">
+                  {services.map((service, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => handleServiceClick(idx)}
+                      className={`w-full text-left px-4 py-3 rounded-lg transition-all flex items-center gap-3 ${
+                        activeService === idx 
+                          ? "bg-primary-orange text-white shadow-md" 
+                          : "hover:bg-primary-orange/10 text-gray-700"
+                      }`}
+                    >
+                      <service.icon size={20} />
+                      <span className="text-sm font-medium">{service.title}</span>
+                      {activeService === idx && (
+                        <ArrowRight size={16} className="ml-auto" />
+                      )}
+                    </button>
+                  ))}
+                </div>
               </AnimatedCard>
             </div>
 
-            {/* Content Panel */}
-            <div className="lg:col-span-3">
-              {services.map((service, idx) => (
-                <AnimatedCard 
-                  key={idx}
-                  delay={200}
-                  direction="left"
-                  className={`mb-8 ${activeService === idx ? 'block' : 'hidden'}`}
+            {/* Right Side - Viewport Container */}
+            <div className="lg:w-2/3 xl:w-3/4">
+              <AnimatedCard delay={200} direction="left">
+                <div 
+                  ref={viewportRef}
+                  className="relative overflow-hidden rounded-2xl shadow-xl bg-primary-grey"
+                  style={{ height: `${viewportHeight}px` }}
                 >
-                  <div 
-                    id={service.id}
-                    className={`card scroll-mt-24 ${activeService === idx ? 'ring-2 ring-primary-orange' : ''}`}
+                  <div
+                    ref={containerRef}
+                    className="absolute top-0 left-0 w-full transition-transform duration-500 ease-out"
+                    style={{ 
+                      transform: `translateY(-${activeService * viewportHeight}px)`,
+                      transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)'
+                    }}
                   >
-                    <div className="flex items-center gap-4 mb-6">
-                      <div className="p-3 bg-primary-orange/10 rounded-lg">
-                        {React.createElement(service.icon, { 
-                          className: "w-10 h-10 text-primary-orange" 
-                        })}
-                      </div>
-                      <h2 className="text-3xl font-bold text-primary-dark">
-                        {service.title}
-                      </h2>
-                    </div>
-                    
-                    <p className="text-primary-orange font-semibold text-lg mb-3">
-                      {service.shortDesc}
-                    </p>
-                    <p className="text-gray-700 text-lg mb-4">
-                      {service.description}
-                    </p>
-                    <p className="text-gray-600 mb-6">
-                      {service.longDescription}
-                    </p>
-                    
-                    <div className="mb-8">
-                      <h3 className="font-bold text-xl mb-3 text-primary-dark">Key Benefits:</h3>
-                      <ul className="space-y-2">
-                        {service.benefits.map((benefit, bidx) => (
-                          <li key={bidx} className="flex items-center gap-2">
-                            <CheckCircle className="text-primary-orange" size={18} />
-                            <span className="text-gray-700">{benefit}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div className="bg-primary-grey rounded-lg p-4">
-                      <h3 className="font-bold text-xl mb-3 text-primary-dark">Our Process:</h3>
-                      <div className="flex flex-wrap gap-4">
-                        {service.process.map((step, sidx) => (
-                          <div key={sidx} className="flex items-center">
-                            <div className="bg-primary-orange text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-2">
-                              {sidx + 1}
+                    {services.map((service, idx) => (
+                      <div
+                        key={idx}
+                        className="w-full overflow-y-auto hide-scrollbar"
+                        style={{ height: `${viewportHeight}px` }}
+                        ref={el => contentScrollRefs.current[idx] = el}
+                      >
+                        <div className="p-6 md:p-8">
+                          <div className="flex items-center gap-4 mb-6">
+                            <div className="p-3 bg-primary-orange/10 rounded-lg flex-shrink-0">
+                              {React.createElement(service.icon, { 
+                                className: "w-8 h-8 md:w-10 md:h-10 text-primary-orange" 
+                              })}
                             </div>
-                            <span className="text-gray-700 text-sm">{step}</span>
-                            {sidx < service.process.length - 1 && (
-                              <ArrowRight className="text-primary-orange mx-2" size={16} />
-                            )}
+                            <h2 className="text-xl md:text-2xl font-bold text-primary-dark">
+                              {service.title}
+                            </h2>
                           </div>
-                        ))}
+                          
+                          <div className="bg-primary-orange/10 rounded-lg p-4 mb-4">
+                            <p className="text-primary-orange font-semibold text-base md:text-lg">
+                              {service.shortDesc}
+                            </p>
+                          </div>
+                          
+                          <p className="text-gray-700 text-base md:text-lg mb-4 leading-relaxed">
+                            {service.description}
+                          </p>
+                          <p className="text-gray-600 mb-6 leading-relaxed text-sm md:text-base">
+                            {service.longDescription}
+                          </p>
+                          
+                          <div className="mb-6">
+                            <h3 className="font-bold text-lg md:text-xl mb-3 text-primary-dark">Key Benefits:</h3>
+                            <ul className="space-y-2">
+                              {service.benefits.map((benefit, bidx) => (
+                                <li key={bidx} className="flex items-start gap-2">
+                                  <CheckCircle className="text-primary-orange mt-0.5 flex-shrink-0" size={16} />
+                                  <span className="text-gray-700 text-sm md:text-base">{benefit}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+
+                          <div className="bg-primary-grey rounded-lg p-4">
+                            <h3 className="font-bold text-lg md:text-xl mb-3 text-primary-dark">Our Process:</h3>
+                            <div className="flex flex-wrap gap-3">
+                              {service.process.map((step, sidx) => (
+                                <div key={sidx} className="flex items-center flex-wrap">
+                                  <div className="bg-primary-orange text-white rounded-full w-6 h-6 md:w-8 md:h-8 flex items-center justify-center font-bold mr-2 text-xs md:text-sm flex-shrink-0">
+                                    {sidx + 1}
+                                  </div>
+                                  <span className="text-gray-700 text-xs md:text-sm">{step}</span>
+                                  {sidx < service.process.length - 1 && (
+                                    <ArrowRight className="text-primary-orange mx-1 md:mx-2 flex-shrink-0" size={14} />
+                                  )}
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Scroll Indicator - Top */}
+                  {activeService > 0 && (
+                    <div className="absolute top-0 left-0 right-0 h-8 bg-gradient-to-b from-primary-grey to-transparent pointer-events-none z-10">
+                      <div className="flex justify-center items-center h-full">
+                        <div className="w-6 h-6 md:w-8 md:h-8 bg-white/80 rounded-full flex items-center justify-center shadow-md">
+                          <svg className="w-3 h-3 md:w-4 md:h-4 text-primary-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+                          </svg>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </AnimatedCard>
-              ))}
+                  )}
+
+                  {/* Scroll Indicator - Bottom */}
+                  {activeService < services.length - 1 && (
+                    <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-primary-grey to-transparent pointer-events-none z-10">
+                      <div className="flex justify-center items-center h-full">
+                        <div className="w-6 h-6 md:w-8 md:h-8 bg-white/80 rounded-full flex items-center justify-center shadow-md">
+                          <svg className="w-3 h-3 md:w-4 md:h-4 text-primary-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </AnimatedCard>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Additional Service Highlights */}
-      <section className="py-16 bg-primary-grey">
+      {/* Why Choose Us Section */}
+      <section className="py-20 bg-primary-grey">
         <div className="container-custom">
-          <SectionTitle 
-            title="Why Choose Our Services?" 
-            subtitle="We combine expertise, efficiency, and compliance to deliver exceptional results"
-          />
+          <AnimatedSection direction="up" threshold={0.3}>
+            <div className="text-center mb-12">
+              <div className="inline-flex items-center gap-2 bg-primary-orange/10 px-4 py-2 rounded-full mb-4">
+                <Award className="w-4 h-4 text-primary-orange" />
+                <span className="text-sm font-semibold text-primary-orange">Why Choose Us</span>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-primary-dark mb-4">Why Choose Our Services?</h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                We combine expertise, efficiency, and compliance to deliver exceptional results
+              </p>
+            </div>
+          </AnimatedSection>
           
           <div className="grid md:grid-cols-3 gap-8 mt-8">
             <AnimatedCard delay={100} direction="up" className="text-center p-6 bg-white rounded-xl shadow-md hover:shadow-xl transition-all">
@@ -304,53 +473,61 @@ const Services = () => {
               <p className="text-gray-600">All actions strictly within legal framework</p>
             </AnimatedCard>
           </div>
-        </div>
-      </section>
 
-      {/* Service Stats Section */}
-      <section className="py-16 bg-white">
-        <div className="container-custom">
-          <div className="grid md:grid-cols-4 gap-6">
-            <AnimatedCard delay={100} direction="up" className="text-center p-6 bg-primary-grey rounded-xl shadow-md hover:shadow-xl transition-all">
+          <div className="grid md:grid-cols-3 gap-6 mt-12">
+            <AnimatedCard delay={100} direction="up" className="text-center p-4">
               <div className="text-3xl font-bold text-primary-orange mb-2">1000+</div>
-              <p className="text-gray-600">Cr Transactions</p>
+              <p className="text-gray-600 text-sm">Cr Transactions</p>
             </AnimatedCard>
-            
-            <AnimatedCard delay={200} direction="up" className="text-center p-6 bg-primary-grey rounded-xl shadow-md hover:shadow-xl transition-all">
+            <AnimatedCard delay={200} direction="up" className="text-center p-4">
               <div className="text-3xl font-bold text-primary-orange mb-2">25+</div>
-              <p className="text-gray-600">Years Experience</p>
+              <p className="text-gray-600 text-sm">Years Experience</p>
             </AnimatedCard>
-            
-            <AnimatedCard delay={300} direction="up" className="text-center p-6 bg-primary-grey rounded-xl shadow-md hover:shadow-xl transition-all">
+            <AnimatedCard delay={300} direction="up" className="text-center p-4">
               <div className="text-3xl font-bold text-primary-orange mb-2">100%</div>
-              <p className="text-gray-600">Success-Based Fees</p>
-            </AnimatedCard>
-            
-            <AnimatedCard delay={400} direction="up" className="text-center p-6 bg-primary-grey rounded-xl shadow-md hover:shadow-xl transition-all">
-              <div className="text-3xl font-bold text-primary-orange mb-2">50+</div>
-              <p className="text-gray-600">Happy Clients</p>
+              <p className="text-gray-600 text-sm">Success-Based Fees</p>
             </AnimatedCard>
           </div>
         </div>
       </section>
 
-      {/* CTA Section - No Animation */}
-      <section className="py-20 bg-primary-dark text-white">
+      {/* CTA Section - Light Background */}
+      <section className="py-20 bg-white">
         <div className="container-custom text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Need Expert Recovery Services?</h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Let our experienced team handle your recovery needs with professionalism and efficiency
-          </p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <Link to="/contact" className="btn-primary">
-              Get Free Consultation
-            </Link>
-            <Link to="/track-record" className="btn-outline border-white text-white hover:bg-white hover:text-primary-dark">
-              View Our Track Record
-            </Link>
-          </div>
+          <AnimatedSection direction="up" threshold={0.3}>
+            <h2 className="text-3xl md:text-4xl font-bold text-primary-dark mb-6">Need Expert Recovery Services?</h2>
+            <p className="text-xl mb-8 max-w-2xl mx-auto text-gray-600">
+              Let our experienced team handle your recovery needs with professionalism and efficiency
+            </p>
+            <div className="flex flex-wrap gap-4 justify-center">
+              <Link 
+                to="/contact" 
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                className="btn-primary"
+              >
+                Get Free Consultation
+              </Link>
+              <Link 
+                to="/track-record" 
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                className="btn-outline"
+              >
+                View Our Track Record
+              </Link>
+            </div>
+          </AnimatedSection>
         </div>
       </section>
+
+      <style jsx>{`
+        .hide-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+        .hide-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}</style>
     </div>
   );
 };
