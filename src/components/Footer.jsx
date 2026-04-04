@@ -1,16 +1,66 @@
 /* src/components/Footer.jsx */
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Phone, Mail, MapPin } from "lucide-react";
 
 const Footer = () => {
+  const navigate = useNavigate();
+
+  // Service ID mapping for navigation
+  const serviceMapping = {
+    "Collections & Recovery": "collections-recovery",
+    "SARFAESI Actions": "sarfaesi-actions",
+    "Legal Coordination & DRT Support": "legal-coordination",
+    "Asset Identification & Skip Tracing": "skip-tracing",
+    "E-Auction & Sale Facilitation": "e-auction",
+    "Custodial, Security & Handover": "custody-services"
+  };
+
+  // Handle navigation to any page with scroll to top
+  const handleNavigation = (path) => {
+    navigate(path);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  // Handle service navigation using sessionStorage
+  const handleServiceNavigation = (serviceName) => {
+    const serviceId = serviceMapping[serviceName];
+    if (serviceId) {
+      sessionStorage.setItem('targetService', serviceId);
+      navigate("/services");
+      window.scrollTo({ top: 0, behavior: "auto" });
+    }
+  };
+
+  const quickLinks = [
+    { name: "Home", path: "/" },
+    { name: "About", path: "/about" },
+    { name: "Services", path: "/services" },
+    { name: "Track Record", path: "/track-record" },
+    { name: "Legal Mechanisms for NPAs", path: "/legal-mechanisms" },
+    { name: "Resolution Mechanisms", path: "/resolution-mechanisms" },
+    { name: "Contact", path: "/contact" }
+  ];
+
+  const services = [
+    "Collections & Recovery",
+    "SARFAESI Actions",
+    "Legal Coordination & DRT Support",
+    "Asset Identification & Skip Tracing",
+    "E-Auction & Sale Facilitation",
+    "Custodial, Security & Handover"
+  ];
+
   return (
     <footer className="bg-primary-dark text-gray-300 pt-12 pb-6">
       <div className="container-custom">
         <div className="grid md:grid-cols-4 gap-8">
           {/* About with Logo */}
           <div>
-            <Link to="/" className="block mb-4">
+            <button 
+              onClick={() => handleNavigation("/")}
+              className="block mb-4 cursor-pointer"
+            >
               <img 
                 src="/src/images/BFI-NPA_Logo-1.png" 
                 alt="BFI-NPA" 
@@ -21,7 +71,7 @@ const Footer = () => {
                   e.target.parentElement.innerHTML = '<h3 className="text-white text-xl font-bold">BFI-NPA</h3>';
                 }}
               />
-            </Link>
+            </button>
             <p className="text-sm leading-relaxed">
               India's trusted NPA recovery partner for banks, NBFCs & ARCs. 
               25+ years of excellence.
@@ -32,22 +82,14 @@ const Footer = () => {
           <div>
             <h3 className="text-white text-xl font-bold mb-4">Quick Links</h3>
             <ul className="space-y-2">
-              {[
-                { name: "Home", path: "/" },
-                { name: "About", path: "/about" },
-                { name: "Services", path: "/services" },
-                { name: "Track Record", path: "/track-record" },
-                { name: "Legal Mechanisms for NPAs", path: "/legal-mechanisms" },
-                { name: "Resolution Mechanisms", path: "/resolution-mechanisms" },
-                { name: "Contact", path: "/contact" }
-              ].map((item) => (
+              {quickLinks.map((item) => (
                 <li key={item.name}>
-                  <Link 
-                    to={item.path} 
-                    className="text-gray-400 hover:text-primary-orange transition-colors text-sm"
+                  <button 
+                    onClick={() => handleNavigation(item.path)}
+                    className="text-gray-400 hover:text-primary-orange transition-colors text-sm cursor-pointer"
                   >
                     {item.name}
-                  </Link>
+                  </button>
                 </li>
               ))}
             </ul>
@@ -57,18 +99,14 @@ const Footer = () => {
           <div>
             <h3 className="text-white text-xl font-bold mb-4">Our Services</h3>
             <ul className="space-y-2">
-              {[
-                "Collections & Recovery",
-                "SARFAESI Actions",
-                "Legal Coordination & DRT Support",
-                "Asset Identification & Skip Tracing",
-                "E-Auction & Sale Facilitation",
-                "Custodial, Security & Handover"
-              ].map((service) => (
+              {services.map((service) => (
                 <li key={service}>
-                  <Link to="/services" className="text-gray-400 hover:text-primary-orange transition-colors text-sm">
+                  <button 
+                    onClick={() => handleServiceNavigation(service)}
+                    className="text-gray-400 hover:text-primary-orange transition-colors text-sm cursor-pointer text-left"
+                  >
                     {service}
-                  </Link>
+                  </button>
                 </li>
               ))}
             </ul>
