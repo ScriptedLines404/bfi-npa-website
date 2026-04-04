@@ -9,8 +9,8 @@
   }
   body {
     font-family: 'Open Sans', sans-serif;
-    color: #065F46;
-    background-color: #FFFFFF;
+    color: #111827;
+    background-color: #F9FAFB;
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Poppins', 'Montserrat', sans-serif;
@@ -42,8 +42,8 @@
   
   /* Button Styles */
   .btn-primary {
-    background-color: #10B981;
-    color: white;
+    background-color: #D4AF37;
+    color: #111827;
     font-weight: 600;
     padding: 0.75rem 1.5rem;
     border-radius: 0.5rem;
@@ -54,14 +54,15 @@
     transform: scale(1);
   }
   .btn-primary:hover {
-    background-color: #065F46;
+    background-color: #B8941E;
+    color: #111827;
     transform: scale(1.05);
   }
   
   .btn-outline {
     border-width: 2px;
-    border-color: #10B981;
-    color: #10B981;
+    border-color: #D4AF37;
+    color: #D4AF37;
     font-weight: 600;
     padding: 0.75rem 1.5rem;
     border-radius: 0.5rem;
@@ -71,8 +72,8 @@
     background-color: transparent;
   }
   .btn-outline:hover {
-    background-color: #10B981;
-    color: white;
+    background-color: #D4AF37;
+    color: #111827;
   }
   
   /* Section Title Styles */
@@ -80,7 +81,7 @@
     font-size: 1.875rem;
     line-height: 2.25rem;
     font-weight: 700;
-    color: #064E3B;
+    color: #111827;
     margin-bottom: 1rem;
   }
   @media (min-width: 768px) {
@@ -93,7 +94,7 @@
   .section-subtitle {
     font-size: 1.25rem;
     line-height: 1.75rem;
-    color: #065F46;
+    color: #374151;
     margin-bottom: 3rem;
   }
   
@@ -106,22 +107,23 @@
     transition-property: box-shadow, transform, border-color;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 300ms;
-    border: 1px solid rgba(16, 185, 129, 0.2);
+    border: 1px solid rgba(212, 175, 55, 0.15);
   }
   .card:hover {
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-    border-color: #10B981;
+    border-color: #D4AF37;
     transform: translateY(-2px);
   }
   
   /* Form Input Styles */
   input, textarea, select {
     transition: all 0.3s ease;
+    border-color: #E5E7EB;
   }
   input:focus, textarea:focus, select:focus {
-    border-color: #F59E0B;
+    border-color: #D4AF37;
     outline: none;
-    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
   }
 }
 
@@ -130,15 +132,15 @@
   width: 6px;
 }
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: rgba(16, 185, 129, 0.1);
+  background: rgba(212, 175, 55, 0.1);
   border-radius: 10px;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(16, 185, 129, 0.4);
+  background: rgba(212, 175, 55, 0.4);
   border-radius: 10px;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(16, 185, 129, 0.6);
+  background: rgba(212, 175, 55, 0.6);
 }
 
 /* Animation Keyframes */

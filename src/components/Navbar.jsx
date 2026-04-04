@@ -17,7 +17,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="bg-[#064E3B] sticky top-0 z-50 shadow-lg">
+    <nav className="bg-[#111827] sticky top-0 z-50 shadow-lg">
       <div className="container-custom">
         <div className="flex justify-between items-center py-3">
           {/* Logo */}
@@ -29,10 +29,10 @@ const Navbar = () => {
             <img 
               src="/src/images/BFI-NPA_Logo-1.png" 
               alt="BFI-NPA" 
-              className="h-12 w-auto object-contain"
+              className="h-12 w-auto object-contain brightness-0 invert"
               onError={(e) => {
                 e.target.onerror = null;
-                e.target.src = "https://via.placeholder.com/120x40/064E3B/10B981?text=BFI-NPA";
+                e.target.src = "https://via.placeholder.com/120x40/111827/D4AF37?text=BFI-NPA";
               }}
             />
           </Link>
@@ -45,8 +45,8 @@ const Navbar = () => {
                 to={link.path}
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                 className={({ isActive }) =>
-                  `text-[#A7F3D0] hover:text-[#F59E0B] transition-colors text-sm ${
-                    isActive ? "text-[#F59E0B] font-semibold" : ""
+                  `text-gray-400 hover:text-[#D4AF37] transition-colors text-sm ${
+                    isActive ? "text-[#D4AF37] font-semibold" : ""
                   }`
                 }
               >
@@ -57,7 +57,7 @@ const Navbar = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-[#A7F3D0] hover:text-[#F59E0B] transition-colors"
+            className="md:hidden text-gray-400 hover:text-[#D4AF37] transition-colors"
             onClick={() => setIsOpen(!isOpen)}
           >
             {isOpen ? <X size={28} /> : <Menu size={28} />}
@@ -76,8 +76,8 @@ const Navbar = () => {
                   window.scrollTo({ top: 0, behavior: 'smooth' }); 
                 }}
                 className={({ isActive }) =>
-                  `block text-[#A7F3D0] hover:text-[#F59E0B] transition-colors py-2 ${
-                    isActive ? "text-[#F59E0B] font-semibold" : ""
+                  `block text-gray-400 hover:text-[#D4AF37] transition-colors py-2 ${
+                    isActive ? "text-[#D4AF37] font-semibold" : ""
                   }`
                 }
               >
