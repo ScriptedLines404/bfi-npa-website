@@ -1,12 +1,13 @@
 /* src/pages/Contact.jsx */
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { Phone, Mail, MapPin, Send, Clock, Building, Users, Award } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Phone, Mail, MapPin, Send, Clock, Building, Users, Award, CheckCircle, Shield, Crown, Handshake, Zap, Heart, Target, Sparkles } from "lucide-react";
 import SectionTitle from "../components/SectionTitle";
 import AnimatedCard from "../components/AnimatedCard";
 import AnimatedSection from "../components/AnimatedSection";
 
 const Contact = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     company: "",
@@ -15,75 +16,112 @@ const Contact = () => {
     caseDetails: "",
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
+
+  // Scroll to top on page load
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Case submitted successfully! Our team will contact you within 24 hours.");
-    setFormData({ name: "", company: "", phone: "", email: "", caseDetails: "" });
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    try {
+      const response = await fetch('http://localhost:5000/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSubmitStatus({ type: 'success', message: 'Case submitted successfully! Our team will contact you within 24 hours.' });
+        setFormData({ name: "", company: "", phone: "", email: "", caseDetails: "" });
+      } else {
+        setSubmitStatus({ type: 'error', message: data.message || 'Something went wrong. Please try again.' });
+      }
+    } catch (error) {
+      setSubmitStatus({ type: 'error', message: 'Network error. Please check your connection and try again.' });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  // Handle service navigation to top of services page
+  const handleServicesNavigation = () => {
+    navigate("/services");
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const contactInfo = [
-    { icon: Phone, title: "Phone", details: "+91 94440 35070", color: "from-blue-500 to-blue-600" },
-    { icon: Mail, title: "Email", details: "bfirspl@gmail.com", color: "from-orange-500 to-orange-600" },
-    { icon: MapPin, title: "Location", details: "Chennai, Tamil Nadu, India", color: "from-green-500 to-green-600" },
-    { icon: Clock, title: "Office Hours", details: "Mon-Fri: 9AM-6PM", color: "from-purple-500 to-purple-600" }
+    { icon: Phone, title: "Phone", details: "+91-9444035070" },
+    { icon: Mail, title: "Email", details: "bfirspl@gmail.com" },
+    { icon: MapPin, title: "Address", details: "51, Ramakrishna Mutt Road, 1st Floor, Mylapore, Chennai - 600004" }
   ];
 
-  const stats = [
-    { icon: Building, value: "1000+", label: "Cr Transactions", color: "from-blue-500 to-blue-600" },
-    { icon: Users, value: "50+", label: "Happy Clients", color: "from-orange-500 to-orange-600" },
-    { icon: Award, value: "100%", label: "Success Rate", color: "from-green-500 to-green-600" },
-    { icon: Clock, value: "25+", label: "Years Experience", color: "from-purple-500 to-purple-600" }
+  const whyChooseItems = [
+    { 
+      icon: Shield, 
+      title: "No-Risk Engagement Model", 
+      desc: "100% success-based fee structure - you pay only when we deliver results",
+      highlight: "Zero Financial Risk"
+    },
+    { 
+      icon: Crown, 
+      title: "Experienced Leadership", 
+      desc: "28+ years of combined industry expertise with proven track record",
+      highlight: "28+ Years Experience"
+    },
+    { 
+      icon: Zap, 
+      title: "Fast & Legally Compliant", 
+      desc: "Time-bound recovery through SARFAESI, DRT & NCLT. Legal expertise with execution speed. Get results in months, not years.",
+      highlight: "Fast Execution"
+    }
   ];
 
   return (
     <div className="animate-fade-in">
-      {/* Hero Section - No Animation */}
-      <div className="relative bg-gradient-to-r from-primary-dark via-primary-dark to-primary-dark/95 text-white py-24 overflow-hidden">
+      {/* Hero Section - Light Background like About page */}
+      <div className="relative bg-gradient-to-r from-primary-grey to-white text-primary-dark py-20 overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-0 w-64 h-64 bg-primary-orange rounded-full blur-3xl"></div>
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-primary-orange rounded-full blur-3xl"></div>
         </div>
         <div className="container-custom relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
-              <Phone className="w-4 h-4 text-primary-orange" />
-              <span className="text-sm font-semibold">Get in Touch</span>
+          <AnimatedSection direction="up" threshold={0.3}>
+            <div className="max-w-4xl mx-auto text-center">
+              <div className="inline-flex items-center gap-2 bg-primary-orange/10 px-4 py-2 rounded-full mb-6">
+                <Sparkles className="w-4 h-4 text-primary-orange" />
+                <span className="text-sm font-semibold text-primary-orange">Get in Touch</span>
+              </div>
+              <h1 className="text-5xl md:text-6xl font-bold mb-6 text-primary-dark">
+                Contact Us
+              </h1>
+              <p className="text-xl max-w-3xl mx-auto text-gray-600 leading-relaxed">
+                Get a Free Consultation Today. Our team of experts is ready to assist you with your NPA recovery needs.
+              </p>
             </div>
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-              Contact Us
-            </h1>
-            <p className="text-xl max-w-3xl mx-auto text-gray-200 leading-relaxed">
-              Get a Free Consultation Today. Our team of experts is ready to assist you with your NPA recovery needs.
-            </p>
-          </div>
+          </AnimatedSection>
         </div>
       </div>
 
-      {/* Stats Section */}
-      <section className="py-12 bg-primary-grey">
-        <div className="container-custom">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {stats.map((stat, idx) => (
-              <AnimatedCard key={idx} delay={idx * 100} direction="up" className={`bg-gradient-to-br ${stat.color} rounded-xl p-6 text-white shadow-lg transform hover:scale-105 transition-all duration-300`}>
-                <stat.icon className="w-10 h-10 mb-3 opacity-80" />
-                <div className="text-2xl font-bold">{stat.value}</div>
-                <div className="text-sm opacity-90 mt-1">{stat.label}</div>
-              </AnimatedCard>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Main Contact Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-white" id="contact-form">
         <div className="container-custom">
           <div className="grid md:grid-cols-2 gap-12">
             {/* Contact Form */}
-            <AnimatedSection direction="left" threshold={0.3}>
+            <AnimatedSection direction="left" threshold={0.1}>
               <div className="bg-primary-grey rounded-2xl p-8 shadow-lg">
                 <h2 className="text-2xl font-bold text-primary-dark mb-6">Submit Your Case</h2>
                 <form onSubmit={handleSubmit} className="space-y-4">
@@ -146,8 +184,20 @@ const Contact = () => {
                       onChange={handleChange}
                     ></textarea>
                   </div>
-                  <button type="submit" className="btn-primary w-full flex items-center justify-center gap-2">
-                    Submit Case <Send size={18} />
+                  
+                  {submitStatus && (
+                    <div className={`p-3 rounded-lg ${submitStatus.type === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                      {submitStatus.message}
+                    </div>
+                  )}
+                  
+                  <button 
+                    type="submit" 
+                    className="btn-primary w-full flex items-center justify-center gap-2"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? 'Sending...' : 'Submit Case'} 
+                    {!isSubmitting && <Send size={18} />}
                   </button>
                 </form>
               </div>
@@ -155,14 +205,14 @@ const Contact = () => {
 
             {/* Contact Info */}
             <div className="space-y-6">
-              <AnimatedSection direction="right" threshold={0.3}>
+              <AnimatedSection direction="right" threshold={0.1}>
                 <div className="bg-primary-grey rounded-2xl p-8 shadow-lg">
                   <h2 className="text-2xl font-bold text-primary-dark mb-6">Get In Touch</h2>
                   <div className="space-y-6">
                     {contactInfo.map((info, idx) => (
                       <div key={idx} className="flex items-start gap-4 group">
-                        <div className={`w-12 h-12 bg-gradient-to-br ${info.color} rounded-xl flex items-center justify-center shadow-md group-hover:scale-110 transition-transform`}>
-                          <info.icon className="w-6 h-6 text-white" />
+                        <div className="w-12 h-12 bg-primary-orange/10 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md group-hover:bg-primary-orange transition-colors">
+                          <info.icon className="w-5 h-5 text-primary-orange group-hover:text-white transition-colors" />
                         </div>
                         <div>
                           <p className="font-semibold text-primary-dark">{info.title}</p>
@@ -182,23 +232,15 @@ const Contact = () => {
                       <span className="text-gray-600">Monday - Friday</span>
                       <span className="font-semibold text-primary-dark">9:00 AM - 6:00 PM</span>
                     </div>
-                    <div className="flex justify-between items-center py-2 border-b border-gray-200">
+                    <div className="flex justify-between items-center py-2">
                       <span className="text-gray-600">Saturday</span>
                       <span className="font-semibold text-primary-dark">10:00 AM - 2:00 PM</span>
                     </div>
-                    <div className="flex justify-between items-center py-2">
+                    <div className="flex justify-between items-center py-2 border-t border-gray-200 mt-2 pt-2">
                       <span className="text-gray-600">Sunday</span>
                       <span className="font-semibold text-primary-dark">Closed</span>
                     </div>
                   </div>
-                </div>
-              </AnimatedCard>
-
-              <AnimatedCard delay={300} direction="up">
-                <div className="bg-gradient-to-r from-primary-orange/10 to-primary-orange/5 rounded-2xl p-6 border-l-4 border-primary-orange">
-                  <p className="text-gray-700 font-semibold text-center">
-                    📞 Emergency Assistance Available 24/7 for Urgent Cases
-                  </p>
                 </div>
               </AnimatedCard>
             </div>
@@ -206,97 +248,75 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* Google Map Embed */}
+      {/* Google Map Embed with Pin Drop - Location Only */}
       <section className="py-0">
         <AnimatedSection direction="up" threshold={0.3}>
           <div className="w-full h-96">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d248849.56946395675!2d80.14489425!3d13.0817421!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5265ea4f7d3361%3A0x6e4b3c2b8f9c6e4f!2sChennai%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+              src="https://www.google.com/maps?q=13.0306396,80.2670198&z=20&output=embed"
               width="100%"
               height="100%"
               style={{ border: 0 }}
               allowFullScreen
               loading="lazy"
-              title="BFI-NPA Location"
+              title="BFI-NPA Location - Ramakrishna Mutt Road, Mylapore, Chennai"
               className="grayscale hover:grayscale-0 transition-all duration-500"
             ></iframe>
           </div>
         </AnimatedSection>
       </section>
 
-      {/* Why Choose Us Section */}
+      {/* Why Choose Us Section - 3 Critical Convincing Points with Home Page Styling */}
       <section className="py-20 bg-primary-grey">
         <div className="container-custom">
-          <SectionTitle 
-            title="Why Choose BFI-NPA?" 
-            subtitle="We combine expertise, ethics, and execution to deliver exceptional results"
-          />
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-primary-dark mb-4">Why Choose BFI-NPA?</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Three compelling reasons to partner with India's trusted NPA recovery experts
+            </p>
+          </div>
           
-          <div className="grid md:grid-cols-4 gap-6 mt-12">
-            <AnimatedCard delay={100} direction="up" className="text-center p-6 bg-white rounded-xl shadow-md hover:shadow-xl transition-all group">
-              <div className="w-16 h-16 bg-primary-orange/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary-orange transition-colors">
-                <Award className="w-8 h-8 text-primary-orange group-hover:text-white transition-colors" />
-              </div>
-              <h3 className="text-lg font-bold text-primary-dark mb-2">25+ Years</h3>
-              <p className="text-gray-600 text-sm">Of Excellence in Recovery</p>
-            </AnimatedCard>
-            
-            <AnimatedCard delay={200} direction="up" className="text-center p-6 bg-white rounded-xl shadow-md hover:shadow-xl transition-all group">
-              <div className="w-16 h-16 bg-primary-orange/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary-orange transition-colors">
-                <Users className="w-8 h-8 text-primary-orange group-hover:text-white transition-colors" />
-              </div>
-              <h3 className="text-lg font-bold text-primary-dark mb-2">50+ Institutions</h3>
-              <p className="text-gray-600 text-sm">Trusted by Leading Banks & NBFCs</p>
-            </AnimatedCard>
-            
-            <AnimatedCard delay={300} direction="up" className="text-center p-6 bg-white rounded-xl shadow-md hover:shadow-xl transition-all group">
-              <div className="w-16 h-16 bg-primary-orange/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary-orange transition-colors">
-                <CheckCircle className="w-8 h-8 text-primary-orange group-hover:text-white transition-colors" />
-              </div>
-              <h3 className="text-lg font-bold text-primary-dark mb-2">100% Success</h3>
-              <p className="text-gray-600 text-sm">Success-Based Fee Structure</p>
-            </AnimatedCard>
-            
-            <AnimatedCard delay={400} direction="up" className="text-center p-6 bg-white rounded-xl shadow-md hover:shadow-xl transition-all group">
-              <div className="w-16 h-16 bg-primary-orange/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary-orange transition-colors">
-                <Building className="w-8 h-8 text-primary-orange group-hover:text-white transition-colors" />
-              </div>
-              <h3 className="text-lg font-bold text-primary-dark mb-2">Pan-India Presence</h3>
-              <p className="text-gray-600 text-sm">Covering Major Financial Hubs</p>
-            </AnimatedCard>
+          <div className="grid md:grid-cols-3 gap-6">
+            {whyChooseItems.map((item, idx) => (
+              <AnimatedCard key={idx} delay={idx * 100} direction="up" className="group bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all hover:-translate-y-1">
+                <div className="w-14 h-14 bg-primary-orange/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-primary-orange transition-colors">
+                  <item.icon className="w-7 h-7 text-primary-orange group-hover:text-white transition-colors" />
+                </div>
+                <h3 className="text-xl font-bold text-primary-dark mb-2">{item.title}</h3>
+                <p className="text-gray-600 text-sm leading-relaxed">{item.desc}</p>
+              </AnimatedCard>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Banner - No Animation */}
-      <section className="py-20 bg-primary-dark text-white">
+      {/* CTA Banner - White Background */}
+      <section className="py-16 bg-white">
         <div className="container-custom text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Resolve Your NPAs?</h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Get in touch with our experts today for a free consultation
-          </p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <button 
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="btn-primary"
-            >
-              Back to Top
-            </button>
-            <Link to="/services" className="btn-outline border-white text-white hover:bg-white hover:text-primary-dark">
-              Explore Our Services
-            </Link>
-          </div>
+          <AnimatedSection direction="up" threshold={0.3}>
+            <h2 className="text-3xl md:text-4xl font-bold text-primary-dark mb-6">Ready to Resolve Your NPAs?</h2>
+            <p className="text-xl mb-8 max-w-2xl mx-auto text-gray-600">
+              Get in touch with our experts today for a free consultation
+            </p>
+            <div className="flex flex-wrap gap-4 justify-center">
+              <button 
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                className="btn-primary"
+              >
+                Back to Top
+              </button>
+              <button 
+                onClick={handleServicesNavigation}
+                className="btn-outline"
+              >
+                Explore Our Services
+              </button>
+            </div>
+          </AnimatedSection>
         </div>
       </section>
     </div>
   );
 };
-
-// CheckCircle icon component
-const CheckCircle = ({ className }) => (
-  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-  </svg>
-);
 
 export default Contact;
