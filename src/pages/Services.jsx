@@ -473,10 +473,6 @@ const Services = () => {
         <div className="container-custom">
           <AnimatedSection direction="up" threshold={0.3}>
             <div className="text-center mb-12">
-              <div className="inline-flex items-center gap-2 bg-primary-orange/10 px-4 py-2 rounded-full mb-4">
-                <Award className="w-4 h-4 text-primary-orange" />
-                <span className="text-sm font-semibold text-primary-orange">Why Choose Us</span>
-              </div>
               <h2 className="text-3xl md:text-4xl font-bold text-primary-dark mb-4">Why Choose Our Services?</h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
                 We combine expertise, efficiency, and compliance to deliver exceptional results

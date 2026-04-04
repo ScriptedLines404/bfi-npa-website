@@ -570,29 +570,8 @@ const ResolutionMechanisms = () => {
         </div>
       </section>
 
-      {/* Quick Decision Guide */}
-      <section className="py-16 bg-primary-grey">
-        <div className="container-custom">
-          <AnimatedSection direction="up" threshold={0.3}>
-            <div className="bg-primary-dark rounded-2xl p-8 text-white">
-              <h2 className="text-3xl font-bold mb-6 text-center">Quick Decision Guide</h2>
-              <div className="grid md:grid-cols-2 gap-4">
-                {quickGuide.map((guide, idx) => (
-                  <AnimatedCard key={idx} delay={idx * 100} direction="up" className="flex items-center justify-between p-4 bg-white/10 rounded-lg hover:bg-white/20 transition-all">
-                    <span className="font-semibold text-sm md:text-base">{guide.condition}</span>
-                    <span className={`px-2 py-1 md:px-3 md:py-1 rounded-full text-xs md:text-sm font-semibold ${guide.color}`}>
-                      {guide.resolution}
-                    </span>
-                  </AnimatedCard>
-                ))}
-              </div>
-            </div>
-          </AnimatedSection>
-        </div>
-      </section>
-
       {/* CTA Section - Light Background */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-primary-grey">
         <div className="container-custom text-center">
           <AnimatedSection direction="up" threshold={0.3}>
             <h2 className="text-3xl md:text-4xl font-bold text-primary-dark mb-6">Need Expert Resolution Strategy?</h2>

@@ -234,10 +234,6 @@ const About = () => {
         <div className="container-custom">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <AnimatedSection direction="left" threshold={0.3}>
-              <div className="inline-flex items-center gap-2 bg-primary-orange/10 px-4 py-2 rounded-full mb-4">
-                <TrendingUp className="w-4 h-4 text-primary-orange" />
-                <span className="text-sm font-semibold text-primary-orange">Expertise</span>
-              </div>
               <h2 className="text-3xl md:text-4xl font-bold text-primary-dark mb-6">Specialized Capabilities</h2>
               <p className="text-gray-700 mb-8 text-lg">
                 Deep expertise in preparing and positioning stressed assets for successful e-auction sales, maximizing value realisation.
@@ -258,7 +254,7 @@ const About = () => {
               <div className="relative">
                 <div className="absolute -inset-4 bg-gradient-to-r from-primary-orange/20 to-primary-orange/10 rounded-2xl blur-xl"></div>
                 <img 
-                  src="https://images.unsplash.com/photo-1560472355-536de3962603?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                  src="src\images\special-capabilities.jpg" 
                   alt="Asset Auction" 
                   className="rounded-2xl shadow-2xl relative z-10"
                 />
@@ -303,8 +299,8 @@ const About = () => {
 
             {/* Ethics & Confidentiality */}
             <AnimatedCard delay={100} direction="up" className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all">
-              <div className="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center mb-6">
-                <Shield className="w-8 h-8 text-blue-600" />
+              <div className="w-16 h-16 bg-primary-orange/10 rounded-xl flex items-center justify-center mb-6">
+                <Shield className="w-8 h-8 text-primary-orange" />
               </div>
               <h3 className="text-2xl font-bold text-primary-dark mb-4">Ethics & Confidentiality</h3>
               <p className="text-gray-600 mb-4">We adhere to the highest standards of:</p>
@@ -329,8 +325,8 @@ const About = () => {
             
             {/* Our Commitment */}
             <AnimatedCard delay={200} direction="up" className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all">
-              <div className="w-16 h-16 bg-green-100 rounded-xl flex items-center justify-center mb-6">
-                <Award className="w-8 h-8 text-green-600" />
+              <div className="w-16 h-16 bg-primary-orange/10 rounded-xl flex items-center justify-center mb-6">
+                <Award className="w-8 h-8 text-primary-orange" />
               </div>
               <h3 className="text-2xl font-bold text-primary-dark mb-4">Our Commitment</h3>
               <p className="text-gray-600 mb-4">Every assignment is handled with:</p>
