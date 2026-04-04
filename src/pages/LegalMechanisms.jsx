@@ -63,7 +63,7 @@ const LegalMechanisms = () => {
     {
       id: "sarfaesi",
       icon: Gavel,
-      title: "SARFAESI",
+      title: "SARFAESI Act",
       fullName: "Securitisation and Reconstruction of Financial Assets and Enforcement of Security Interest Act, 2002",
       definition: "SARFAESI is a legal mechanism that enables lenders to enforce security interests and recover dues by taking possession and selling secured assets without court intervention.",
       simpleExplanation: "When a borrower fails to repay a loan and it becomes an NPA, SARFAESI allows the lender to take possession of the secured asset and sell it to recover the loan amount.",
