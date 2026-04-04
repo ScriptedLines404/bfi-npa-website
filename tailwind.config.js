@@ -1,4 +1,4 @@
-/** @type {import('tailwindcss').Config} */
+/* tailwind.config.js */
 export default {
   content: [
     "./index.html",
@@ -7,11 +7,19 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: {
-          dark: "#0A2540",
-          orange: "#F59E0B",
-          grey: "#F3F4F6",
-        },
+        // Primary Colors
+        'navy-primary': '#0B1F3A',
+        'secondary-blue': '#1D4ED8',
+        
+        // Accent Colors
+        'accent-orange': '#F59E0B',
+        
+        // Background Colors
+        'background-light': '#F9FAFB',
+        'gray-subtle': '#E5E7EB',
+        
+        // Text Colors
+        'text-dark': '#111827',
       },
       fontFamily: {
         sans: ['"Open Sans"', "sans-serif"],
@@ -34,4 +42,4 @@ export default {
     },
   },
   plugins: [],
-}
+};

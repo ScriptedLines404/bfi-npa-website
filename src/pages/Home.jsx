@@ -61,7 +61,6 @@ const Home = () => {
   };
 
   const handleNavigateToService = (serviceId) => {
-    // Store the target service ID in sessionStorage to handle on the services page
     sessionStorage.setItem('targetService', serviceId);
     navigate("/services");
     window.scrollTo({ top: 0, behavior: "auto" });
@@ -73,35 +72,39 @@ const Home = () => {
   };
 
   return (
-    <div className="animate-fade-in">
-      {/* Hero Section */}
-      <section className="bg-white py-20">
-        <div className="container-custom">
+    <div className="animate-fade-in bg-background-light">
+      {/* Hero Section - Navy Blue */}
+      <section className="bg-navy-primary text-white py-20 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 left-0 w-64 h-64 bg-accent-orange rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-secondary-blue rounded-full blur-3xl"></div>
+        </div>
+        <div className="container-custom relative z-10">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-primary-dark">
-                Turn NPAs Into Cash—<span className="text-primary-orange">Fast & Legally</span>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                Turn NPAs Into Cash—<span className="text-accent-orange">Fast & Legally</span>
               </h1>
-              <p className="text-xl mb-8 text-gray-600">
+              <p className="text-xl mb-8 text-gray-300">
                 Trusted recovery partner for Banks, NBFCs & ARCs
               </p>
               
               <div className="flex flex-wrap gap-6 mb-8">
                 <div className="flex items-center gap-2">
-                  <CheckCircle className="text-primary-orange" />
-                  <span className="text-primary-dark font-semibold">
+                  <CheckCircle className="text-accent-orange" />
+                  <span className="font-semibold">
                     <AnimatedCounter end={1000} suffix="+ Cr" /> Transactions
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <CheckCircle className="text-primary-orange" />
-                  <span className="text-primary-dark font-semibold">
+                  <CheckCircle className="text-accent-orange" />
+                  <span className="font-semibold">
                     <AnimatedCounter end={25} suffix="+ Years" /> Experience
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <CheckCircle className="text-primary-orange" />
-                  <span className="text-primary-dark font-semibold">SARFAESI | NCLT | DRT Experts</span>
+                  <CheckCircle className="text-accent-orange" />
+                  <span className="font-semibold">SARFAESI | NCLT | DRT Experts</span>
                 </div>
               </div>
             </div>
@@ -129,15 +132,15 @@ const Home = () => {
                 delay={idx * 100}
                 direction="up"
               >
-                <problem.icon className="w-12 h-12 text-primary-orange mx-auto mb-4" />
-                <h3 className="text-xl font-bold mb-2 text-primary-dark">{problem.title}</h3>
-                <p className="text-gray-600">{problem.desc}</p>
+                <problem.icon className="w-12 h-12 text-accent-orange mx-auto mb-4" />
+                <h3 className="text-xl font-bold mb-2 text-navy-primary">{problem.title}</h3>
+                <p className="text-text-dark">{problem.desc}</p>
               </AnimatedCard>
             ))}
           </div>
           
           <AnimatedCard className="text-center mt-8" delay={400} direction="up">
-            <p className="text-lg font-semibold text-primary-dark">
+            <p className="text-lg font-semibold text-navy-primary">
               We solve these with execution-driven strategies.
             </p>
           </AnimatedCard>
@@ -145,7 +148,7 @@ const Home = () => {
       </section>
 
       {/* Our Services Section */}
-      <section className="py-20 bg-primary-grey">
+      <section className="py-20 bg-gray-subtle">
         <div className="container-custom">
           <SectionTitle 
             title="Our Services" 
@@ -157,14 +160,14 @@ const Home = () => {
               <AnimatedCard key={idx} className="h-full" delay={idx * 80} direction="up">
                 <button
                   onClick={() => handleNavigateToService(solution.serviceId)}
-                  className="card text-left w-full transition-all hover:shadow-xl hover:scale-105 transform duration-300 cursor-pointer group"
+                  className="card text-left w-full transition-all hover:shadow-xl hover:scale-105 transform duration-300 cursor-pointer group bg-white"
                 >
-                  <solution.icon className="w-12 h-12 text-primary-orange mb-4" />
-                  <h3 className="text-xl font-bold mb-2 text-primary-dark group-hover:text-primary-orange transition-colors">
+                  <solution.icon className="w-12 h-12 text-accent-orange mb-4" />
+                  <h3 className="text-xl font-bold mb-2 text-navy-primary group-hover:text-accent-orange transition-colors">
                     {solution.title}
                   </h3>
-                  <p className="text-gray-600 mb-4">{solution.desc}</p>
-                  <div className="text-primary-orange font-semibold flex items-center gap-1 group-hover:gap-2 transition-all">
+                  <p className="text-text-dark mb-4">{solution.desc}</p>
+                  <div className="text-accent-orange font-semibold flex items-center gap-1 group-hover:gap-2 transition-all">
                     Learn More <ArrowRight size={16} />
                   </div>
                 </button>
@@ -193,22 +196,22 @@ const Home = () => {
                   delay={idx * 100}
                   direction="up"
                 >
-                  <div className="w-16 h-16 bg-primary-orange rounded-full flex items-center justify-center text-white font-bold text-2xl mx-auto mb-3 shadow-lg">
+                  <div className="w-16 h-16 bg-accent-orange rounded-full flex items-center justify-center text-white font-bold text-2xl mx-auto mb-3 shadow-lg">
                     {idx + 1}
                   </div>
-                  <span className="font-semibold text-lg block text-primary-dark">{step}</span>
+                  <span className="font-semibold text-lg block text-navy-primary">{step}</span>
                 </AnimatedCard>
               ))}
               
               <div className="absolute top-5 left-0 w-full flex justify-between px-8 pointer-events-none" style={{ paddingLeft: '15%', paddingRight: '12%' }}>
                 <div className="flex justify-center" style={{ width: '22%' }}>
-                  <ArrowRight className="w-6 h-6 text-primary-orange" />
+                  <ArrowRight className="w-6 h-6 text-accent-orange" />
                 </div>
                 <div className="flex justify-center" style={{ width: '22%' }}>
-                  <ArrowRight className="w-6 h-6 text-primary-orange" />
+                  <ArrowRight className="w-6 h-6 text-accent-orange" />
                 </div>
                 <div className="flex justify-center" style={{ width: '22%' }}>
-                  <ArrowRight className="w-6 h-6 text-primary-orange" />
+                  <ArrowRight className="w-6 h-6 text-accent-orange" />
                 </div>
               </div>
             </div>
@@ -218,13 +221,13 @@ const Home = () => {
           <div className="md:hidden space-y-6 mt-8">
             {["Case Evaluation", "Strategy Planning", "Execution", "Recovery & Closure"].map((step, idx) => (
               <div key={idx} className="text-center">
-                <div className="w-16 h-16 bg-primary-orange rounded-full flex items-center justify-center text-white font-bold text-2xl mx-auto mb-3 shadow-lg">
+                <div className="w-16 h-16 bg-accent-orange rounded-full flex items-center justify-center text-white font-bold text-2xl mx-auto mb-3 shadow-lg">
                   {idx + 1}
                 </div>
-                <span className="font-semibold text-lg block text-primary-dark">{step}</span>
+                <span className="font-semibold text-lg block text-navy-primary">{step}</span>
                 {idx < 3 && (
                   <div className="flex justify-center my-4">
-                    <svg className="w-6 h-6 text-primary-orange transform rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-6 h-6 text-accent-orange transform rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                   </div>
@@ -236,7 +239,7 @@ const Home = () => {
       </section>
 
       {/* Track Record Results Section */}
-      <section className="py-20 bg-primary-grey">
+      <section className="py-20 bg-gray-subtle">
         <div className="container-custom">
           <SectionTitle 
             title="Proven Results That Speak" 
@@ -246,12 +249,12 @@ const Home = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
             {trackRecordStats.map((result, idx) => (
               <AnimatedCard key={idx} className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all" delay={idx * 100} direction="up">
-                <div className="text-3xl md:text-4xl font-bold text-primary-orange mb-2">
+                <div className="text-3xl md:text-4xl font-bold text-accent-orange mb-2">
                   {result.amount}
                 </div>
-                <h3 className="text-lg font-bold text-primary-dark mb-1">{result.client}</h3>
-                <p className="text-sm text-primary-orange font-semibold mb-2">{result.type}</p>
-                <p className="text-gray-600 text-sm">{result.description}</p>
+                <h3 className="text-lg font-bold text-navy-primary mb-1">{result.client}</h3>
+                <p className="text-sm text-secondary-blue font-semibold mb-2">{result.type}</p>
+                <p className="text-text-dark text-sm">{result.description}</p>
               </AnimatedCard>
             ))}
           </div>
@@ -276,13 +279,13 @@ const Home = () => {
           
           <AnimatedSection direction="up" threshold={0.3}>
             <div className="max-w-4xl mx-auto text-center mb-12">
-              <p className="text-gray-700 mb-4 leading-relaxed">
-                We are empanelled with leading <strong className="text-primary-orange">Nationalised Banks</strong>, 
-                <strong className="text-primary-orange"> Private Sector Banks</strong>, and 
-                <strong className="text-primary-orange"> Asset Reconstruction Companies (ARCs)</strong> across key financial hubs such as 
+              <p className="text-text-dark mb-4 leading-relaxed">
+                We are empanelled with leading <strong className="text-accent-orange">Nationalised Banks</strong>, 
+                <strong className="text-accent-orange"> Private Sector Banks</strong>, and 
+                <strong className="text-accent-orange"> Asset Reconstruction Companies (ARCs)</strong> across key financial hubs such as 
                 Chennai, Mumbai and Delhi, along with select Non-Banking Financial Companies (NBFCs).
               </p>
-              <p className="text-gray-600 italic">
+              <p className="text-text-dark italic">
                 Our strong institutional associations reflect the trust placed in us by prominent financial institutions, 
                 enabling us to consistently deliver effective recovery and resolution solutions.
               </p>
@@ -291,9 +294,9 @@ const Home = () => {
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {institutionalPartners.map((item, idx) => (
-              <AnimatedCard key={idx} className="group bg-primary-grey rounded-xl p-6 text-center shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1" delay={idx * 100} direction="up">
-                <item.icon className="w-12 h-12 text-primary-orange mx-auto mb-3 group-hover:scale-110 transition-transform" />
-                <span className="font-semibold text-primary-dark">{item.name}</span>
+              <AnimatedCard key={idx} className="group bg-gray-subtle rounded-xl p-6 text-center shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1" delay={idx * 100} direction="up">
+                <item.icon className="w-12 h-12 text-accent-orange mx-auto mb-3 group-hover:scale-110 transition-transform" />
+                <span className="font-semibold text-navy-primary">{item.name}</span>
               </AnimatedCard>
             ))}
           </div>
@@ -301,7 +304,7 @@ const Home = () => {
       </section>
 
       {/* Why Choose Us Section - Expanded */}
-      <section className="py-20 bg-primary-grey">
+      <section className="py-20 bg-gray-subtle">
         <div className="container-custom">
           <SectionTitle 
             title="Why Choose BFI-NPA?" 
@@ -311,17 +314,17 @@ const Home = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
             {whyChooseItems.map((item, idx) => (
               <AnimatedCard key={idx} className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all hover:-translate-y-1" delay={idx * 100} direction="up">
-                <div className="w-14 h-14 bg-primary-orange/10 rounded-xl flex items-center justify-center mb-4">
-                  <item.icon className="w-7 h-7 text-primary-orange" />
+                <div className="w-14 h-14 bg-accent-orange/10 rounded-xl flex items-center justify-center mb-4">
+                  <item.icon className="w-7 h-7 text-accent-orange" />
                 </div>
-                <h3 className="text-xl font-bold text-primary-dark mb-2">{item.title}</h3>
-                <p className="text-gray-600 text-sm">{item.desc}</p>
+                <h3 className="text-xl font-bold text-navy-primary mb-2">{item.title}</h3>
+                <p className="text-text-dark text-sm">{item.desc}</p>
               </AnimatedCard>
             ))}
           </div>
 
-          <AnimatedCard delay={500} direction="up" className="mt-12 text-center bg-gradient-to-r from-primary-dark to-primary-dark/95 text-white rounded-2xl p-10 shadow-2xl">
-            <svg className="w-12 h-12 text-primary-orange mx-auto mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <AnimatedCard delay={500} direction="up" className="mt-12 text-center bg-navy-primary text-white rounded-2xl p-10 shadow-2xl">
+            <svg className="w-12 h-12 text-accent-orange mx-auto mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
             </svg>
             <p className="text-3xl md:text-4xl font-bold italic mb-3">"If we don't perform, we don't get paid."</p>
@@ -330,19 +333,19 @@ const Home = () => {
         </div>
       </section>
 
-      {/* CTA Banner - Light Background */}
-      <section className="py-16 bg-white">
+      {/* CTA Banner - Navy Blue */}
+      <section className="py-16 bg-navy-primary text-white">
         <div className="container-custom text-center">
           <AnimatedSection direction="up" threshold={0.3}>
-            <h2 className="text-3xl md:text-4xl font-bold text-primary-dark mb-6">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">
               Have NPAs to Resolve? Let's Fix It.
             </h2>
-            <p className="text-xl mb-8 text-gray-600 max-w-2xl mx-auto">
+            <p className="text-xl mb-8 text-gray-300 max-w-2xl mx-auto">
               Get in touch with our experts today for a free consultation
             </p>
             <button 
               onClick={handleNavigateToContact}
-              className="btn-primary inline-block text-lg px-8 py-3"
+              className="bg-accent-orange text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-accent-orange/90 transition-all duration-300 transform hover:scale-105 inline-block text-lg"
             >
               Get Free Consultation
             </button>

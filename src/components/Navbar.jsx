@@ -17,20 +17,22 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="bg-primary-dark sticky top-0 z-50 shadow-lg">
+    <nav className="bg-navy-primary sticky top-0 z-50 shadow-lg">
       <div className="container-custom">
         <div className="flex justify-between items-center py-3">
           {/* Logo */}
-          <Link to="/" 
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="flex items-center">
+          <Link 
+            to="/" 
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className="flex items-center"
+          >
             <img 
               src="/src/images/BFI-NPA_Logo-1.png" 
               alt="BFI-NPA" 
               className="h-12 w-auto object-contain"
               onError={(e) => {
                 e.target.onerror = null;
-                e.target.src = "https://via.placeholder.com/120x40/0A2540/FFFFFF?text=BFI-NPA";
+                e.target.src = "https://via.placeholder.com/120x40/0B1F3A/F59E0B?text=BFI-NPA";
               }}
             />
           </Link>
@@ -43,8 +45,8 @@ const Navbar = () => {
                 to={link.path}
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                 className={({ isActive }) =>
-                  `text-white hover:text-primary-orange transition-colors text-sm ${
-                    isActive ? "text-primary-orange font-semibold" : ""
+                  `text-gray-300 hover:text-accent-orange transition-colors text-sm ${
+                    isActive ? "text-accent-orange font-semibold" : ""
                   }`
                 }
               >
@@ -55,7 +57,7 @@ const Navbar = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-white"
+            className="md:hidden text-gray-300 hover:text-accent-orange transition-colors"
             onClick={() => setIsOpen(!isOpen)}
           >
             {isOpen ? <X size={28} /> : <Menu size={28} />}
@@ -69,10 +71,13 @@ const Navbar = () => {
               <NavLink
                 key={link.name}
                 to={link.path}
-                onClick={() => { setIsOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                onClick={() => { 
+                  setIsOpen(false); 
+                  window.scrollTo({ top: 0, behavior: 'smooth' }); 
+                }}
                 className={({ isActive }) =>
-                  `block text-white hover:text-primary-orange transition-colors py-2 ${
-                    isActive ? "text-primary-orange font-semibold" : ""
+                  `block text-gray-300 hover:text-accent-orange transition-colors py-2 ${
+                    isActive ? "text-accent-orange font-semibold" : ""
                   }`
                 }
               >

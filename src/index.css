@@ -8,7 +8,8 @@
   }
   body {
     font-family: 'Open Sans', sans-serif;
-    color: #1f2937;
+    color: #111827;
+    background-color: #F9FAFB;
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Poppins', 'Montserrat', sans-serif;
@@ -72,7 +73,7 @@
     font-size: 1.875rem;
     line-height: 2.25rem;
     font-weight: 700;
-    color: #0A2540;
+    color: #0B1F3A;
     margin-bottom: 1rem;
   }
   @media (min-width: 768px) {
@@ -97,13 +98,14 @@
     transition-duration: 300ms;
   }
   .writing-mode-vertical {
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-}
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
   .card:hover {
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   }
 }
+
 /* Smooth animation styles */
 .animated-char {
   display: inline-block;
@@ -195,4 +197,60 @@ section {
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background-color: #d97706;
+}
+
+/* Utility classes for new color scheme */
+.bg-navy-primary {
+  background-color: #0B1F3A;
+}
+
+.bg-secondary-blue {
+  background-color: #1D4ED8;
+}
+
+.bg-accent-orange {
+  background-color: #F59E0B;
+}
+
+.bg-background-light {
+  background-color: #F9FAFB;
+}
+
+.bg-gray-subtle {
+  background-color: #E5E7EB;
+}
+
+.text-navy-primary {
+  color: #0B1F3A;
+}
+
+.text-secondary-blue {
+  color: #1D4ED8;
+}
+
+.text-accent-orange {
+  color: #F59E0B;
+}
+
+.text-text-dark {
+  color: #111827;
+}
+
+/* Gradient backgrounds for stats cards */
+.bg-gradient-navy {
+  background: linear-gradient(135deg, #0B1F3A 0%, #1D4ED8 100%);
+}
+
+.bg-gradient-orange {
+  background: linear-gradient(135deg, #F59E0B 0%, #fbbf24 100%);
+}
+
+/* Hover transitions */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
