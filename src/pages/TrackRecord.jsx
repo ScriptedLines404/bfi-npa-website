@@ -1,4 +1,4 @@
-/* src/pages/TrackRecord.jsx - Deep Blue + Gold */
+/* src/pages/TrackRecord.jsx - Deep Blue + Gold with Updated Surface Color */
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { 
@@ -6,7 +6,6 @@ import {
   ArrowRight, Target, Shield, Users, Calendar, Star, Zap, Scale, Gavel,
   Sparkles, Briefcase, Landmark, Factory, Warehouse, Battery, Wind, Handshake
 } from "lucide-react";
-import SectionTitle from "../components/SectionTitle";
 import AnimatedCard from "../components/AnimatedCard";
 import AnimatedSection from "../components/AnimatedSection";
 
@@ -136,13 +135,14 @@ const TrackRecord = () => {
               <p className="text-xl max-w-3xl mx-auto text-[#94A3B8] leading-relaxed">
                 Our proven track record in facilitating the resolution and monetisation of high-value stressed assets across multiple sectors
               </p>
+              <div className="w-24 h-1 bg-[#FBBF24] rounded-full mx-auto mt-6"></div>
             </div>
           </AnimatedSection>
         </div>
       </div>
 
       {/* Key Achievements Introduction */}
-      <section className="py-16 bg-[#0B1A3A]">
+      <section className="py-16 bg-[#fff3e4]">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto">
             <AnimatedSection direction="up" threshold={0.3}>
@@ -150,7 +150,7 @@ const TrackRecord = () => {
                 <Star className="w-4 h-4 text-[#FBBF24]" />
                 <span className="text-sm font-semibold text-[#FBBF24]">Key Achievements</span>
               </div>
-              <p className="text-[#94A3B8] text-lg leading-relaxed">
+              <p className="text-[#374151] text-lg leading-relaxed">
                 Our company has a proven track record in facilitating the resolution and monetisation of high-value stressed assets across multiple sectors. 
                 We consistently deliver strong outcomes for banks, financial institutions, and stakeholders through strategic buyer identification and efficient execution.
               </p>
@@ -162,10 +162,17 @@ const TrackRecord = () => {
       {/* Select Transaction Highlights */}
       <section className="py-16 bg-[#020617]">
         <div className="container-custom">
-          <SectionTitle 
-            title="Transaction Highlights" 
-            subtitle="Showcasing our expertise in handling high-value stressed asset resolutions"
-          />
+          <AnimatedSection direction="up" threshold={0.3}>
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-[#FBBF24] mb-4">
+                Transaction Highlights
+              </h2>
+              <p className="text-xl text-[#94A3B8] max-w-3xl mx-auto">
+                Showcasing our expertise in handling high-value stressed asset resolutions
+              </p>
+              <div className="w-24 h-1 bg-[#FBBF24] rounded-full mx-auto mt-4"></div>
+            </div>
+          </AnimatedSection>
 
           <div className="space-y-6 mt-8">
             {transactions.map((transaction, idx) => (
@@ -173,7 +180,7 @@ const TrackRecord = () => {
                 key={idx} 
                 delay={idx * 100} 
                 direction="up"
-                className="bg-[#0B1A3A] rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-[#1E293B] hover:border-[#FBBF24]"
+                className="bg-[#fff3e4] rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-[#1E293B] hover:border-[#FBBF24]"
               >
                 <div className="flex flex-col md:flex-row">
                   <div className="md:w-72 h-48 md:h-auto relative overflow-hidden bg-[#1E293B]">
@@ -196,16 +203,16 @@ const TrackRecord = () => {
                       <div className={`w-8 h-8 bg-gradient-to-br ${transaction.color} rounded-lg flex items-center justify-center`}>
                         <transaction.icon className="w-4 h-4 text-white" />
                       </div>
-                      <h3 className="text-xl font-bold text-[#E0E7FF]">{transaction.title}</h3>
+                      <h3 className="text-xl font-bold text-[#020617]">{transaction.title}</h3>
                     </div>
-                    <p className="text-[#94A3B8] text-sm mb-3 flex items-center gap-1">
+                    <p className="text-[#374151] text-sm mb-3 flex items-center gap-1">
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
                       {transaction.location}
                     </p>
-                    <p className="text-[#94A3B8] leading-relaxed">{transaction.description}</p>
+                    <p className="text-[#374151] leading-relaxed">{transaction.description}</p>
                   </div>
                 </div>
               </AnimatedCard>
@@ -215,7 +222,7 @@ const TrackRecord = () => {
       </section>
 
       {/* Execution Strength Section */}
-      <section className="py-16 bg-[#0B1A3A]">
+      <section className="py-16 bg-[#fff3e4]">
         <div className="container-custom">
           <div className="grid md:grid-cols-2 gap-12 items-start">
             <AnimatedSection direction="left" threshold={0.3}>
@@ -223,8 +230,8 @@ const TrackRecord = () => {
                 <Zap className="w-4 h-4 text-[#FBBF24]" />
                 <span className="text-sm font-semibold text-[#FBBF24]">Our Expertise</span>
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-[#E0E7FF] mb-6">Execution Strength</h2>
-              <p className="text-[#94A3B8] mb-6 leading-relaxed">
+              <h2 className="text-3xl md:text-4xl font-bold text-[#020617] mb-6">Execution Strength</h2>
+              <p className="text-[#374151] mb-6 leading-relaxed">
                 In addition to the above, we have coordinated and supported several other high-value transactions through:
               </p>
               <div className="space-y-4">
@@ -234,8 +241,8 @@ const TrackRecord = () => {
                       <strength.icon className="w-5 h-5 text-[#FBBF24] group-hover:text-[#020617] transition-colors" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-[#E0E7FF]">{strength.title}</h3>
-                      <p className="text-[#94A3B8] text-sm">{strength.description}</p>
+                      <h3 className="font-semibold text-[#020617]">{strength.title}</h3>
+                      <p className="text-[#374151] text-sm">{strength.description}</p>
                     </div>
                   </AnimatedCard>
                 ))}
@@ -267,40 +274,52 @@ const TrackRecord = () => {
       {/* Stats Section */}
       <section className="py-16 bg-[#020617]">
         <div className="container-custom">
+          <AnimatedSection direction="up" threshold={0.3}>
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-[#FBBF24] mb-4">
+                Impact at a Glance
+              </h2>
+              <p className="text-xl text-[#94A3B8] max-w-3xl mx-auto">
+                Numbers that demonstrate our commitment to excellence
+              </p>
+              <div className="w-24 h-1 bg-[#FBBF24] rounded-full mx-auto mt-4"></div>
+            </div>
+          </AnimatedSection>
+          
           <div className="grid md:grid-cols-3 gap-6">
-            <AnimatedCard delay={100} direction="up" className="text-center p-6 bg-[#0B1A3A] rounded-xl shadow-md hover:shadow-xl transition-all border border-[#1E293B]">
+            <AnimatedCard delay={100} direction="up" className="text-center p-6 bg-[#fff3e4] rounded-xl shadow-md hover:shadow-xl transition-all border border-[#1E293B] hover:border-[#FBBF24]">
               <div className="w-16 h-16 bg-[#FBBF24]/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <TrendingUp className="w-8 h-8 text-[#FBBF24]" />
               </div>
-              <div className="text-2xl font-bold text-[#E0E7FF]">₹500+ Cr</div>
-              <p className="text-[#94A3B8] text-sm">Total Transaction Value</p>
+              <div className="text-2xl font-bold text-[#020617]">₹500+ Cr</div>
+              <p className="text-[#374151] text-sm">Total Transaction Value</p>
             </AnimatedCard>
             
-            <AnimatedCard delay={200} direction="up" className="text-center p-6 bg-[#0B1A3A] rounded-xl shadow-md hover:shadow-xl transition-all border border-[#1E293B]">
+            <AnimatedCard delay={200} direction="up" className="text-center p-6 bg-[#fff3e4] rounded-xl shadow-md hover:shadow-xl transition-all border border-[#1E293B] hover:border-[#FBBF24]">
               <div className="w-16 h-16 bg-[#FBBF24]/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Users className="w-8 h-8 text-[#FBBF24]" />
               </div>
-              <div className="text-2xl font-bold text-[#E0E7FF]">50+</div>
-              <p className="text-[#94A3B8] text-sm">Institutional Clients</p>
+              <div className="text-2xl font-bold text-[#020617]">50+</div>
+              <p className="text-[#374151] text-sm">Institutional Clients</p>
             </AnimatedCard>
             
-            <AnimatedCard delay={300} direction="up" className="text-center p-6 bg-[#0B1A3A] rounded-xl shadow-md hover:shadow-xl transition-all border border-[#1E293B]">
+            <AnimatedCard delay={300} direction="up" className="text-center p-6 bg-[#fff3e4] rounded-xl shadow-md hover:shadow-xl transition-all border border-[#1E293B] hover:border-[#FBBF24]">
               <div className="w-16 h-16 bg-[#FBBF24]/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Award className="w-8 h-8 text-[#FBBF24]" />
               </div>
-              <div className="text-2xl font-bold text-[#E0E7FF]">100%</div>
-              <p className="text-[#94A3B8] text-sm">Success-Based Fee Structure</p>
+              <div className="text-2xl font-bold text-[#020617]">100%</div>
+              <p className="text-[#374151] text-sm">Success-Based Fee Structure</p>
             </AnimatedCard>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-[#0B1A3A]">
+      <section className="py-20 bg-[#fff3e4]">
         <div className="container-custom text-center">
           <AnimatedSection direction="up" threshold={0.3}>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#FBBF24] mb-6">Ready to Achieve Similar Results?</h2>
-            <p className="text-xl mb-8 max-w-2xl mx-auto text-[#94A3B8]">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#020617] mb-6">Ready to Achieve Similar Results?</h2>
+            <p className="text-xl mb-8 max-w-2xl mx-auto text-[#374151]">
               Partner with us to unlock the full potential of your stressed assets
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
