@@ -1,4 +1,4 @@
-/* src/pages/About.jsx - Sandal + Brown */
+/* src/pages/About.jsx - Sandal + Brown with Integrated Hero */
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { 
@@ -60,13 +60,6 @@ const About = () => {
     { icon: Heart, title: "Ethical & Transparent Approach", desc: "Professional practices with strict confidentiality and compliance" }
   ];
 
-  const stats = [
-    { icon: Building, value: "1000+", label: "Cr Transactions", color: "from-amber-700 to-amber-800" },
-    { icon: Calendar, value: "25+", label: "Years Experience", color: "from-amber-600 to-amber-700" },
-    { icon: Users, value: "16+", label: "Branches Managed", color: "from-amber-700 to-amber-800" },
-    { icon: Award, value: "100%", label: "Success-Based Fees", color: "from-amber-600 to-amber-700" }
-  ];
-
   const handleNavigateToContact = () => {
     navigate("/contact");
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -74,7 +67,7 @@ const About = () => {
 
   return (
     <div className="animate-fade-in">
-      {/* Hero Section */}
+      {/* Hero Section with Integrated Company Overview */}
       <div className="relative bg-[#E3D1B3] text-[#3E2723] py-20 overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-0 w-64 h-64 bg-[#A16207] rounded-full blur-3xl"></div>
@@ -90,16 +83,17 @@ const About = () => {
               <h1 className="text-5xl md:text-6xl font-bold mb-6 text-[#3E2723]">
                 About BFI-NPA
               </h1>
-              <p className="text-xl max-w-3xl mx-auto text-[#6D4C41] leading-relaxed">
+              <p className="text-xl max-w-3xl mx-auto text-[#6D4C41] leading-relaxed mb-8">
                 Professionally managed company specializing in Stressed Asset Resolution encompassing debt collection, 
                 enforcement, and property disposition
               </p>
+              <div className="w-24 h-1 bg-[#A16207] rounded-full mx-auto"></div>
             </div>
           </AnimatedSection>
         </div>
       </div>
 
-      {/* Company Overview */}
+      {/* Company Overview - Integrated Content Section */}
       <section className="py-20 bg-[#F5E6D3]">
         <div className="container-custom">
           <div className="grid md:grid-cols-2 gap-16 items-center">
@@ -117,16 +111,6 @@ const About = () => {
               <p className="text-[#6D4C41] leading-relaxed">
                 Our clientele includes Banks, NBFCs, ARCs, Corporates, and Financial Institutions. We are committed to providing services that are efficient, cost-effective, and driven by integrity, transparency, and professional excellence.
               </p>
-              
-              <div className="grid grid-cols-2 gap-4 mt-8">
-                {stats.map((stat, idx) => (
-                  <AnimatedCard key={idx} delay={idx * 100} direction="up" className={`bg-gradient-to-br ${stat.color} rounded-xl p-4 text-white shadow-lg`}>
-                    <stat.icon className="w-8 h-8 mb-2 opacity-80" />
-                    <div className="text-2xl font-bold">{stat.value}</div>
-                    <div className="text-sm opacity-90">{stat.label}</div>
-                  </AnimatedCard>
-                ))}
-              </div>
             </AnimatedSection>
             
             <AnimatedSection direction="right" threshold={0.3}>
@@ -150,12 +134,12 @@ const About = () => {
       <section className="py-20 bg-[#E3D1B3]">
         <div className="container-custom">
           <SectionTitle 
-  title="Meet Our Leadership" 
-  subtitle="Our leadership team combines decades of industry experience with strong execution capabilities"
-  titleColor="#3E2723"
-  accentColor="#A16207"
-  subtitleColor="#6D4C41"
-/>
+            title="Meet Our Leadership" 
+            subtitle="Our leadership team combines decades of industry experience with strong execution capabilities"
+            titleColor="#3E2723"
+            accentColor="#A16207"
+            subtitleColor="#6D4C41"
+          />
           
           <div className="grid md:grid-cols-2 gap-8 mt-8">
             {leaders.map((leader, idx) => (
@@ -189,12 +173,12 @@ const About = () => {
       <section className="py-20 bg-[#F5E6D3]">
         <div className="container-custom">
           <SectionTitle 
-  title="Execution Experience" 
-  subtitle="End-to-end recovery and resolution solutions with extensive experience in taking physical possession of secured assets"
-  titleColor="#3E2723"
-  accentColor="#A16207"
-  subtitleColor="#6D4C41"
-/>
+            title="Execution Experience" 
+            subtitle="End-to-end recovery and resolution solutions with extensive experience in taking physical possession of secured assets"
+            titleColor="#3E2723"
+            accentColor="#A16207"
+            subtitleColor="#6D4C41"
+          />
           
           <div className="grid md:grid-cols-2 gap-12 mt-8">
             <AnimatedSection direction="left" threshold={0.3}>
@@ -365,6 +349,39 @@ const About = () => {
                 </li>
               </ul>
             </AnimatedCard>
+          </div>
+        </div>
+      </section>
+      
+      {/* Why Choose Us Section */}
+      <section className="py-20 bg-[#E3D1B3]">
+        <div className="container-custom">
+          <SectionTitle 
+            title="Why Choose BFI-NPA?" 
+            subtitle="We combine expertise, ethics, and execution to deliver exceptional results"
+            titleColor="#3E2723"
+            accentColor="#A16207"
+            subtitleColor="#6D4C41"
+          />
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+            {whyChooseItems.map((item, idx) => (
+              <AnimatedCard key={idx} className="bg-[#F5E6D3] rounded-xl p-6 shadow-md hover:shadow-xl transition-all hover:-translate-y-1" delay={idx * 100} direction="up">
+                <div className="w-14 h-14 bg-[#A16207]/10 rounded-xl flex items-center justify-center mb-4">
+                  <item.icon className="w-7 h-7 text-[#A16207]" />
+                </div>
+                <h3 className="text-xl font-bold text-[#3E2723] mb-2">{item.title}</h3>
+                <p className="text-[#6D4C41] text-sm">{item.desc}</p>
+              </AnimatedCard>
+            ))}
+          </div>
+
+          <div className="mt-12 text-center bg-[#3E2723] text-[#F5E6D3] rounded-2xl p-10 shadow-2xl">
+            <svg className="w-12 h-12 text-[#A16207] mx-auto mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+            </svg>
+            <p className="text-3xl md:text-4xl font-bold italic mb-3">"If we don't perform, we don't get paid."</p>
+            <p className="text-[#A16207] text-lg">Our Philosophy - Results-Driven Excellence</p>
           </div>
         </div>
       </section>

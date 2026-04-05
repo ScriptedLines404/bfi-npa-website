@@ -1,4 +1,4 @@
-/* src/pages/Services.jsx - Vibrant Green with Updated Surface Color */
+/* src/pages/Services.jsx - Soft Cyan Color Scheme */
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { 
@@ -262,39 +262,39 @@ const Services = () => {
 
   return (
     <div className="animate-fade-in">
-      {/* Hero Section */}
+      {/* Hero Section - Soft Cyan Background */}
       <AnimatedSection direction="up" threshold={0.3}>
-        <div className="relative bg-[#4ADE80] text-[#052E16] py-20 overflow-hidden">
+        <div className="relative bg-[#D1FAFF] text-[#0F172A] py-20 overflow-hidden">
           <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-0 left-0 w-64 h-64 bg-[#166534] rounded-full blur-3xl"></div>
-            <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#166534] rounded-full blur-3xl"></div>
+            <div className="absolute top-0 left-0 w-64 h-64 bg-[#0284C7] rounded-full blur-3xl"></div>
+            <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#F97316] rounded-full blur-3xl"></div>
           </div>
           <div className="container-custom relative z-10">
             <div className="max-w-4xl mx-auto text-center">
-              <div className="inline-flex items-center gap-2 bg-[#166534]/10 px-4 py-2 rounded-full mb-6">
-                <Briefcase className="w-4 h-4 text-[#166534]" />
-                <span className="text-sm font-semibold text-[#166534]">Our Expertise</span>
+              <div className="inline-flex items-center gap-2 bg-[#0284C7]/10 px-4 py-2 rounded-full mb-6">
+                <Briefcase className="w-4 h-4 text-[#0284C7]" />
+                <span className="text-sm font-semibold text-[#0284C7]">Our Expertise</span>
               </div>
-              <h1 className="text-5xl md:text-6xl font-bold mb-6 text-[#052E16]">
+              <h1 className="text-5xl md:text-6xl font-bold mb-6 text-[#0C4A6E]">
                 Our Services
               </h1>
-              <p className="text-xl max-w-3xl mx-auto text-[#14532D] leading-relaxed">
+              <p className="text-xl max-w-3xl mx-auto text-[#475569] leading-relaxed">
                 Comprehensive NPA Resolution Solutions tailored to your needs
               </p>
-              <div className="w-24 h-1 bg-[#166534] rounded-full mx-auto mt-6"></div>
+              <div className="w-24 h-1 bg-[#F97316] rounded-full mx-auto mt-6"></div>
             </div>
           </div>
         </div>
       </AnimatedSection>
 
       {/* Main Content with Sidebar and Viewport */}
-      <section className="py-16 bg-[#fff3e4]">
+      <section className="py-16 bg-[#D1FAFF]">
         <div className="container-custom">
           <div className="flex flex-col lg:flex-row gap-8">
             {/* Left Sidebar - Fixed */}
             <div className="lg:w-1/3 xl:w-1/4">
-              <AnimatedCard delay={100} direction="right" className="bg-[#4ADE80] rounded-xl p-4 sticky top-24">
-                <h3 className="font-bold text-lg mb-4 px-3 text-[#052E16]">Our Services</h3>
+              <AnimatedCard delay={100} direction="right" className="bg-[#FFF3E4] rounded-xl p-4 sticky top-24 shadow-md">
+                <h3 className="font-bold text-lg mb-4 px-3 text-[#0C4A6E]">Our Services</h3>
                 <div className="space-y-1">
                   {services.map((service, idx) => (
                     <button
@@ -302,8 +302,8 @@ const Services = () => {
                       onClick={() => handleServiceClick(idx)}
                       className={`w-full text-left px-4 py-3 rounded-lg transition-all flex items-center gap-3 ${
                         activeService === idx 
-                          ? "bg-[#166534] text-white shadow-md" 
-                          : "hover:bg-[#166534]/10 text-[#14532D]"
+                          ? "bg-[#F97316] text-white shadow-md" 
+                          : "hover:bg-[#F97316]/10 text-[#475569]"
                       }`}
                     >
                       <service.icon size={20} />
@@ -322,7 +322,7 @@ const Services = () => {
               <AnimatedCard delay={200} direction="left">
                 <div 
                   ref={viewportRef}
-                  className="relative overflow-hidden rounded-2xl shadow-xl bg-[#4ADE80]"
+                  className="relative overflow-hidden rounded-2xl shadow-xl bg-[#D1FAFF] border border-[#CBD5E1]"
                   style={{ height: `${viewportHeight}px` }}
                 >
                   <div
@@ -340,54 +340,54 @@ const Services = () => {
                         style={{ height: `${viewportHeight}px` }}
                         ref={el => contentScrollRefs.current[idx] = el}
                       >
-                        <div className="p-6 md:p-8">
+                        <div className="p-6 md:p-8 bg-[#FFF3E4] m-4 rounded-xl shadow-md">
                           <div className="flex items-center gap-4 mb-6">
-                            <div className="p-3 bg-[#166534]/10 rounded-lg flex-shrink-0">
+                            <div className="p-3 bg-[#F97316]/10 rounded-lg flex-shrink-0">
                               {React.createElement(service.icon, { 
-                                className: "w-8 h-8 md:w-10 md:h-10 text-[#166534]" 
+                                className: "w-8 h-8 md:w-10 md:h-10 text-[#F97316]" 
                               })}
                             </div>
-                            <h2 className="text-xl md:text-2xl font-bold text-[#052E16]">
+                            <h2 className="text-xl md:text-2xl font-bold text-[#0C4A6E]">
                               {service.title}
                             </h2>
                           </div>
                           
-                          <div className="bg-[#166534]/10 rounded-lg p-4 mb-4">
-                            <p className="text-[#166534] font-semibold text-base md:text-lg">
+                          <div className="bg-[#FFEAD6] rounded-lg p-4 mb-4 border border-[#CBD5E1]">
+                            <p className="text-[#F97316] font-semibold text-base md:text-lg">
                               {service.shortDesc}
                             </p>
                           </div>
                           
-                          <p className="text-[#14532D] text-base md:text-lg mb-4 leading-relaxed">
+                          <p className="text-[#475569] text-base md:text-lg mb-4 leading-relaxed">
                             {service.description}
                           </p>
-                          <p className="text-[#14532D] mb-6 leading-relaxed text-sm md:text-base">
+                          <p className="text-[#475569] mb-6 leading-relaxed text-sm md:text-base">
                             {service.longDescription}
                           </p>
                           
                           <div className="mb-6">
-                            <h3 className="font-bold text-lg md:text-xl mb-3 text-[#052E16]">Key Benefits:</h3>
+                            <h3 className="font-bold text-lg md:text-xl mb-3 text-[#0C4A6E]">Key Benefits:</h3>
                             <ul className="space-y-2">
                               {service.benefits.map((benefit, bidx) => (
                                 <li key={bidx} className="flex items-start gap-2">
-                                  <CheckCircle className="text-[#166534] mt-0.5 flex-shrink-0" size={16} />
-                                  <span className="text-[#14532D] text-sm md:text-base">{benefit}</span>
+                                  <CheckCircle className="text-[#16A34A] mt-0.5 flex-shrink-0" size={16} />
+                                  <span className="text-[#475569] text-sm md:text-base">{benefit}</span>
                                 </li>
                               ))}
                             </ul>
                           </div>
 
-                          <div className="bg-[#fff3e4] rounded-lg p-4">
-                            <h3 className="font-bold text-lg md:text-xl mb-3 text-[#052E16]">Our Process:</h3>
+                          <div className="bg-[#D1FAFF] rounded-lg p-4 border border-[#CBD5E1]">
+                            <h3 className="font-bold text-lg md:text-xl mb-3 text-[#0C4A6E]">Our Process:</h3>
                             <div className="flex flex-wrap gap-3">
                               {service.process.map((step, sidx) => (
                                 <div key={sidx} className="flex items-center flex-wrap">
-                                  <div className="bg-[#166534] text-white rounded-full w-6 h-6 md:w-8 md:h-8 flex items-center justify-center font-bold mr-2 text-xs md:text-sm flex-shrink-0">
+                                  <div className="bg-[#F97316] text-white rounded-full w-6 h-6 md:w-8 md:h-8 flex items-center justify-center font-bold mr-2 text-xs md:text-sm flex-shrink-0">
                                     {sidx + 1}
                                   </div>
-                                  <span className="text-[#14532D] text-xs md:text-sm">{step}</span>
+                                  <span className="text-[#475569] text-xs md:text-sm">{step}</span>
                                   {sidx < service.process.length - 1 && (
-                                    <ArrowRight className="text-[#166534] mx-1 md:mx-2 flex-shrink-0" size={14} />
+                                    <ArrowRight className="text-[#F97316] mx-1 md:mx-2 flex-shrink-0" size={14} />
                                   )}
                                 </div>
                               ))}
@@ -400,10 +400,10 @@ const Services = () => {
 
                   {/* Scroll Indicator - Top */}
                   {activeService > 0 && (
-                    <div className="absolute top-0 left-0 right-0 h-8 bg-gradient-to-b from-[#fff3e4] to-transparent pointer-events-none z-10">
+                    <div className="absolute top-0 left-0 right-0 h-8 bg-gradient-to-b from-[#D1FAFF] to-transparent pointer-events-none z-10">
                       <div className="flex justify-center items-center h-full">
                         <div className="w-6 h-6 md:w-8 md:h-8 bg-white/80 rounded-full flex items-center justify-center shadow-md">
-                          <svg className="w-3 h-3 md:w-4 md:h-4 text-[#166534]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <svg className="w-3 h-3 md:w-4 md:h-4 text-[#F97316]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
                           </svg>
                         </div>
@@ -413,10 +413,10 @@ const Services = () => {
 
                   {/* Scroll Indicator - Bottom */}
                   {activeService < services.length - 1 && (
-                    <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-[#fff3e4] to-transparent pointer-events-none z-10">
+                    <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-[#D1FAFF] to-transparent pointer-events-none z-10">
                       <div className="flex justify-center items-center h-full">
                         <div className="w-6 h-6 md:w-8 md:h-8 bg-white/80 rounded-full flex items-center justify-center shadow-md">
-                          <svg className="w-3 h-3 md:w-4 md:h-4 text-[#166534]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <svg className="w-3 h-3 md:w-4 md:h-4 text-[#F97316]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                           </svg>
                         </div>
@@ -431,42 +431,42 @@ const Services = () => {
       </section>
 
       {/* Additional Service Highlights */}
-      <section className="py-16 bg-[#4ADE80]">
+      <section className="py-16 bg-[#FFF3E4]">
         <div className="container-custom">
           <AnimatedSection direction="up" threshold={0.3}>
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-[#052E16] mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-[#0C4A6E] mb-4">
                 Why Choose Our Services?
               </h2>
-              <p className="text-xl text-[#14532D] max-w-3xl mx-auto">
+              <p className="text-xl text-[#475569] max-w-3xl mx-auto">
                 We combine expertise, efficiency, and compliance to deliver exceptional results
               </p>
-              <div className="w-24 h-1 bg-[#166534] rounded-full mx-auto mt-4"></div>
+              <div className="w-24 h-1 bg-[#F97316] rounded-full mx-auto mt-4"></div>
             </div>
             
             <div className="grid md:grid-cols-3 gap-8">
-              <AnimatedCard delay={100} direction="up" className="text-center p-6 bg-[#fff3e4] rounded-xl shadow-md hover:shadow-xl transition-all">
-                <div className="w-16 h-16 bg-[#166534]/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Clock className="w-8 h-8 text-[#166534]" />
+              <AnimatedCard delay={100} direction="up" className="text-center p-6 bg-[#D1FAFF] rounded-xl shadow-md hover:shadow-xl transition-all border border-[#CBD5E1]">
+                <div className="w-16 h-16 bg-[#F97316]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Clock className="w-8 h-8 text-[#F97316]" />
                 </div>
-                <h3 className="text-xl font-bold text-[#052E16] mb-2">Fast Execution</h3>
-                <p className="text-[#14532D]">Time-bound recovery processes with dedicated teams</p>
+                <h3 className="text-xl font-bold text-[#0C4A6E] mb-2">Fast Execution</h3>
+                <p className="text-[#475569]">Time-bound recovery processes with dedicated teams</p>
               </AnimatedCard>
               
-              <AnimatedCard delay={200} direction="up" className="text-center p-6 bg-[#fff3e4] rounded-xl shadow-md hover:shadow-xl transition-all">
-                <div className="w-16 h-16 bg-[#166534]/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <TrendingUp className="w-8 h-8 text-[#166534]" />
+              <AnimatedCard delay={200} direction="up" className="text-center p-6 bg-[#D1FAFF] rounded-xl shadow-md hover:shadow-xl transition-all border border-[#CBD5E1]">
+                <div className="w-16 h-16 bg-[#F97316]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <TrendingUp className="w-8 h-8 text-[#F97316]" />
                 </div>
-                <h3 className="text-xl font-bold text-[#052E16] mb-2">Maximized Recovery</h3>
-                <p className="text-[#14532D]">Strategic approach to achieve highest recovery value</p>
+                <h3 className="text-xl font-bold text-[#0C4A6E] mb-2">Maximized Recovery</h3>
+                <p className="text-[#475569]">Strategic approach to achieve highest recovery value</p>
               </AnimatedCard>
               
-              <AnimatedCard delay={300} direction="up" className="text-center p-6 bg-[#fff3e4] rounded-xl shadow-md hover:shadow-xl transition-all">
-                <div className="w-16 h-16 bg-[#166534]/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <FileText className="w-8 h-8 text-[#166534]" />
+              <AnimatedCard delay={300} direction="up" className="text-center p-6 bg-[#D1FAFF] rounded-xl shadow-md hover:shadow-xl transition-all border border-[#CBD5E1]">
+                <div className="w-16 h-16 bg-[#F97316]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <FileText className="w-8 h-8 text-[#F97316]" />
                 </div>
-                <h3 className="text-xl font-bold text-[#052E16] mb-2">Legal Compliance</h3>
-                <p className="text-[#14532D]">All actions strictly within legal framework</p>
+                <h3 className="text-xl font-bold text-[#0C4A6E] mb-2">Legal Compliance</h3>
+                <p className="text-[#475569]">All actions strictly within legal framework</p>
               </AnimatedCard>
             </div>
           </AnimatedSection>
@@ -474,45 +474,45 @@ const Services = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-[#fff3e4]">
+      <section className="py-16 bg-[#D1FAFF]">
         <div className="container-custom">
           <div className="grid md:grid-cols-4 gap-6">
-            <AnimatedCard delay={100} direction="up" className="text-center p-6 bg-[#4ADE80] rounded-xl shadow-md hover:shadow-xl transition-all">
-              <div className="text-3xl font-bold text-[#052E16] mb-2">1000+</div>
-              <p className="text-[#14532D]">Cr Transactions</p>
+            <AnimatedCard delay={100} direction="up" className="text-center p-6 bg-[#FFF3E4] rounded-xl shadow-md hover:shadow-xl transition-all border border-[#CBD5E1]">
+              <div className="text-3xl font-bold text-[#F97316] mb-2">1000+</div>
+              <p className="text-[#475569]">Cr Transactions</p>
             </AnimatedCard>
             
-            <AnimatedCard delay={200} direction="up" className="text-center p-6 bg-[#4ADE80] rounded-xl shadow-md hover:shadow-xl transition-all">
-              <div className="text-3xl font-bold text-[#052E16] mb-2">25+</div>
-              <p className="text-[#14532D]">Years Experience</p>
+            <AnimatedCard delay={200} direction="up" className="text-center p-6 bg-[#FFF3E4] rounded-xl shadow-md hover:shadow-xl transition-all border border-[#CBD5E1]">
+              <div className="text-3xl font-bold text-[#F97316] mb-2">25+</div>
+              <p className="text-[#475569]">Years Experience</p>
             </AnimatedCard>
             
-            <AnimatedCard delay={300} direction="up" className="text-center p-6 bg-[#4ADE80] rounded-xl shadow-md hover:shadow-xl transition-all">
-              <div className="text-3xl font-bold text-[#052E16] mb-2">100%</div>
-              <p className="text-[#14532D]">Success-Based Fees</p>
+            <AnimatedCard delay={300} direction="up" className="text-center p-6 bg-[#FFF3E4] rounded-xl shadow-md hover:shadow-xl transition-all border border-[#CBD5E1]">
+              <div className="text-3xl font-bold text-[#F97316] mb-2">100%</div>
+              <p className="text-[#475569]">Success-Based Fees</p>
             </AnimatedCard>
             
-            <AnimatedCard delay={400} direction="up" className="text-center p-6 bg-[#4ADE80] rounded-xl shadow-md hover:shadow-xl transition-all">
-              <div className="text-3xl font-bold text-[#052E16] mb-2">50+</div>
-              <p className="text-[#14532D]">Happy Clients</p>
+            <AnimatedCard delay={400} direction="up" className="text-center p-6 bg-[#FFF3E4] rounded-xl shadow-md hover:shadow-xl transition-all border border-[#CBD5E1]">
+              <div className="text-3xl font-bold text-[#F97316] mb-2">50+</div>
+              <p className="text-[#475569]">Happy Clients</p>
             </AnimatedCard>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-[#4ADE80]">
+      <section className="py-20 bg-[#FFF3E4]">
         <div className="container-custom text-center">
           <AnimatedSection direction="up" threshold={0.3}>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#052E16] mb-6">Need Expert Recovery Services?</h2>
-            <p className="text-xl mb-8 max-w-2xl mx-auto text-[#14532D]">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#0C4A6E] mb-6">Need Expert Recovery Services?</h2>
+            <p className="text-xl mb-8 max-w-2xl mx-auto text-[#475569]">
               Let our experienced team handle your recovery needs with professionalism and efficiency
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
-              <Link to="/contact" className="bg-[#166534] text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-[#14532D] transition-all duration-300">
+              <Link to="/contact" className="bg-[#F97316] text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-[#EA580C] transition-all duration-300">
                 Get Free Consultation
               </Link>
-              <Link to="/track-record" className="border-2 border-[#166534] text-[#166534] font-semibold py-3 px-8 rounded-lg hover:bg-[#166534] hover:text-white transition-all duration-300">
+              <Link to="/track-record" className="border-2 border-[#0284C7] text-[#0284C7] font-semibold py-3 px-8 rounded-lg hover:bg-[#0284C7] hover:text-white transition-all duration-300">
                 View Our Track Record
               </Link>
             </div>
