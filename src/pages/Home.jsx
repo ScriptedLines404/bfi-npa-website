@@ -73,44 +73,80 @@ const Home = () => {
 
   return (
     <div className="animate-fade-in">
-      {/* Hero Section */}
-      <section className="bg-[#0A2540] py-20">
-        <div className="container-custom">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
-                Turn NPAs Into Cash—<span className="text-[#F59E0B]">Fast & Legally</span>
-              </h1>
-              <p className="text-xl mb-8 text-gray-300">
-                Trusted recovery partner for Banks, NBFCs & ARCs
-              </p>
-              
-              <div className="flex flex-wrap gap-6 mb-8">
-                <div className="flex items-center gap-2">
-                  <CheckCircle className="text-[#F59E0B]" />
-                  <span className="text-white font-semibold">
-                    <AnimatedCounter end={1000} suffix="+ Cr" /> Transactions
-                  </span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle className="text-[#F59E0B]" />
-                  <span className="text-white font-semibold">
-                    <AnimatedCounter end={25} suffix="+ Years" /> Experience
-                  </span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle className="text-[#F59E0B]" />
-                  <span className="text-white font-semibold">SARFAESI | NCLT | DRT Experts</span>
-                </div>
-              </div>
-            </div>
-            
-            <div className="hidden md:block">
-              <img src="src/images/industrial-manufacturing.avif" alt="Legal Banking" className="rounded-xl shadow-2xl" />
-            </div>
+
+{/* Hero Section */}
+<section className="bg-[#0A2540] py-20">
+  <div className="container-custom">
+    <div className="grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
+          Turn NPAs Into Cash—<span className="text-[#F59E0B]">Fast & Legally</span>
+        </h1>
+        <p className="text-xl mb-8 text-gray-300">
+          Trusted recovery partner for Banks, NBFCs & ARCs
+        </p>
+        
+        <div className="flex flex-wrap gap-6 mb-8">
+          <div className="flex items-center gap-2">
+            <CheckCircle className="text-[#F59E0B]" />
+            <span className="text-white font-semibold">
+              <AnimatedCounter end={1000} suffix="+ Cr" /> Transactions
+            </span>
+          </div>
+          <div className="flex items-center gap-2">
+            <CheckCircle className="text-[#F59E0B]" />
+            <span className="text-white font-semibold">
+              <AnimatedCounter end={25} suffix="+ Years" /> Experience
+            </span>
+          </div>
+          <div className="flex items-center gap-2">
+            <CheckCircle className="text-[#F59E0B]" />
+            <span className="text-white font-semibold">SARFAESI | NCLT | DRT Experts</span>
           </div>
         </div>
-      </section>
+      </div>
+      
+      {/* Image Collage Section - Proper Overlap between Top and Bottom Rows */}
+      <div className="hidden md:block relative h-[550px] w-full">
+        {/* Top-Left Frame - overlaps bottom-left */}
+        <div className="absolute top-20 left-0 z-30 w-[300px] transform -rotate-6 hover:scale-105 transition-transform duration-300 shadow-2xl rounded-xl overflow-hidden">
+          <img 
+            src="src/images/home-1.jpeg" 
+            alt="Industrial Manufacturing" 
+            className="w-full h-[200px] object-cover"
+          />
+        </div>
+        
+        {/* Top-Right Frame - overlaps bottom-right */}
+        <div className="absolute top-20 right-0 z-30 w-[300px] transform rotate-3 hover:scale-105 transition-transform duration-300 shadow-2xl rounded-xl overflow-hidden">
+          <img 
+            src="src\images\home-2.jpeg"
+            alt="Sugar Mill Property" 
+            className="w-full h-[200px] object-cover"
+          />
+        </div>
+        
+        {/* Bottom-Left Frame - overlapped by top-left, counterclockwise rotation */}
+        <div className="absolute bottom-20 left-0 z-20 w-[300px] transform -rotate-3 hover:scale-105 transition-transform duration-300 shadow-2xl rounded-xl overflow-hidden">
+          <img 
+            src="src/images/home-3.jpeg" 
+            alt="Land Parcel" 
+            className="w-full h-[200px] object-cover"
+          />
+        </div>
+        
+        {/* Bottom-Right Frame - overlapped by top-right, clockwise rotation */}
+        <div className="absolute bottom-20 right-0 z-20 w-[300px] transform rotate-2 hover:scale-105 transition-transform duration-300 shadow-2xl rounded-xl overflow-hidden">
+          <img 
+            src="src/images/home-4.jpeg" 
+            alt="Battery Facility" 
+            className="w-full h-[200px] object-cover"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* Problems We Solve Section */}
       <section className="py-20 bg-white">
