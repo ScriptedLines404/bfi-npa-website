@@ -1,4 +1,4 @@
-/* src/components/Navbar.jsx */
+/* src/components/Navbar.jsx - Deep Navy + Amber Color Scheme */
 import React, { useState, useEffect } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
@@ -10,26 +10,10 @@ const Navbar = () => {
   const [textColor, setTextColor] = useState("#FFFFFF");
   const [activeColor, setActiveColor] = useState("#F59E0B");
 
-  // Define color schemes for each page
+  // Define color schemes for each page (keeping Deep Navy + Amber theme)
   const getColorScheme = (path) => {
-    switch (path) {
-      case "/":
-        return { bg: "#0A2540", text: "#FFFFFF", active: "#F59E0B" };
-      case "/about":
-        return { bg: "#3E2723", text: "#F5E6D3", active: "#A16207" };
-      case "/services":
-        return { bg: "#052E16", text: "#FFFFFF", active: "#166534" };
-      case "/track-record":
-        return { bg: "#020617", text: "#E0E7FF", active: "#FBBF24" };
-      case "/legal-mechanisms":
-        return { bg: "#020617", text: "#E0E7FF", active: "#FBBF24" };
-      case "/resolution-mechanisms":
-        return { bg: "#052E16", text: "#FFFFFF", active: "#166534" };
-      case "/contact":
-        return { bg: "#3E2723", text: "#F5E6D3", active: "#A16207" };
-      default:
-        return { bg: "#0A2540", text: "#FFFFFF", active: "#F59E0B" };
-    }
+    // All pages now use Deep Navy + Amber theme
+    return { bg: "#0A2540", text: "#FFFFFF", active: "#F59E0B" };
   };
 
   useEffect(() => {
@@ -65,7 +49,7 @@ const Navbar = () => {
             <img 
               src="/src/images/BFI-NPA_Logo-1.png" 
               alt="BFI-NPA" 
-              className="h-12 w-auto object-contain"
+              className="h-12 w-auto object-contain brightness-0 invert"
               onError={(e) => {
                 e.target.onerror = null;
                 e.target.src = "https://via.placeholder.com/120x40/0A2540/F59E0B?text=BFI-NPA";
@@ -83,7 +67,7 @@ const Navbar = () => {
                 style={{ color: textColor }}
                 className={({ isActive }) =>
                   `transition-colors text-sm ${
-                    isActive ? "font-semibold" : "hover:opacity-80"
+                    isActive ? "font-semibold" : "hover:text-[#F59E0B]"
                   }`
                 }
                 activeStyle={{ color: activeColor }}
@@ -117,7 +101,7 @@ const Navbar = () => {
                 style={{ color: textColor }}
                 className={({ isActive }) =>
                   `block transition-colors py-2 ${
-                    isActive ? "font-semibold" : "hover:opacity-80"
+                    isActive ? "font-semibold" : "hover:text-[#F59E0B]"
                   }`
                 }
                 activeStyle={{ color: activeColor }}

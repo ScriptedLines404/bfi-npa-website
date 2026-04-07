@@ -1,4 +1,4 @@
-/* src/components/Footer.jsx */
+/* src/components/Footer.jsx - Deep Navy + Amber Color Scheme */
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Phone, Mail, MapPin } from "lucide-react";
@@ -10,26 +10,10 @@ const Footer = () => {
   const [textColor, setTextColor] = useState("#9CA3AF");
   const [headingColor, setHeadingColor] = useState("#FFFFFF");
 
-  // Define color schemes for each page
+  // Define color schemes for each page (keeping Deep Navy + Amber theme)
   const getColorScheme = (path) => {
-    switch (path) {
-      case "/":
-        return { bg: "#0A2540", text: "#9CA3AF", heading: "#FFFFFF" };
-      case "/about":
-        return { bg: "#3E2723", text: "#BFA084", heading: "#F5E6D3" };
-      case "/services":
-        return { bg: "#052E16", text: "#86EFAC", heading: "#FFFFFF" };
-      case "/track-record":
-        return { bg: "#020617", text: "#94A3B8", heading: "#E0E7FF" };
-      case "/legal-mechanisms":
-        return { bg: "#020617", text: "#94A3B8", heading: "#E0E7FF" };
-      case "/resolution-mechanisms":
-        return { bg: "#052E16", text: "#86EFAC", heading: "#FFFFFF" };
-      case "/contact":
-        return { bg: "#3E2723", text: "#BFA084", heading: "#F5E6D3" };
-      default:
-        return { bg: "#0A2540", text: "#9CA3AF", heading: "#FFFFFF" };
-    }
+    // All pages now use Deep Navy + Amber theme
+    return { bg: "#0A2540", text: "#9CA3AF", heading: "#FFFFFF" };
   };
 
   useEffect(() => {
@@ -97,7 +81,7 @@ const Footer = () => {
               <img 
                 src="/src/images/BFI-NPA_Logo-1.png" 
                 alt="BFI-NPA" 
-                className="h-12 w-auto object-contain"
+                className="h-12 w-auto object-contain brightness-0 invert"
                 onError={(e) => {
                   e.target.onerror = null;
                   e.target.style.display = 'none';
@@ -119,7 +103,7 @@ const Footer = () => {
                 <li key={item.name}>
                   <button 
                     onClick={() => handleNavigation(item.path)}
-                    className="text-sm cursor-pointer transition-colors hover:opacity-80"
+                    className="text-sm cursor-pointer transition-colors hover:text-[#F59E0B]"
                     style={{ color: textColor }}
                   >
                     {item.name}
@@ -137,7 +121,7 @@ const Footer = () => {
                 <li key={service}>
                   <button 
                     onClick={() => handleServiceNavigation(service)}
-                    className="text-sm cursor-pointer text-left transition-colors hover:opacity-80"
+                    className="text-sm cursor-pointer text-left transition-colors hover:text-[#F59E0B]"
                     style={{ color: textColor }}
                   >
                     {service}
@@ -152,15 +136,15 @@ const Footer = () => {
             <h3 className="text-xl font-bold mb-4" style={{ color: headingColor }}>Contact</h3>
             <ul className="space-y-3">
               <li className="flex items-center gap-2 text-sm" style={{ color: textColor }}>
-                <Phone size={16} className="flex-shrink-0" style={{ color: headingColor }} /> 
+                <Phone size={16} className="flex-shrink-0 text-[#F59E0B]" /> 
                 <span>+91 94440 35070</span>
               </li>
               <li className="flex items-center gap-2 text-sm" style={{ color: textColor }}>
-                <Mail size={16} className="flex-shrink-0" style={{ color: headingColor }} /> 
+                <Mail size={16} className="flex-shrink-0 text-[#F59E0B]" /> 
                 <span>bfirspl@gmail.com</span>
               </li>
               <li className="flex items-center gap-2 text-sm" style={{ color: textColor }}>
-                <MapPin size={16} className="flex-shrink-0" style={{ color: headingColor }} /> 
+                <MapPin size={16} className="flex-shrink-0 text-[#F59E0B]" /> 
                 <span>Chennai, Tamil Nadu</span>
               </li>
             </ul>

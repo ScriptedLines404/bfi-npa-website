@@ -1,4 +1,4 @@
-/* src/pages/ResolutionMechanisms.jsx - Vibrant Green with Updated Colors */
+/* src/pages/ResolutionMechanisms.jsx - Deep Navy + Amber Color Scheme (Matching About Page) */
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { 
@@ -299,40 +299,40 @@ const ResolutionMechanisms = () => {
 
   return (
     <div className="animate-fade-in">
-      {/* Hero Section */}
-      <AnimatedSection direction="up" threshold={0.3}>
-        <div className="relative bg-[#2dc865] text-[#052E16] py-20 overflow-hidden">
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-0 left-0 w-64 h-64 bg-[#1a7a3e] rounded-full blur-3xl"></div>
-            <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#1a7a3e] rounded-full blur-3xl"></div>
-          </div>
-          <div className="container-custom relative z-10">
+      {/* Hero Section - Deep Navy like About page */}
+      <div className="relative bg-[#0A2540] text-white py-20 overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 left-0 w-64 h-64 bg-[#F59E0B] rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#F59E0B] rounded-full blur-3xl"></div>
+        </div>
+        <div className="container-custom relative z-10">
+          <AnimatedSection direction="up" threshold={0.3}>
             <div className="max-w-4xl mx-auto text-center">
-              <div className="inline-flex items-center gap-2 bg-[#1a7a3e]/10 px-4 py-2 rounded-full mb-6">
-                <Target className="w-4 h-4 text-[#1a7a3e]" />
-                <span className="text-sm font-semibold text-[#1a7a3e]">Resolution Strategies</span>
+              <div className="inline-flex items-center gap-2 bg-[#F59E0B]/10 px-4 py-2 rounded-full mb-6">
+                <Target className="w-4 h-4 text-[#F59E0B]" />
+                <span className="text-sm font-semibold text-[#F59E0B]">Resolution Strategies</span>
               </div>
-              <h1 className="text-5xl md:text-6xl font-bold mb-6 text-[#052E16]">
+              <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white">
                 Resolution Mechanisms
               </h1>
-              <p className="text-xl max-w-3xl mx-auto text-[#14532D] leading-relaxed">
+              <p className="text-xl max-w-3xl mx-auto text-gray-300 leading-relaxed">
                 Resolution of stressed assets can be achieved through recovery, legal enforcement, asset sale, 
                 insolvency proceedings, or restructuring—depending on the nature and stage of the account.
               </p>
-              <div className="w-24 h-1 bg-[#1a7a3e] rounded-full mx-auto mt-6"></div>
+              <div className="w-24 h-1 bg-[#F59E0B] rounded-full mx-auto mt-6"></div>
             </div>
-          </div>
+          </AnimatedSection>
         </div>
-      </AnimatedSection>
+      </div>
 
       {/* Main Content with Sidebar and Viewport */}
-      <section className="py-16 bg-[#b3ffce]">
+      <section className="py-16 bg-[#FFF3E4]">
         <div className="container-custom">
           <div className="flex flex-col lg:flex-row gap-8">
             {/* Left Sidebar - Fixed */}
             <div className="lg:w-1/3 xl:w-1/4">
-              <AnimatedCard delay={100} direction="right" className="bg-[#2dc865] rounded-xl p-4 sticky top-24">
-                <h3 className="font-bold text-lg mb-4 px-3 text-[#052E16]">Resolution Types</h3>
+              <AnimatedCard delay={100} direction="right" className="bg-white rounded-xl p-4 sticky top-24 shadow-md">
+                <h3 className="font-bold text-lg mb-4 px-3 text-[#0A2540]">Resolution Types</h3>
                 <div className="space-y-1">
                   {resolutionTypes.map((resolution, idx) => (
                     <button
@@ -340,8 +340,8 @@ const ResolutionMechanisms = () => {
                       onClick={() => handleResolutionClick(idx)}
                       className={`w-full text-left px-4 py-3 rounded-lg transition-all flex items-center gap-3 ${
                         activeResolution === idx 
-                          ? "bg-[#1a7a3e] text-white shadow-md" 
-                          : "hover:bg-[#1a7a3e]/10 text-[#14532D]"
+                          ? "bg-[#F59E0B] text-white shadow-md" 
+                          : "hover:bg-[#F59E0B]/10 text-gray-700"
                       }`}
                     >
                       <resolution.icon size={20} />
@@ -360,7 +360,7 @@ const ResolutionMechanisms = () => {
               <AnimatedCard delay={200} direction="left">
                 <div 
                   ref={viewportRef}
-                  className="relative overflow-hidden rounded-2xl shadow-xl bg-[#2dc865]"
+                  className="relative overflow-hidden rounded-2xl shadow-xl bg-white border border-gray-100"
                   style={{ height: `${viewportHeight}px` }}
                 >
                   <div
@@ -385,29 +385,29 @@ const ResolutionMechanisms = () => {
                                 className: `w-8 h-8 md:w-10 md:h-10 ${resolution.iconColor}` 
                               })}
                             </div>
-                            <h2 className="text-xl md:text-2xl font-bold text-[#052E16]">
+                            <h2 className="text-xl md:text-2xl font-bold text-[#0A2540]">
                               {resolution.title}
                             </h2>
                           </div>
                           
-                          <p className="text-[#1a7a3e] font-semibold text-base md:text-lg mb-3">
+                          <p className="text-[#F59E0B] font-semibold text-base md:text-lg mb-3">
                             Definition
                           </p>
-                          <p className="text-[#14532D] text-sm md:text-base mb-6">
+                          <p className="text-gray-600 text-sm md:text-base mb-6">
                             {resolution.definition}
                           </p>
                           
-                          <p className="text-[#14532D] mb-6 leading-relaxed text-sm md:text-base">
+                          <p className="text-gray-600 mb-6 leading-relaxed text-sm md:text-base">
                             {resolution.longDescription}
                           </p>
                           
                           <div className="mb-6">
-                            <h3 className="font-bold text-lg md:text-xl mb-3 text-[#052E16]">Methods:</h3>
+                            <h3 className="font-bold text-lg md:text-xl mb-3 text-[#0A2540]">Methods:</h3>
                             <ul className="space-y-2">
                               {resolution.methods.map((method, midx) => (
                                 <li key={midx} className="flex items-center gap-2">
-                                  <CheckCircle className="text-[#1a7a3e] flex-shrink-0" size={16} />
-                                  <span className="text-[#14532D] text-sm md:text-base">{method}</span>
+                                  <CheckCircle className="text-[#F59E0B] flex-shrink-0" size={16} />
+                                  <span className="text-gray-600 text-sm md:text-base">{method}</span>
                                 </li>
                               ))}
                             </ul>
@@ -415,19 +415,19 @@ const ResolutionMechanisms = () => {
 
                           {resolution.framework && (
                             <div className="mb-6">
-                              <h3 className="font-bold text-lg md:text-xl mb-3 text-[#052E16]">Key Framework:</h3>
-                              <p className="text-[#14532D] text-sm md:text-base">{resolution.framework}</p>
+                              <h3 className="font-bold text-lg md:text-xl mb-3 text-[#0A2540]">Key Framework:</h3>
+                              <p className="text-gray-600 text-sm md:text-base">{resolution.framework}</p>
                             </div>
                           )}
 
                           {resolution.platforms && (
                             <div className="mb-6">
-                              <h3 className="font-bold text-lg md:text-xl mb-3 text-[#052E16]">Platforms:</h3>
+                              <h3 className="font-bold text-lg md:text-xl mb-3 text-[#0A2540]">Platforms:</h3>
                               <ul className="space-y-2">
                                 {resolution.platforms.map((platform, pidx) => (
                                   <li key={pidx} className="flex items-center gap-2">
-                                    <ArrowRight className="text-[#1a7a3e] flex-shrink-0" size={16} />
-                                    <span className="text-[#14532D] text-sm md:text-base">{platform}</span>
+                                    <ArrowRight className="text-[#F59E0B] flex-shrink-0" size={16} />
+                                    <span className="text-gray-600 text-sm md:text-base">{platform}</span>
                                   </li>
                                 ))}
                               </ul>
@@ -436,12 +436,12 @@ const ResolutionMechanisms = () => {
 
                           {resolution.approaches && (
                             <div className="mb-6">
-                              <h3 className="font-bold text-lg md:text-xl mb-3 text-[#052E16]">Resolution Approaches:</h3>
+                              <h3 className="font-bold text-lg md:text-xl mb-3 text-[#0A2540]">Resolution Approaches:</h3>
                               <ul className="space-y-2">
                                 {resolution.approaches.map((approach, aidx) => (
                                   <li key={aidx} className="flex items-center gap-2">
-                                    <CheckCircle className="text-[#1a7a3e] flex-shrink-0" size={16} />
-                                    <span className="text-[#14532D] text-sm md:text-base">{approach}</span>
+                                    <CheckCircle className="text-[#F59E0B] flex-shrink-0" size={16} />
+                                    <span className="text-gray-600 text-sm md:text-base">{approach}</span>
                                   </li>
                                 ))}
                               </ul>
@@ -449,28 +449,28 @@ const ResolutionMechanisms = () => {
                           )}
 
                           {resolution.valueDelivered && (
-                            <div className="mb-6 bg-[#1a7a3e]/10 rounded-lg p-4">
-                              <h3 className="font-bold text-lg md:text-xl mb-3 text-[#1a7a3e]">Value Delivered:</h3>
+                            <div className="mb-6 bg-[#FFF3E4] rounded-lg p-4">
+                              <h3 className="font-bold text-lg md:text-xl mb-3 text-[#F59E0B]">Value Delivered:</h3>
                               <ul className="space-y-2">
                                 {resolution.valueDelivered.map((value, vidx) => (
                                   <li key={vidx} className="flex items-center gap-2">
-                                    <Award className="text-[#1a7a3e] flex-shrink-0" size={16} />
-                                    <span className="text-[#14532D] text-sm md:text-base">{value}</span>
+                                    <Award className="text-[#F59E0B] flex-shrink-0" size={16} />
+                                    <span className="text-gray-600 text-sm md:text-base">{value}</span>
                                   </li>
                                 ))}
                               </ul>
                             </div>
                           )}
 
-                          <div className="mt-6 pt-4 border-t border-[#1a7a3e]/30">
+                          <div className="mt-6 pt-4 border-t border-gray-100">
                             <div className="grid md:grid-cols-2 gap-4">
-                              <div className="bg-[#b3ffce] rounded-lg p-3">
-                                <p className="font-semibold text-[#052E16] text-sm">Best For:</p>
-                                <p className="text-[#14532D] text-xs md:text-sm">{resolution.bestFor}</p>
+                              <div className="bg-[#FFF3E4] rounded-lg p-3">
+                                <p className="font-semibold text-[#0A2540] text-sm">Best For:</p>
+                                <p className="text-gray-600 text-xs md:text-sm">{resolution.bestFor}</p>
                               </div>
-                              <div className="bg-[#b3ffce] rounded-lg p-3">
-                                <p className="font-semibold text-[#052E16] text-sm">Typical Timeline:</p>
-                                <p className="text-[#14532D] text-xs md:text-sm">{resolution.timeline}</p>
+                              <div className="bg-[#FFF3E4] rounded-lg p-3">
+                                <p className="font-semibold text-[#0A2540] text-sm">Typical Timeline:</p>
+                                <p className="text-gray-600 text-xs md:text-sm">{resolution.timeline}</p>
                               </div>
                             </div>
                           </div>
@@ -481,10 +481,10 @@ const ResolutionMechanisms = () => {
 
                   {/* Scroll Indicator - Top */}
                   {activeResolution > 0 && (
-                    <div className="absolute top-0 left-0 right-0 h-8 bg-gradient-to-b from-[#b3ffce] to-transparent pointer-events-none z-10">
+                    <div className="absolute top-0 left-0 right-0 h-8 bg-gradient-to-b from-[#FFF3E4] to-transparent pointer-events-none z-10">
                       <div className="flex justify-center items-center h-full">
-                        <div className="w-6 h-6 md:w-8 md:h-8 bg-white/80 rounded-full flex items-center justify-center shadow-md">
-                          <svg className="w-3 h-3 md:w-4 md:h-4 text-[#1a7a3e]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div className="w-6 h-6 md:w-8 md:h-8 bg-[#F59E0B]/10 rounded-full flex items-center justify-center shadow-md">
+                          <svg className="w-3 h-3 md:w-4 md:h-4 text-[#F59E0B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
                           </svg>
                         </div>
@@ -494,10 +494,10 @@ const ResolutionMechanisms = () => {
 
                   {/* Scroll Indicator - Bottom */}
                   {activeResolution < resolutionTypes.length - 1 && (
-                    <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-[#b3ffce] to-transparent pointer-events-none z-10">
+                    <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-[#FFF3E4] to-transparent pointer-events-none z-10">
                       <div className="flex justify-center items-center h-full">
-                        <div className="w-6 h-6 md:w-8 md:h-8 bg-white/80 rounded-full flex items-center justify-center shadow-md">
-                          <svg className="w-3 h-3 md:w-4 md:h-4 text-[#1a7a3e]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div className="w-6 h-6 md:w-8 md:h-8 bg-[#F59E0B]/10 rounded-full flex items-center justify-center shadow-md">
+                          <svg className="w-3 h-3 md:w-4 md:h-4 text-[#F59E0B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                           </svg>
                         </div>
@@ -512,22 +512,22 @@ const ResolutionMechanisms = () => {
       </section>
 
       {/* Resolution Types Comparison Table */}
-      <section className="py-16 bg-[#2dc865]">
+      <section className="py-16 bg-white">
         <div className="container-custom">
           <AnimatedSection direction="up" threshold={0.3}>
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-[#052E16] mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-[#0A2540] mb-4">
                 Resolution Types Comparison
               </h2>
-              <p className="text-xl text-[#14532D] max-w-3xl mx-auto">
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
                 Compare different resolution approaches to find the right fit
               </p>
-              <div className="w-24 h-1 bg-[#1a7a3e] rounded-full mx-auto mt-4"></div>
+              <div className="w-24 h-1 bg-[#F59E0B] rounded-full mx-auto mt-4"></div>
             </div>
             
             <div className="overflow-x-auto">
-              <table className="min-w-full bg-[#b3ffce] rounded-xl shadow-lg overflow-hidden border border-[#1a7a3e]/30">
-                <thead className="bg-[#1a7a3e] text-white">
+              <table className="min-w-full bg-[#FFF3E4] rounded-xl shadow-lg overflow-hidden border border-gray-100">
+                <thead className="bg-[#F59E0B] text-white">
                   <tr>
                     <th className="px-6 py-4 text-left">Resolution Type</th>
                     <th className="px-6 py-4 text-left">Key Features</th>
@@ -535,13 +535,13 @@ const ResolutionMechanisms = () => {
                     <th className="px-6 py-4 text-left">Timeline</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#1a7a3e]/30">
+                <tbody className="divide-y divide-gray-100">
                   {comparisonTable.map((item, idx) => (
-                    <tr key={idx} className="hover:bg-[#2dc865] transition-colors">
-                      <td className="px-6 py-4 font-semibold text-[#052E16]">{item.type}</td>
-                      <td className="px-6 py-4 text-[#14532D]">{item.features}</td>
-                      <td className="px-6 py-4 text-[#14532D]">{item.bestFor}</td>
-                      <td className="px-6 py-4 text-[#14532D]">{item.timeline}</td>
+                    <tr key={idx} className="hover:bg-white transition-colors">
+                      <td className="px-6 py-4 font-semibold text-[#0A2540]">{item.type}</td>
+                      <td className="px-6 py-4 text-gray-600">{item.features}</td>
+                      <td className="px-6 py-4 text-gray-600">{item.bestFor}</td>
+                      <td className="px-6 py-4 text-gray-600">{item.timeline}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -552,26 +552,26 @@ const ResolutionMechanisms = () => {
       </section>
 
       {/* How to Choose Section */}
-      <section className="py-16 bg-[#b3ffce]">
+      <section className="py-16 bg-[#FFF3E4]">
         <div className="container-custom">
           <AnimatedSection direction="up" threshold={0.3}>
             <div className="text-center mb-12">
-              <Target className="w-16 h-16 text-[#1a7a3e] mx-auto mb-4" />
-              <h2 className="text-3xl md:text-4xl font-bold text-[#052E16] mb-4">
+              <Target className="w-16 h-16 text-[#F59E0B] mx-auto mb-4" />
+              <h2 className="text-3xl md:text-4xl font-bold text-[#0A2540] mb-4">
                 How to Choose the Right Resolution Type
               </h2>
-              <p className="text-xl text-[#14532D] max-w-3xl mx-auto">
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
                 Selecting the optimal resolution strategy depends on multiple factors unique to each case
               </p>
-              <div className="w-24 h-1 bg-[#1a7a3e] rounded-full mx-auto mt-4"></div>
+              <div className="w-24 h-1 bg-[#F59E0B] rounded-full mx-auto mt-4"></div>
             </div>
             
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {selectionFactors.map((factor, idx) => (
-                <AnimatedCard key={idx} delay={idx * 100} direction="up" className="bg-[#2dc865] rounded-xl p-6 hover:shadow-lg transition-all border border-[#1a7a3e]/30">
-                  <factor.icon className="w-12 h-12 text-[#1a7a3e] mb-4" />
-                  <h3 className="text-lg font-bold text-[#052E16] mb-2">{factor.title}</h3>
-                  <p className="text-[#14532D] text-sm">{factor.desc}</p>
+                <AnimatedCard key={idx} delay={idx * 100} direction="up" className="bg-white rounded-xl p-6 hover:shadow-lg transition-all border border-gray-100 hover:border-[#F59E0B]">
+                  <factor.icon className="w-12 h-12 text-[#F59E0B] mb-4" />
+                  <h3 className="text-lg font-bold text-[#0A2540] mb-2">{factor.title}</h3>
+                  <p className="text-gray-600 text-sm">{factor.desc}</p>
                 </AnimatedCard>
               ))}
             </div>
@@ -580,14 +580,14 @@ const ResolutionMechanisms = () => {
       </section>
 
       {/* Quick Decision Guide */}
-      <section className="py-16 bg-[#2dc865]">
+      <section className="py-16 bg-white">
         <div className="container-custom">
           <AnimatedSection direction="up" threshold={0.3}>
-            <div className="bg-[#1a7a3e] rounded-2xl p-8 text-white">
+            <div className="bg-[#0A2540] rounded-2xl p-8 text-white">
               <h2 className="text-3xl font-bold mb-6 text-center">Quick Decision Guide</h2>
               <div className="grid md:grid-cols-2 gap-4">
                 {quickGuide.map((guide, idx) => (
-                  <AnimatedCard key={idx} delay={idx * 100} direction="up" className="flex items-center justify-between p-4 bg-[#052E16]/50 rounded-lg hover:bg-[#052E16] transition-all">
+                  <AnimatedCard key={idx} delay={idx * 100} direction="up" className="flex items-center justify-between p-4 bg-[#F59E0B]/10 rounded-lg hover:bg-[#F59E0B]/20 transition-all">
                     <span className="font-semibold text-sm md:text-base">{guide.condition}</span>
                     <span className={`px-2 py-1 md:px-3 md:py-1 rounded-full text-xs md:text-sm font-semibold ${guide.color}`}>
                       {guide.resolution}
@@ -601,18 +601,18 @@ const ResolutionMechanisms = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-[#b3ffce]">
+      <section className="py-20 bg-[#FFF3E4]">
         <div className="container-custom text-center">
           <AnimatedSection direction="up" threshold={0.3}>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#052E16] mb-6">Need Expert Resolution Strategy?</h2>
-            <p className="text-xl mb-8 max-w-3xl mx-auto text-[#14532D]">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#0A2540] mb-6">Need Expert Resolution Strategy?</h2>
+            <p className="text-xl mb-8 max-w-2xl mx-auto text-gray-600">
               Our team of experts will analyze your stressed assets and recommend the optimal resolution framework
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
-              <Link to="/contact" className="bg-[#1a7a3e] text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-[#0f5a2c] transition-all duration-300">
+              <Link to="/contact" className="bg-[#F59E0B] text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-[#D97706] transition-all duration-300">
                 Get Free Consultation
               </Link>
-              <Link to="/services" className="border-2 border-[#1a7a3e] text-[#1a7a3e] font-semibold py-3 px-8 rounded-lg hover:bg-[#1a7a3e] hover:text-white transition-all duration-300">
+              <Link to="/services" className="border-2 border-[#F59E0B] text-[#F59E0B] font-semibold py-3 px-8 rounded-lg hover:bg-[#F59E0B] hover:text-white transition-all duration-300">
                 Explore Our Services
               </Link>
             </div>
