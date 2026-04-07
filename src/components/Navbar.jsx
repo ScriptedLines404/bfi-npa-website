@@ -39,15 +39,17 @@ const Navbar = () => {
     setActiveColor(scheme.active);
   }, [location.pathname]);
 
-  const navLinks = [
-    { name: "Home", path: "/" },
-    { name: "About", path: "/about" },
-    { name: "Services", path: "/services" },
-    { name: "Track Record", path: "/track-record" },
-    { name: "Legal Mechanisms for NPAs", path: "/legal-mechanisms" },
-    { name: "Resolution Mechanisms", path: "/resolution-mechanisms" },
-    { name: "Contact", path: "/contact" },
-  ];
+  // Add to navLinks array
+const navLinks = [
+  { name: "Home", path: "/" },
+  { name: "About", path: "/about" },
+  { name: "Services", path: "/services" },
+  { name: "Track Record", path: "/track-record" },
+  { name: "Auction Properties", path: "/auction-properties" },  // Add this line
+  { name: "Legal Mechanisms for NPAs", path: "/legal-mechanisms" },
+  { name: "Resolution Mechanisms", path: "/resolution-mechanisms" },
+  { name: "Contact", path: "/contact" },
+];
 
   return (
     <nav 

@@ -12,6 +12,7 @@ import Contact from "./pages/Contact";
 import Footer from "./components/Footer";
 import FloatingWhatsApp from "./components/FloatingWhatsApp";
 import StickyCTA from "./components/StickyCTA";
+import AuctionProperties from "./pages/AuctionProperties";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/track-record" element={<TrackRecord />} />
           <Route path="/legal-mechanisms" element={<LegalMechanisms />} />
           <Route path="/resolution-mechanisms" element={<ResolutionMechanisms />} />
+          <Route path="/auction-properties" element={<AuctionProperties />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
         <Footer />
