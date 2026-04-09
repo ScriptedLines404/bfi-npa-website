@@ -1,55 +1,28 @@
-/* src/components/Navbar.jsx */
-import React, { useState, useEffect } from "react";
+/* src/components/Navbar.jsx - Consistent Navy + Amber Color Scheme */
+import React, { useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-  const [navbarColor, setNavbarColor] = useState("#0A2540");
-  const [textColor, setTextColor] = useState("#FFFFFF");
-  const [activeColor, setActiveColor] = useState("#F59E0B");
 
-  // Define color schemes for each page
-  const getColorScheme = (path) => {
-    switch (path) {
-      case "/":
-        return { bg: "#0A2540", text: "#FFFFFF", active: "#F59E0B" };
-      case "/about":
-        return { bg: "#3E2723", text: "#F5E6D3", active: "#A16207" };
-      case "/services":
-        return { bg: "#052E16", text: "#FFFFFF", active: "#166534" };
-      case "/track-record":
-        return { bg: "#020617", text: "#E0E7FF", active: "#FBBF24" };
-      case "/legal-mechanisms":
-        return { bg: "#020617", text: "#E0E7FF", active: "#FBBF24" };
-      case "/resolution-mechanisms":
-        return { bg: "#052E16", text: "#FFFFFF", active: "#166534" };
-      case "/contact":
-        return { bg: "#3E2723", text: "#F5E6D3", active: "#A16207" };
-      default:
-        return { bg: "#0A2540", text: "#FFFFFF", active: "#F59E0B" };
-    }
-  };
+  // Consistent color scheme matching Home page
+  const navbarColor = "#0A2540"; // Navy Blue
+  const textColor = "#FFFFFF"; // White
+  const activeColor = "#F59E0B"; // Amber
+  const hoverColor = "#F59E0B"; // Amber on hover
 
-  useEffect(() => {
-    const scheme = getColorScheme(location.pathname);
-    setNavbarColor(scheme.bg);
-    setTextColor(scheme.text);
-    setActiveColor(scheme.active);
-  }, [location.pathname]);
-
-  // Add to navLinks array
-const navLinks = [
-  { name: "Home", path: "/" },
-  { name: "About", path: "/about" },
-  { name: "Services", path: "/services" },
-  { name: "Track Record", path: "/track-record" },
-  { name: "Auction Properties", path: "/auction-properties" },  // Add this line
-  { name: "Legal Mechanisms for NPAs", path: "/legal-mechanisms" },
-  { name: "Resolution Mechanisms", path: "/resolution-mechanisms" },
-  { name: "Contact", path: "/contact" },
-];
+  const navLinks = [
+    { name: "Home", path: "/" },
+    { name: "About", path: "/about" },
+    { name: "Services", path: "/services" },
+    { name: "Track Record", path: "/track-record" },
+    { name: "Auction Properties", path: "/auction-properties" },
+    { name: "Legal Mechanisms for NPAs", path: "/legal-mechanisms" },
+    { name: "Resolution Mechanisms", path: "/resolution-mechanisms" },
+    { name: "Contact", path: "/contact" },
+  ];
 
   return (
     <nav 
@@ -67,7 +40,7 @@ const navLinks = [
             <img 
               src="/src/images/BFI-NPA_Logo-1.png" 
               alt="BFI-NPA" 
-              className="h-12 w-auto object-contain"
+              className="h-12 w-auto object-contain brightness-0 invert"
               onError={(e) => {
                 e.target.onerror = null;
                 e.target.src = "https://via.placeholder.com/120x40/0A2540/F59E0B?text=BFI-NPA";
@@ -85,7 +58,7 @@ const navLinks = [
                 style={{ color: textColor }}
                 className={({ isActive }) =>
                   `transition-colors text-sm ${
-                    isActive ? "font-semibold" : "hover:opacity-80"
+                    isActive ? "font-semibold" : "hover:text-[#F59E0B]"
                   }`
                 }
                 activeStyle={{ color: activeColor }}
@@ -119,7 +92,7 @@ const navLinks = [
                 style={{ color: textColor }}
                 className={({ isActive }) =>
                   `block transition-colors py-2 ${
-                    isActive ? "font-semibold" : "hover:opacity-80"
+                    isActive ? "font-semibold" : "hover:text-[#F59E0B]"
                   }`
                 }
                 activeStyle={{ color: activeColor }}

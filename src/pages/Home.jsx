@@ -376,13 +376,13 @@ const Home = () => {
               Have NPAs to Resolve? Let's Fix It.
             </h2>
             <p className="text-xl mb-8 text-gray-600 max-w-2xl mx-auto">
-              Get in touch with our experts today for a free consultation
+              Get in touch with our experts today for a consultation
             </p>
             <button 
               onClick={handleNavigateToContact}
               className="bg-[#F59E0B] text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-[#D97706] transition-all duration-300 transform hover:scale-105 inline-block text-lg"
             >
-              Get Free Consultation
+              Get Consultation
             </button>
           </AnimatedSection>
         </div>

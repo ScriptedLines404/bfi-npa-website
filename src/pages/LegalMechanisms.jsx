@@ -1,4 +1,4 @@
-/* src/pages/LegalMechanisms.jsx - Deep Blue + Gold with Quasi-Judicial Bodies */
+/* src/pages/LegalMechanisms.jsx - Navy + Amber with Full-Screen Hero & Unified Scroll */
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { 
@@ -9,12 +9,13 @@ import {
   TrendingUp, Clock, Target, Sparkles,
   BarChart, Globe, ShieldCheck
 } from "lucide-react";
+import SectionTitle from "../components/SectionTitle";
 import AnimatedCard from "../components/AnimatedCard";
 import AnimatedSection from "../components/AnimatedSection";
 
 const LegalMechanisms = () => {
   const location = useLocation();
-  const [activeFramework, setActiveFramework] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const containerRef = useRef(null);
   const viewportRef = useRef(null);
@@ -22,9 +23,12 @@ const LegalMechanisms = () => {
   const wheelDeltaRef = useRef(0);
   const contentScrollRefs = useRef([]);
 
-  const legalFrameworks = [
+  // Combined content array - Legal Frameworks + Quasi-Judicial Bodies
+  const allContent = [
+    // Legal Frameworks
     {
       id: "rddb-act",
+      type: "framework",
       icon: Scale,
       title: "RDDB Act",
       fullName: "Recovery of Debts Due to Banks and Financial Institutions Act, 1993",
@@ -57,11 +61,11 @@ const LegalMechanisms = () => {
       ],
       importance: "Faster than civil courts, specialized recovery system, legal backing for enforcement, structured recovery process",
       color: "bg-blue-50",
-      borderColor: "border-blue-200",
       iconColor: "text-blue-600"
     },
     {
       id: "sarfaesi",
+      type: "framework",
       icon: Gavel,
       title: "SARFAESI",
       fullName: "Securitisation and Reconstruction of Financial Assets and Enforcement of Security Interest Act, 2002",
@@ -88,11 +92,11 @@ const LegalMechanisms = () => {
       importance: "Speeds up recovery, reduces bad loans (NPAs), strengthens banking system, gives lenders strong enforcement power",
       limitations: "Applies only to secured loans, minimum loan threshold applies, borrower can challenge in DRT",
       color: "bg-orange-50",
-      borderColor: "border-orange-200",
       iconColor: "text-orange-600"
     },
     {
       id: "ibc",
+      type: "framework",
       icon: Building,
       title: "IBC",
       fullName: "Insolvency and Bankruptcy Code, 2016",
@@ -129,14 +133,12 @@ const LegalMechanisms = () => {
       example: "A company defaults on ₹200 Cr loan. Case filed under IBC. NCLT admits case. Investor submits resolution plan. Company is taken over for ₹120 Cr.",
       importance: "Time-bound process (180–330 days), improves recovery rates, prevents value erosion, encourages serious bidders/investors",
       color: "bg-red-50",
-      borderColor: "border-red-200",
       iconColor: "text-red-600"
-    }
-  ];
-
-  // Quasi-Judicial Bodies Data
-  const judicialBodies = [
+    },
+    // Quasi-Judicial Bodies
     {
+      id: "drt",
+      type: "judicial",
       name: "DRT",
       fullName: "Debt Recovery Tribunal",
       establishedUnder: "Recovery of Debts and Bankruptcy Act, 1993",
@@ -146,11 +148,15 @@ const LegalMechanisms = () => {
         "Issue 'Recovery Certificates' - final order for recovery officer to seize and sell assets",
         "Handle applications under SARFAESI Act where borrowers challenge bank's possession measures"
       ],
-      process: "Cases are presided over by a 'Presiding Officer' (District Judge rank official). Procedure governed by principles of natural justice rather than strict Code of Civil Procedure (CPC).",
+      processDesc: "Cases are presided over by a 'Presiding Officer' (District Judge rank official). Procedure governed by principles of natural justice rather than strict Code of Civil Procedure (CPC).",
       icon: Scale,
-      color: "from-blue-500 to-blue-600"
+      color: "bg-blue-50",
+      iconColor: "text-blue-600",
+      gradientColor: "from-blue-500 to-blue-600"
     },
     {
+      id: "nclt",
+      type: "judicial",
       name: "NCLT",
       fullName: "National Company Law Tribunal",
       establishedUnder: "Companies Act, 2013 (prominence through IBC, 2016)",
@@ -161,11 +167,15 @@ const LegalMechanisms = () => {
         "Approve 'Resolution Plans'",
         "Handle cases of 'Oppression and Mismanagement' within a company"
       ],
-      process: "Bench-based system consisting of both Judicial Members and Technical Members (experts in finance or law)",
+      processDesc: "Bench-based system consisting of both Judicial Members and Technical Members (experts in finance or law)",
       icon: Building,
-      color: "from-purple-500 to-purple-600"
+      color: "bg-purple-50",
+      iconColor: "text-purple-600",
+      gradientColor: "from-purple-500 to-purple-600"
     },
     {
+      id: "drat",
+      type: "judicial",
       name: "DRAT",
       fullName: "Debt Recovery Appellate Tribunal",
       establishedUnder: "Recovery of Debts and Bankruptcy Act, 1993",
@@ -175,48 +185,11 @@ const LegalMechanisms = () => {
         "Pre-deposit requirement - appellant must deposit significant portion (often 50%) of debt amount before appeal is heard",
         "Prevents frivolous appeals intended only to delay recovery"
       ],
-      process: "Headed by a 'Chairperson' (usually a person who has been a Judge of a High Court). Decisions can only be challenged further in High Court or Supreme Court.",
+      processDesc: "Headed by a 'Chairperson' (usually a person who has been a Judge of a High Court). Decisions can only be challenged further in High Court or Supreme Court.",
       icon: Gavel,
-      color: "from-amber-500 to-amber-600"
-    }
-  ];
-
-  const judicialComparisonTable = [
-    { 
-      feature: "Establishment", 
-      drt: "Recovery of Debts and Bankruptcy Act, 1993", 
-      nclt: "Companies Act, 2013 / IBC, 2016", 
-      drat: "Recovery of Debts and Bankruptcy Act, 1993" 
-    },
-    { 
-      feature: "Jurisdiction", 
-      drt: "Debt recovery (₹20 Lakhs+ threshold)", 
-      nclt: "Corporate insolvency & company matters", 
-      drat: "Appeals against DRT orders" 
-    },
-    { 
-      feature: "Presiding Authority", 
-      drt: "Presiding Officer (District Judge rank)", 
-      nclt: "Judicial + Technical Members (Benches)", 
-      drat: "Chairperson (High Court Judge rank)" 
-    },
-    { 
-      feature: "Key Power", 
-      drt: "Issue Recovery Certificates", 
-      nclt: "Approve Resolution Plans / Liquidation", 
-      drat: "Pre-deposit requirement (50% of debt)" 
-    },
-    { 
-      feature: "Appeal Body", 
-      drt: "DRAT", 
-      nclt: "NCLAT (National Company Law Appellate Tribunal)", 
-      drat: "High Court / Supreme Court" 
-    },
-    { 
-      feature: "Primary Focus", 
-      drt: "Debt recovery for banks & FIs", 
-      nclt: "Corporate revival or liquidation", 
-      drat: "Judicial review of DRT orders" 
+      color: "bg-amber-50",
+      iconColor: "text-amber-600",
+      gradientColor: "from-amber-500 to-amber-600"
     }
   ];
 
@@ -236,34 +209,34 @@ const LegalMechanisms = () => {
   };
 
   useEffect(() => {
-    const targetFramework = sessionStorage.getItem('targetFramework');
-    if (targetFramework) {
-      sessionStorage.removeItem('targetFramework');
-      const frameworkIndex = legalFrameworks.findIndex(f => f.id === targetFramework);
-      if (frameworkIndex !== -1) {
-        setActiveFramework(frameworkIndex);
+    const targetItem = sessionStorage.getItem('targetLegalItem');
+    if (targetItem) {
+      sessionStorage.removeItem('targetLegalItem');
+      const itemIndex = allContent.findIndex(item => item.id === targetItem);
+      if (itemIndex !== -1) {
+        setActiveIndex(itemIndex);
         if (containerRef.current) {
-          containerRef.current.style.transform = `translateY(-${frameworkIndex * viewportHeight}px)`;
+          containerRef.current.style.transform = `translateY(-${itemIndex * viewportHeight}px)`;
         }
       }
     }
-  }, [legalFrameworks]);
+  }, [allContent]);
 
   useEffect(() => {
     if (containerRef.current && !isTransitioning) {
-      containerRef.current.style.transform = `translateY(-${activeFramework * viewportHeight}px)`;
+      containerRef.current.style.transform = `translateY(-${activeIndex * viewportHeight}px)`;
     }
-  }, [activeFramework, viewportHeight, isTransitioning]);
+  }, [activeIndex, viewportHeight, isTransitioning]);
 
   const handleWheel = useCallback((e) => {
     if (isTransitioning) return;
 
-    const currentContent = contentScrollRefs.current[activeFramework];
+    const currentContent = contentScrollRefs.current[activeIndex];
     const direction = e.deltaY > 0 ? 'down' : 'up';
     
     if (currentContent) {
-      const isAtTop = isContentAtTop(activeFramework);
-      const isAtBottom = isContentAtBottom(activeFramework);
+      const isAtTop = isContentAtTop(activeIndex);
+      const isAtBottom = isContentAtBottom(activeIndex);
       
       if (direction === 'down' && !isAtBottom) {
         return;
@@ -287,21 +260,21 @@ const LegalMechanisms = () => {
       const navigateDirection = wheelDeltaRef.current > 0 ? 'down' : 'up';
       wheelDeltaRef.current = 0;
       
-      if (navigateDirection === 'up' && activeFramework === 0) {
+      if (navigateDirection === 'up' && activeIndex === 0) {
         window.scrollBy({ top: -pageScrollAmount, behavior: 'smooth' });
         return;
       }
       
-      if (navigateDirection === 'down' && activeFramework === legalFrameworks.length - 1) {
+      if (navigateDirection === 'down' && activeIndex === allContent.length - 1) {
         window.scrollBy({ top: pageScrollAmount, behavior: 'smooth' });
         return;
       }
       
-      const newIndex = navigateDirection === 'down' ? activeFramework + 1 : activeFramework - 1;
+      const newIndex = navigateDirection === 'down' ? activeIndex + 1 : activeIndex - 1;
       
-      if (newIndex >= 0 && newIndex < legalFrameworks.length) {
+      if (newIndex >= 0 && newIndex < allContent.length) {
         setIsTransitioning(true);
-        setActiveFramework(newIndex);
+        setActiveIndex(newIndex);
         
         if (containerRef.current) {
           containerRef.current.style.transform = `translateY(-${newIndex * viewportHeight}px)`;
@@ -319,13 +292,13 @@ const LegalMechanisms = () => {
     scrollTimeoutRef.current = setTimeout(() => {
       wheelDeltaRef.current = 0;
     }, 150);
-  }, [isTransitioning, activeFramework, legalFrameworks.length, viewportHeight, pageScrollAmount]);
+  }, [isTransitioning, activeIndex, allContent.length, viewportHeight, pageScrollAmount]);
 
-  const handleFrameworkClick = (index) => {
-    if (index === activeFramework || isTransitioning) return;
+  const handleItemClick = (index) => {
+    if (index === activeIndex || isTransitioning) return;
     
     setIsTransitioning(true);
-    setActiveFramework(index);
+    setActiveIndex(index);
     
     if (containerRef.current) {
       containerRef.current.style.transform = `translateY(-${index * viewportHeight}px)`;
@@ -357,150 +330,67 @@ const LegalMechanisms = () => {
     { feature: "Use Case", ibc: "Large corporate insolvency", sarfaesi: "Secured loans", rdbb: "Disputed/unsecured cases" }
   ];
 
+  const judicialComparisonTable = [
+    { feature: "Establishment", drt: "Recovery of Debts and Bankruptcy Act, 1993", nclt: "Companies Act, 2013 / IBC, 2016", drat: "Recovery of Debts and Bankruptcy Act, 1993" },
+    { feature: "Jurisdiction", drt: "Debt recovery (₹20 Lakhs+ threshold)", nclt: "Corporate insolvency & company matters", drat: "Appeals against DRT orders" },
+    { feature: "Presiding Authority", drt: "Presiding Officer (District Judge rank)", nclt: "Judicial + Technical Members (Benches)", drat: "Chairperson (High Court Judge rank)" },
+    { feature: "Key Power", drt: "Issue Recovery Certificates", nclt: "Approve Resolution Plans / Liquidation", drat: "Pre-deposit requirement (50% of debt)" },
+    { feature: "Appeal Body", drt: "DRAT", nclt: "NCLAT (National Company Law Appellate Tribunal)", drat: "High Court / Supreme Court" },
+    { feature: "Primary Focus", drt: "Debt recovery for banks & FIs", nclt: "Corporate revival or liquidation", drat: "Judicial review of DRT orders" }
+  ];
+
   return (
     <div className="animate-fade-in">
-      {/* Hero Section */}
-      <AnimatedSection direction="up" threshold={0.3}>
-        <div className="relative bg-[#020617] text-[#E0E7FF] py-20 overflow-hidden">
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-0 left-0 w-64 h-64 bg-[#FBBF24] rounded-full blur-3xl"></div>
-            <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#FBBF24] rounded-full blur-3xl"></div>
-          </div>
-          <div className="container-custom relative z-10">
+      {/* Hero Section - Full Screen Navy Blue */}
+      <div className="relative bg-[#0A2540] text-white min-h-screen flex items-center justify-center py-12 overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 left-0 w-64 h-64 bg-[#F59E0B] rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#F59E0B] rounded-full blur-3xl"></div>
+        </div>
+        <div className="container-custom relative z-10">
+          <AnimatedSection direction="up" threshold={0.3}>
             <div className="max-w-4xl mx-auto text-center">
-              <div className="inline-flex items-center gap-2 bg-[#FBBF24]/10 px-4 py-2 rounded-full mb-6">
-                <BookOpen className="w-4 h-4 text-[#FBBF24]" />
-                <span className="text-sm font-semibold text-[#FBBF24]">Legal Frameworks</span>
+              <div className="inline-flex items-center gap-2 bg-[#F59E0B]/10 px-4 py-2 rounded-full mb-6">
+                <BookOpen className="w-4 h-4 text-[#F59E0B]" />
+                <span className="text-sm font-semibold text-[#F59E0B]">Legal Frameworks & Tribunals</span>
               </div>
-              <h1 className="text-5xl md:text-6xl font-bold mb-6 text-[#E0E7FF]">
+              <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white">
                 Legal Mechanisms for NPAs
               </h1>
-              <p className="text-xl max-w-3xl mx-auto text-[#94A3B8] leading-relaxed">
-                Comprehensive legal frameworks enabling effective recovery and resolution of stressed assets through 
-                specialized tribunals, enforcement mechanisms, and insolvency proceedings.
+              <p className="text-xl max-w-3xl mx-auto text-gray-300 leading-relaxed">
+                Comprehensive legal frameworks and quasi-judicial bodies enabling effective recovery and 
+                resolution of stressed assets through specialized tribunals, enforcement mechanisms, and insolvency proceedings.
               </p>
-              <div className="w-24 h-1 bg-[#FBBF24] rounded-full mx-auto mt-6"></div>
-            </div>
-          </div>
-        </div>
-      </AnimatedSection>
-
-      {/* Quasi-Judicial Bodies Section */}
-      <section className="py-16 bg-[#0B1A3A]">
-        <div className="container-custom">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 bg-[#FBBF24]/10 px-4 py-2 rounded-full mb-4">
-              <ShieldCheck className="w-4 h-4 text-[#FBBF24]" />
-              <span className="text-sm font-semibold text-[#FBBF24]">Judicial Bodies</span>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#FBBF24] mb-4">
-              Quasi-Judicial Bodies for Debt Recovery
-            </h2>
-            <p className="text-xl text-[#94A3B8] max-w-3xl mx-auto">
-              Specialized tribunals established for expeditious resolution of debt recovery and insolvency matters
-            </p>
-            <div className="w-24 h-1 bg-[#FBBF24] rounded-full mx-auto mt-4"></div>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6 mb-12">
-            {judicialBodies.map((body, idx) => (
-              <AnimatedCard key={idx} delay={idx * 100} direction="up" className="bg-[#020617] rounded-xl overflow-hidden border border-[#1E293B] hover:border-[#FBBF24] transition-all duration-300">
-                <div className={`bg-gradient-to-r ${body.color} p-4`}>
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
-                      <body.icon className="w-6 h-6 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-white">{body.name}</h3>
-                      <p className="text-white/80 text-sm">{body.fullName}</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="p-6">
-                  <div className="mb-4">
-                    <p className="text-[#FBBF24] font-semibold text-sm mb-1">Established Under</p>
-                    <p className="text-[#94A3B8] text-sm">{body.establishedUnder}</p>
-                  </div>
-                  <div className="mb-4">
-                    <p className="text-[#FBBF24] font-semibold text-sm mb-1">Jurisdiction</p>
-                    <p className="text-[#94A3B8] text-sm">{body.jurisdiction}</p>
-                  </div>
-                  <div className="mb-4">
-                    <p className="text-[#FBBF24] font-semibold text-sm mb-1">Primary Objective</p>
-                    <p className="text-[#94A3B8] text-sm">{body.primaryObjective}</p>
-                  </div>
-                  <div className="mb-4">
-                    <p className="text-[#FBBF24] font-semibold text-sm mb-1">Key Powers</p>
-                    <ul className="list-disc list-inside text-[#94A3B8] text-sm space-y-1">
-                      {body.keyPowers.map((power, pidx) => (
-                        <li key={pidx}>{power}</li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div>
-                    <p className="text-[#FBBF24] font-semibold text-sm mb-1">Process / Composition</p>
-                    <p className="text-[#94A3B8] text-sm">{body.process}</p>
-                  </div>
-                </div>
-              </AnimatedCard>
-            ))}
-          </div>
-
-          {/* Judicial Bodies Comparison Table */}
-          <AnimatedSection direction="up" threshold={0.3}>
-            <div className="bg-[#020617] rounded-xl border border-[#1E293B] overflow-hidden">
-              <div className="bg-[#FBBF24] px-6 py-4">
-                <h3 className="text-xl font-bold text-[#020617]">Comparison of Quasi-Judicial Bodies</h3>
-              </div>
-              <div className="overflow-x-auto">
-                <table className="min-w-full">
-                  <thead className="bg-[#0B1A3A]">
-                    <tr>
-                      <th className="px-6 py-4 text-left text-[#FBBF24] font-semibold">Feature</th>
-                      <th className="px-6 py-4 text-left text-[#FBBF24] font-semibold">DRT</th>
-                      <th className="px-6 py-4 text-left text-[#FBBF24] font-semibold">NCLT</th>
-                      <th className="px-6 py-4 text-left text-[#FBBF24] font-semibold">DRAT</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-[#1E293B]">
-                    {judicialComparisonTable.map((row, idx) => (
-                      <tr key={idx} className="hover:bg-[#0B1A3A] transition-colors">
-                        <td className="px-6 py-4 font-semibold text-[#E0E7FF]">{row.feature}</td>
-                        <td className="px-6 py-4 text-[#94A3B8] text-sm">{row.drt}</td>
-                        <td className="px-6 py-4 text-[#94A3B8] text-sm">{row.nclt}</td>
-                        <td className="px-6 py-4 text-[#94A3B8] text-sm">{row.drat}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+              <div className="w-24 h-1 bg-[#F59E0B] rounded-full mx-auto mt-8"></div>
             </div>
           </AnimatedSection>
         </div>
-      </section>
+      </div>
 
       {/* Main Content with Sidebar and Viewport */}
-      <section className="py-16 bg-[#0B1A3A]">
+      <section className="py-16 bg-[#F3F4F6]">
         <div className="container-custom">
           <div className="flex flex-col lg:flex-row gap-8">
-            {/* Left Sidebar - Fixed */}
+            {/* Left Sidebar - All Items */}
             <div className="lg:w-1/3 xl:w-1/4">
-              <AnimatedCard delay={100} direction="right" className="bg-[#020617] rounded-xl p-4 sticky top-24 border border-[#1E293B]">
-                <h3 className="font-bold text-lg mb-4 px-3 text-[#FBBF24]">Legal Frameworks</h3>
+              <AnimatedCard delay={100} direction="right" className="bg-white rounded-xl p-4 sticky top-24 shadow-md border border-gray-100">
+                <h3 className="font-bold text-lg mb-4 px-3 text-[#0A2540] border-b border-gray-200 pb-2">
+                  Legal Frameworks & Tribunals
+                </h3>
                 <div className="space-y-1">
-                  {legalFrameworks.map((framework, idx) => (
+                  {allContent.map((item, idx) => (
                     <button
                       key={idx}
-                      onClick={() => handleFrameworkClick(idx)}
+                      onClick={() => handleItemClick(idx)}
                       className={`w-full text-left px-4 py-3 rounded-lg transition-all flex items-center gap-3 ${
-                        activeFramework === idx 
-                          ? "bg-[#FBBF24] text-[#020617] shadow-md" 
-                          : "hover:bg-[#FBBF24]/10 text-[#94A3B8]"
+                        activeIndex === idx 
+                          ? "bg-[#F59E0B] text-white shadow-md" 
+                          : "hover:bg-[#F59E0B]/10 text-gray-700"
                       }`}
                     >
-                      <framework.icon size={20} />
-                      <span className="text-sm font-medium">{framework.title}</span>
-                      {activeFramework === idx && (
+                      <item.icon size={20} />
+                      <span className="text-sm font-medium">{item.type === "framework" ? item.title : item.name}</span>
+                      {activeIndex === idx && (
                         <ArrowRight size={16} className="ml-auto" />
                       )}
                     </button>
@@ -509,23 +399,23 @@ const LegalMechanisms = () => {
               </AnimatedCard>
             </div>
 
-            {/* Right Side - Viewport Container */}
+            {/* Right Side - Viewport Container with Continuous Scroll */}
             <div className="lg:w-2/3 xl:w-3/4">
               <AnimatedCard delay={200} direction="left">
                 <div 
                   ref={viewportRef}
-                  className="relative overflow-hidden rounded-2xl shadow-xl bg-[#020617] border border-[#1E293B]"
+                  className="relative overflow-hidden rounded-2xl shadow-xl bg-white border border-gray-100"
                   style={{ height: `${viewportHeight}px` }}
                 >
                   <div
                     ref={containerRef}
                     className="absolute top-0 left-0 w-full transition-transform duration-500 ease-out"
                     style={{ 
-                      transform: `translateY(-${activeFramework * viewportHeight}px)`,
+                      transform: `translateY(-${activeIndex * viewportHeight}px)`,
                       transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)'
                     }}
                   >
-                    {legalFrameworks.map((framework, idx) => (
+                    {allContent.map((item, idx) => (
                       <div
                         key={idx}
                         className="w-full overflow-y-auto hide-scrollbar"
@@ -533,222 +423,253 @@ const LegalMechanisms = () => {
                         ref={el => contentScrollRefs.current[idx] = el}
                       >
                         <div className="p-6 md:p-8">
-                          <div className="flex items-center gap-4 mb-6">
-                            <div className={`p-3 ${framework.color} rounded-lg`}>
-                              {React.createElement(framework.icon, { 
-                                className: `w-8 h-8 md:w-10 md:h-10 ${framework.iconColor}` 
-                              })}
-                            </div>
-                            <div>
-                              <h2 className="text-xl md:text-2xl font-bold text-[#E0E7FF]">
-                                {framework.title}
-                              </h2>
-                              <p className="text-xs md:text-sm text-[#94A3B8] mt-1">{framework.fullName}</p>
-                            </div>
-                          </div>
-                          
-                          {/* Definition */}
-                          <div className="mb-6">
-                            <p className="text-[#FBBF24] font-semibold text-base md:text-lg mb-2">What is {framework.title}?</p>
-                            <p className="text-[#94A3B8] text-sm md:text-base leading-relaxed">{framework.definition}</p>
-                          </div>
-
-                          {/* Simple Explanation */}
-                          <div className="mb-6 bg-[#0B1A3A] rounded-lg p-4 border border-[#1E293B]">
-                            <p className="font-bold text-[#E0E7FF] mb-2 flex items-center gap-2 text-sm md:text-base">
-                              <BookOpen size={18} /> Simple Explanation
-                            </p>
-                            <p className="text-[#94A3B8] text-sm md:text-base">{framework.simpleExplanation}</p>
-                          </div>
-
-                          {/* Key Features for SARFAESI */}
-                          {framework.keyFeatures && (
-                            <div className="mb-6">
-                              <h3 className="font-bold text-lg md:text-xl mb-3 text-[#E0E7FF]">Key Features:</h3>
-                              <ul className="space-y-2">
-                                {framework.keyFeatures.map((feature, fidx) => (
-                                  <li key={fidx} className="flex items-center gap-2">
-                                    <CheckCircle className="text-[#FBBF24] flex-shrink-0" size={16} />
-                                    <span className="text-[#94A3B8] text-sm md:text-base">{feature}</span>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          )}
-
-                          {/* Key Feature for RDDB */}
-                          {framework.keyFeature && (
-                            <div className="mb-6">
-                              <h3 className="font-bold text-lg md:text-xl mb-3 text-[#E0E7FF]">Key Feature:</h3>
-                              <p className="text-[#94A3B8] text-sm md:text-base">{framework.keyFeature}</p>
-                            </div>
-                          )}
-
-                          {/* Main Objective for IBC */}
-                          {framework.mainObjective && (
-                            <div className="mb-6">
-                              <h3 className="font-bold text-lg md:text-xl mb-3 text-[#E0E7FF]">Main Objective:</h3>
-                              <ul className="space-y-2">
-                                {framework.mainObjective.map((objective, oidx) => (
-                                  <li key={oidx} className="flex items-center gap-2">
-                                    <Target className="text-[#FBBF24] flex-shrink-0" size={16} />
-                                    <span className="text-[#94A3B8] text-sm md:text-base">{objective}</span>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          )}
-
-                          {/* Who Can Use */}
-                          <div className="mb-6">
-                            <h3 className="font-bold text-lg md:text-xl mb-3 text-[#E0E7FF] flex items-center gap-2">
-                              <Users size={20} /> Who Can Use {framework.title}?
-                            </h3>
-                            <ul className="space-y-2">
-                              {framework.whoCanUse.map((user, uidx) => (
-                                <li key={uidx} className="flex items-center gap-2">
-                                  <CheckCircle className="text-[#FBBF24] flex-shrink-0" size={16} />
-                                  <span className="text-[#94A3B8] text-sm md:text-base">{user}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-
-                          {/* How it Works */}
-                          <div className="mb-6">
-                            <h3 className="font-bold text-lg md:text-xl mb-3 text-[#E0E7FF] flex items-center gap-2">
-                              <Zap size={20} /> How {framework.title} Works
-                            </h3>
-                            <div className="space-y-3">
-                              {framework.process.map((step, sidx) => (
-                                <div key={sidx} className="flex items-start gap-3">
-                                  <div className="bg-[#FBBF24] text-[#020617] rounded-full w-5 h-5 md:w-6 md:h-6 flex items-center justify-center font-bold text-xs md:text-sm flex-shrink-0 mt-0.5">
-                                    {sidx + 1}
-                                  </div>
-                                  <span className="text-[#94A3B8] text-sm md:text-base">{step}</span>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-
-                          {/* Types of Actions (RDDB) */}
-                          {framework.actions && (
-                            <div className="mb-6">
-                              <h3 className="font-bold text-lg md:text-xl mb-3 text-[#E0E7FF]">Types of Actions Under {framework.title}:</h3>
-                              <ul className="space-y-2">
-                                {framework.actions.map((action, aidx) => (
-                                  <li key={aidx} className="flex items-center gap-2">
-                                    <ArrowRight className="text-[#FBBF24] flex-shrink-0" size={16} />
-                                    <span className="text-[#94A3B8] text-sm md:text-base">{action}</span>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          )}
-
-                          {/* Example for SARFAESI or IBC */}
-                          {framework.example && (
-                            <div className="mb-6 bg-[#0B1A3A] rounded-lg p-4 border border-[#1E293B]">
-                              <h3 className="font-bold text-[#E0E7FF] mb-2 flex items-center gap-2 text-sm md:text-base">
-                                <Landmark size={18} /> Example
-                              </h3>
-                              <p className="text-[#94A3B8] text-sm md:text-base">{framework.example}</p>
-                            </div>
-                          )}
-
-                          {/* Authorities Involved (SARFAESI) */}
-                          {framework.authorities && (
-                            <div className="mb-6">
-                              <h3 className="font-bold text-lg md:text-xl mb-3 text-[#E0E7FF]">Important Authorities Involved:</h3>
-                              <ul className="space-y-2">
-                                {framework.authorities.map((authority, aidx) => (
-                                  <li key={aidx} className="flex items-center gap-2">
-                                    <Shield className="text-[#FBBF24] flex-shrink-0" size={16} />
-                                    <span className="text-[#94A3B8] text-sm md:text-base">{authority}</span>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          )}
-
-                          {/* Participants for IBC */}
-                          {framework.participants && (
-                            <div className="mb-6">
-                              <h3 className="font-bold text-lg md:text-xl mb-3 text-[#E0E7FF]">Key Participants in {framework.title}:</h3>
-                              <ul className="space-y-2">
-                                {framework.participants.map((participant, pidx) => (
-                                  <li key={pidx} className="flex items-center gap-2">
-                                    <Users className="text-[#FBBF24] flex-shrink-0" size={16} />
-                                    <span className="text-[#94A3B8] text-sm md:text-base">{participant}</span>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          )}
-
-                          {/* Resolution Types for IBC */}
-                          {framework.resolutionTypes && (
-                            <div className="mb-6">
-                              <h3 className="font-bold text-lg md:text-xl mb-3 text-[#E0E7FF]">Types of Resolution Under {framework.title}:</h3>
-                              <ul className="space-y-2">
-                                {framework.resolutionTypes.map((type, tidx) => (
-                                  <li key={tidx} className="flex items-center gap-2">
-                                    <TrendingUp className="text-[#FBBF24] flex-shrink-0" size={16} />
-                                    <span className="text-[#94A3B8] text-sm md:text-base">{type}</span>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          )}
-
-                          {/* When Used for RDDB */}
-                          {framework.whenUsed && (
-                            <div className="mb-6">
-                              <h3 className="font-bold text-lg md:text-xl mb-3 text-[#E0E7FF]">When is {framework.title} Used?</h3>
-                              <ul className="space-y-2">
-                                {framework.whenUsed.map((use, uidx) => (
-                                  <li key={uidx} className="flex items-center gap-2">
-                                    <Clock className="text-[#FBBF24] flex-shrink-0" size={16} />
-                                    <span className="text-[#94A3B8] text-sm md:text-base">{use}</span>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          )}
-
-                          {/* VS Comparison for RDDB */}
-                          {framework.vsSARFAESI && (
-                            <div className="mb-6 bg-[#0B1A3A] rounded-lg p-4 border border-[#1E293B]">
-                              <h3 className="font-bold text-[#E0E7FF] mb-3">RDDB vs SARFAESI (Quick Difference):</h3>
-                              <div className="grid grid-cols-2 gap-4">
-                                <div>
-                                  <p className="font-semibold text-[#E0E7FF] text-sm">RDDB Act:</p>
-                                  <p className="text-[#94A3B8] text-xs md:text-sm">{framework.vsSARFAESI.rdbb}</p>
+                          {item.type === "framework" ? (
+                            // Legal Framework Content
+                            <>
+                              <div className="flex items-center gap-4 mb-6">
+                                <div className={`p-3 ${item.color} rounded-lg`}>
+                                  {React.createElement(item.icon, { 
+                                    className: `w-8 h-8 md:w-10 md:h-10 ${item.iconColor}` 
+                                  })}
                                 </div>
                                 <div>
-                                  <p className="font-semibold text-[#E0E7FF] text-sm">SARFAESI:</p>
-                                  <p className="text-[#94A3B8] text-xs md:text-sm">{framework.vsSARFAESI.sarfaesi}</p>
+                                  <h2 className="text-xl md:text-2xl font-bold text-[#0A2540]">
+                                    {item.title}
+                                  </h2>
+                                  <p className="text-xs md:text-sm text-gray-500 mt-1">{item.fullName}</p>
                                 </div>
                               </div>
-                            </div>
-                          )}
+                              
+                              <div className="mb-6">
+                                <p className="text-[#F59E0B] font-semibold text-base md:text-lg mb-2">What is {item.title}?</p>
+                                <p className="text-gray-600 text-sm md:text-base leading-relaxed">{item.definition}</p>
+                              </div>
 
-                          {/* Importance */}
-                          <div className="mb-6 bg-[#0B1A3A] rounded-lg p-4 border border-[#1E293B]">
-                            <h3 className="font-bold text-lg md:text-xl mb-2 text-[#FBBF24] flex items-center gap-2">
-                              <Award size={20} /> Why {framework.title} is Important
-                            </h3>
-                            <p className="text-[#94A3B8] text-sm md:text-base">{framework.importance}</p>
-                          </div>
+                              <div className="mb-6 bg-[#F3F4F6] rounded-lg p-4">
+                                <p className="font-bold text-[#0A2540] mb-2 flex items-center gap-2 text-sm md:text-base">
+                                  <BookOpen size={18} /> Simple Explanation
+                                </p>
+                                <p className="text-gray-600 text-sm md:text-base">{item.simpleExplanation}</p>
+                              </div>
 
-                          {/* Limitations for SARFAESI */}
-                          {framework.limitations && (
-                            <div className="bg-[#0B1A3A] rounded-lg p-4 border border-[#1E293B]">
-                              <h3 className="font-bold text-lg md:text-xl mb-2 text-[#FBBF24] flex items-center gap-2">
-                                <AlertCircle size={20} /> Limitations
-                              </h3>
-                              <p className="text-[#94A3B8] text-sm md:text-base">{framework.limitations}</p>
-                            </div>
+                              {item.keyFeatures && (
+                                <div className="mb-6">
+                                  <h3 className="font-bold text-lg md:text-xl mb-3 text-[#0A2540]">Key Features:</h3>
+                                  <ul className="space-y-2">
+                                    {item.keyFeatures.map((feature, fidx) => (
+                                      <li key={fidx} className="flex items-center gap-2">
+                                        <CheckCircle className="text-[#F59E0B] flex-shrink-0" size={16} />
+                                        <span className="text-gray-600 text-sm md:text-base">{feature}</span>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              )}
+
+                              {item.keyFeature && (
+                                <div className="mb-6">
+                                  <h3 className="font-bold text-lg md:text-xl mb-3 text-[#0A2540]">Key Feature:</h3>
+                                  <p className="text-gray-600 text-sm md:text-base">{item.keyFeature}</p>
+                                </div>
+                              )}
+
+                              {item.mainObjective && (
+                                <div className="mb-6">
+                                  <h3 className="font-bold text-lg md:text-xl mb-3 text-[#0A2540]">Main Objective:</h3>
+                                  <ul className="space-y-2">
+                                    {item.mainObjective.map((objective, oidx) => (
+                                      <li key={oidx} className="flex items-center gap-2">
+                                        <Target className="text-[#F59E0B] flex-shrink-0" size={16} />
+                                        <span className="text-gray-600 text-sm md:text-base">{objective}</span>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              )}
+
+                              <div className="mb-6">
+                                <h3 className="font-bold text-lg md:text-xl mb-3 text-[#0A2540] flex items-center gap-2">
+                                  <Users size={20} /> Who Can Use {item.title}?
+                                </h3>
+                                <ul className="space-y-2">
+                                  {item.whoCanUse.map((user, uidx) => (
+                                    <li key={uidx} className="flex items-center gap-2">
+                                      <CheckCircle className="text-[#F59E0B] flex-shrink-0" size={16} />
+                                      <span className="text-gray-600 text-sm md:text-base">{user}</span>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+
+                              <div className="mb-6">
+                                <h3 className="font-bold text-lg md:text-xl mb-3 text-[#0A2540] flex items-center gap-2">
+                                  <Zap size={20} /> How {item.title} Works
+                                </h3>
+                                <div className="space-y-3">
+                                  {item.process.map((step, sidx) => (
+                                    <div key={sidx} className="flex items-start gap-3">
+                                      <div className="bg-[#F59E0B] text-white rounded-full w-5 h-5 md:w-6 md:h-6 flex items-center justify-center font-bold text-xs md:text-sm flex-shrink-0 mt-0.5">
+                                        {sidx + 1}
+                                      </div>
+                                      <span className="text-gray-600 text-sm md:text-base">{step}</span>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+
+                              {item.actions && (
+                                <div className="mb-6">
+                                  <h3 className="font-bold text-lg md:text-xl mb-3 text-[#0A2540]">Types of Actions Under {item.title}:</h3>
+                                  <ul className="space-y-2">
+                                    {item.actions.map((action, aidx) => (
+                                      <li key={aidx} className="flex items-center gap-2">
+                                        <ArrowRight className="text-[#F59E0B] flex-shrink-0" size={16} />
+                                        <span className="text-gray-600 text-sm md:text-base">{action}</span>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              )}
+
+                              {item.example && (
+                                <div className="mb-6 bg-[#F3F4F6] rounded-lg p-4">
+                                  <h3 className="font-bold text-[#0A2540] mb-2 flex items-center gap-2 text-sm md:text-base">
+                                    <Landmark size={18} /> Example
+                                  </h3>
+                                  <p className="text-gray-600 text-sm md:text-base">{item.example}</p>
+                                </div>
+                              )}
+
+                              {item.authorities && (
+                                <div className="mb-6">
+                                  <h3 className="font-bold text-lg md:text-xl mb-3 text-[#0A2540]">Important Authorities Involved:</h3>
+                                  <ul className="space-y-2">
+                                    {item.authorities.map((authority, aidx) => (
+                                      <li key={aidx} className="flex items-center gap-2">
+                                        <Shield className="text-[#F59E0B] flex-shrink-0" size={16} />
+                                        <span className="text-gray-600 text-sm md:text-base">{authority}</span>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              )}
+
+                              {item.participants && (
+                                <div className="mb-6">
+                                  <h3 className="font-bold text-lg md:text-xl mb-3 text-[#0A2540]">Key Participants in {item.title}:</h3>
+                                  <ul className="space-y-2">
+                                    {item.participants.map((participant, pidx) => (
+                                      <li key={pidx} className="flex items-center gap-2">
+                                        <Users className="text-[#F59E0B] flex-shrink-0" size={16} />
+                                        <span className="text-gray-600 text-sm md:text-base">{participant}</span>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              )}
+
+                              {item.resolutionTypes && (
+                                <div className="mb-6">
+                                  <h3 className="font-bold text-lg md:text-xl mb-3 text-[#0A2540]">Types of Resolution Under {item.title}:</h3>
+                                  <ul className="space-y-2">
+                                    {item.resolutionTypes.map((type, tidx) => (
+                                      <li key={tidx} className="flex items-center gap-2">
+                                        <TrendingUp className="text-[#F59E0B] flex-shrink-0" size={16} />
+                                        <span className="text-gray-600 text-sm md:text-base">{type}</span>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              )}
+
+                              {item.whenUsed && (
+                                <div className="mb-6">
+                                  <h3 className="font-bold text-lg md:text-xl mb-3 text-[#0A2540]">When is {item.title} Used?</h3>
+                                  <ul className="space-y-2">
+                                    {item.whenUsed.map((use, uidx) => (
+                                      <li key={uidx} className="flex items-center gap-2">
+                                        <Clock className="text-[#F59E0B] flex-shrink-0" size={16} />
+                                        <span className="text-gray-600 text-sm md:text-base">{use}</span>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              )}
+
+                              {item.vsSARFAESI && (
+                                <div className="mb-6 bg-[#F3F4F6] rounded-lg p-4">
+                                  <h3 className="font-bold text-[#0A2540] mb-3">RDDB vs SARFAESI (Quick Difference):</h3>
+                                  <div className="grid grid-cols-2 gap-4">
+                                    <div>
+                                      <p className="font-semibold text-[#0A2540] text-sm">RDDB Act:</p>
+                                      <p className="text-gray-600 text-xs md:text-sm">{item.vsSARFAESI.rdbb}</p>
+                                    </div>
+                                    <div>
+                                      <p className="font-semibold text-[#0A2540] text-sm">SARFAESI:</p>
+                                      <p className="text-gray-600 text-xs md:text-sm">{item.vsSARFAESI.sarfaesi}</p>
+                                    </div>
+                                  </div>
+                                </div>
+                              )}
+
+                              <div className="mb-6 bg-[#F3F4F6] rounded-lg p-4">
+                                <h3 className="font-bold text-lg md:text-xl mb-2 text-[#F59E0B] flex items-center gap-2">
+                                  <Award size={20} /> Why {item.title} is Important
+                                </h3>
+                                <p className="text-gray-600 text-sm md:text-base">{item.importance}</p>
+                              </div>
+
+                              {item.limitations && (
+                                <div className="bg-[#F3F4F6] rounded-lg p-4">
+                                  <h3 className="font-bold text-lg md:text-xl mb-2 text-[#F59E0B] flex items-center gap-2">
+                                    <AlertCircle size={20} /> Limitations
+                                  </h3>
+                                  <p className="text-gray-600 text-sm md:text-base">{item.limitations}</p>
+                                </div>
+                              )}
+                            </>
+                          ) : (
+                            // Quasi-Judicial Body Content
+                            <>
+                              <div className={`bg-gradient-to-r ${item.gradientColor} p-6 rounded-xl mb-6`}>
+                                <div className="flex items-center gap-4">
+                                  <div className="w-16 h-16 bg-white/20 rounded-xl flex items-center justify-center">
+                                    <item.icon className="w-8 h-8 text-white" />
+                                  </div>
+                                  <div>
+                                    <h2 className="text-2xl font-bold text-white">{item.name}</h2>
+                                    <p className="text-white/80">{item.fullName}</p>
+                                  </div>
+                                </div>
+                              </div>
+                              
+                              <div className="space-y-4">
+                                <div>
+                                  <p className="text-[#F59E0B] font-semibold mb-1">Established Under</p>
+                                  <p className="text-gray-600">{item.establishedUnder}</p>
+                                </div>
+                                <div>
+                                  <p className="text-[#F59E0B] font-semibold mb-1">Jurisdiction</p>
+                                  <p className="text-gray-600">{item.jurisdiction}</p>
+                                </div>
+                                <div>
+                                  <p className="text-[#F59E0B] font-semibold mb-1">Primary Objective</p>
+                                  <p className="text-gray-600">{item.primaryObjective}</p>
+                                </div>
+                                <div>
+                                  <p className="text-[#F59E0B] font-semibold mb-1">Key Powers</p>
+                                  <ul className="list-disc list-inside text-gray-600 space-y-1">
+                                    {item.keyPowers.map((power, pidx) => (
+                                      <li key={pidx}>{power}</li>
+                                    ))}
+                                  </ul>
+                                </div>
+                                <div>
+                                  <p className="text-[#F59E0B] font-semibold mb-1">Process / Composition</p>
+                                  <p className="text-gray-600">{item.processDesc}</p>
+                                </div>
+                              </div>
+                            </>
                           )}
                         </div>
                       </div>
@@ -756,11 +677,11 @@ const LegalMechanisms = () => {
                   </div>
 
                   {/* Scroll Indicator - Top */}
-                  {activeFramework > 0 && (
-                    <div className="absolute top-0 left-0 right-0 h-8 bg-gradient-to-b from-[#0B1A3A] to-transparent pointer-events-none z-10">
+                  {activeIndex > 0 && (
+                    <div className="absolute top-0 left-0 right-0 h-8 bg-gradient-to-b from-[#F3F4F6] to-transparent pointer-events-none z-10">
                       <div className="flex justify-center items-center h-full">
-                        <div className="w-6 h-6 md:w-8 md:h-8 bg-[#FBBF24]/20 rounded-full flex items-center justify-center shadow-md">
-                          <svg className="w-3 h-3 md:w-4 md:h-4 text-[#FBBF24]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div className="w-6 h-6 md:w-8 md:h-8 bg-[#F59E0B]/10 rounded-full flex items-center justify-center shadow-md">
+                          <svg className="w-3 h-3 md:w-4 md:h-4 text-[#F59E0B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
                           </svg>
                         </div>
@@ -769,11 +690,11 @@ const LegalMechanisms = () => {
                   )}
 
                   {/* Scroll Indicator - Bottom */}
-                  {activeFramework < legalFrameworks.length - 1 && (
-                    <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-[#0B1A3A] to-transparent pointer-events-none z-10">
+                  {activeIndex < allContent.length - 1 && (
+                    <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-[#F3F4F6] to-transparent pointer-events-none z-10">
                       <div className="flex justify-center items-center h-full">
-                        <div className="w-6 h-6 md:w-8 md:h-8 bg-[#FBBF24]/20 rounded-full flex items-center justify-center shadow-md">
-                          <svg className="w-3 h-3 md:w-4 md:h-4 text-[#FBBF24]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div className="w-6 h-6 md:w-8 md:h-8 bg-[#F59E0B]/10 rounded-full flex items-center justify-center shadow-md">
+                          <svg className="w-3 h-3 md:w-4 md:h-4 text-[#F59E0B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                           </svg>
                         </div>
@@ -787,59 +708,91 @@ const LegalMechanisms = () => {
         </div>
       </section>
 
-      {/* Comparison Table */}
-      <section className="py-16 bg-[#0B1A3A]">
+      {/* Comparison Tables Section */}
+      <section className="py-16 bg-white">
         <div className="container-custom">
-          <AnimatedSection direction="up" threshold={0.3}>
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-[#FBBF24] mb-4">
-                IBC vs SARFAESI vs RDDB
-              </h2>
-              <p className="text-xl text-[#94A3B8] max-w-3xl mx-auto">
-                Quick comparison of the three major legal frameworks for NPA recovery
-              </p>
-              <div className="w-24 h-1 bg-[#FBBF24] rounded-full mx-auto mt-4"></div>
-            </div>
-            
-            <div className="overflow-x-auto">
-              <table className="min-w-full bg-[#020617] rounded-xl shadow-lg overflow-hidden border border-[#1E293B]">
-                <thead className="bg-[#FBBF24] text-[#020617]">
-                  <tr>
-                    <th className="px-6 py-4 text-left">Feature</th>
-                    <th className="px-6 py-4 text-left">IBC</th>
-                    <th className="px-6 py-4 text-left">SARFAESI</th>
-                    <th className="px-6 py-4 text-left">RDDB</th>
+          <SectionTitle 
+            title="IBC vs SARFAESI vs RDDB" 
+            subtitle="Quick comparison of the three major legal frameworks for NPA recovery"
+            titleColor="#0A2540"
+            accentColor="#F59E0B"
+            subtitleColor="#4B5563"
+          />
+          
+          <div className="overflow-x-auto">
+            <table className="min-w-full bg-[#F3F4F6] rounded-xl shadow-lg overflow-hidden border border-gray-100">
+              <thead className="bg-[#F59E0B] text-white">
+                <tr>
+                  <th className="px-6 py-4 text-left">Feature</th>
+                  <th className="px-6 py-4 text-left">IBC</th>
+                  <th className="px-6 py-4 text-left">SARFAESI</th>
+                  <th className="px-6 py-4 text-left">RDDB</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                {comparisonTable.map((row, idx) => (
+                  <tr key={idx} className="hover:bg-white transition-colors">
+                    <td className="px-6 py-4 font-semibold text-[#0A2540]">{row.feature}</td>
+                    <td className="px-6 py-4 text-gray-600">{row.ibc}</td>
+                    <td className="px-6 py-4 text-gray-600">{row.sarfaesi}</td>
+                    <td className="px-6 py-4 text-gray-600">{row.rdbb}</td>
                   </tr>
-                </thead>
-                <tbody className="divide-y divide-[#1E293B]">
-                  {comparisonTable.map((row, idx) => (
-                    <tr key={idx} className="hover:bg-[#0B1A3A] transition-colors">
-                      <td className="px-6 py-4 font-semibold text-[#E0E7FF]">{row.feature}</td>
-                      <td className="px-6 py-4 text-[#94A3B8]">{row.ibc}</td>
-                      <td className="px-6 py-4 text-[#94A3B8]">{row.sarfaesi}</td>
-                      <td className="px-6 py-4 text-[#94A3B8]">{row.rdbb}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </AnimatedSection>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      {/* Judicial Bodies Comparison Table */}
+      <section className="py-16 bg-[#F3F4F6]">
+        <div className="container-custom">
+          <SectionTitle 
+            title="Comparison of Quasi-Judicial Bodies" 
+            subtitle="Understanding the key differences between DRT, NCLT, and DRAT"
+            titleColor="#0A2540"
+            accentColor="#F59E0B"
+            subtitleColor="#4B5563"
+          />
+          
+          <div className="overflow-x-auto">
+            <table className="min-w-full bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
+              <thead className="bg-[#F59E0B] text-white">
+                <tr>
+                  <th className="px-6 py-4 text-left">Feature</th>
+                  <th className="px-6 py-4 text-left">DRT</th>
+                  <th className="px-6 py-4 text-left">NCLT</th>
+                  <th className="px-6 py-4 text-left">DRAT</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                {judicialComparisonTable.map((row, idx) => (
+                  <tr key={idx} className="hover:bg-[#F3F4F6] transition-colors">
+                    <td className="px-6 py-4 font-semibold text-[#0A2540]">{row.feature}</td>
+                    <td className="px-6 py-4 text-gray-600">{row.drt}</td>
+                    <td className="px-6 py-4 text-gray-600">{row.nclt}</td>
+                    <td className="px-6 py-4 text-gray-600">{row.drat}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-[#0B1A3A]">
+      <section className="py-20 bg-white">
         <div className="container-custom text-center">
           <AnimatedSection direction="up" threshold={0.3}>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#FBBF24] mb-6">Need Expert Legal Assistance?</h2>
-            <p className="text-xl mb-8 max-w-3xl mx-auto text-[#94A3B8]">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#0A2540] mb-6">Need Expert Legal Assistance?</h2>
+            <p className="text-xl mb-8 max-w-3xl mx-auto text-gray-600">
               Our legal experts can guide you through the appropriate legal mechanism for your specific case
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
-              <Link to="/contact" className="bg-[#FBBF24] text-[#020617] font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-[#F59E0B] transition-all duration-300">
+              <Link to="/contact" className="bg-[#F59E0B] text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-[#D97706] transition-all duration-300">
                 Get Consultation
               </Link>
-              <Link to="/services" className="border-2 border-[#FBBF24] text-[#FBBF24] font-semibold py-3 px-8 rounded-lg hover:bg-[#FBBF24] hover:text-[#020617] transition-all duration-300">
+              <Link to="/services" className="border-2 border-[#F59E0B] text-[#F59E0B] font-semibold py-3 px-8 rounded-lg hover:bg-[#F59E0B] hover:text-white transition-all duration-300">
                 Explore Our Services
               </Link>
             </div>
