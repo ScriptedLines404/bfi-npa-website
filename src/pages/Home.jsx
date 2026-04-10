@@ -1,4 +1,4 @@
-/* src/pages/Home.jsx - Original Navy + Amber */
+/* src/pages/Home.jsx - Original Navy + Amber with Full-Screen Hero & Professional Grid */
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { 
@@ -71,93 +71,89 @@ const Home = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  // Images for the professional grid
+  const heroImages = [
+    { src: "src/images/home-1.jpeg", alt: "Industrial Manufacturing", label: "Industrial Assets" },
+    { src: "src/images/home-2.jpeg", alt: "Sugar Mill Property", label: "Sugar Mill" },
+    { src: "src/images/home-3.jpeg", alt: "Land Parcel", label: "Land Assets" },
+    { src: "src/images/home-4.jpeg", alt: "Battery Facility", label: "Industrial Facilities" }
+  ];
+
   return (
     <div className="animate-fade-in">
 
-{/* Hero Section */}
-<section className="bg-[#0A2540] py-20">
-  <div className="container-custom">
-    <div className="grid md:grid-cols-2 gap-12 items-center">
-      <div>
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
-          Turn NPAs Into Cash—<span className="text-[#F59E0B]">Fast & Legally</span>
-        </h1>
-        <p className="text-xl mb-8 text-gray-300">
-          Trusted recovery partner for Banks, NBFCs & ARCs
-        </p>
-        
-        <div className="flex flex-wrap gap-6 mb-8">
-          <div className="flex items-center gap-2">
-            <CheckCircle className="text-[#F59E0B]" />
-            <span className="text-white font-semibold">
-              <AnimatedCounter end={1000} suffix="+ Cr" /> Transactions
-            </span>
+      {/* Hero Section - Full Screen with Professional Grid */}
+      <section className="bg-[#0A2540] text-white min-h-screen flex items-center py-12 overflow-hidden">
+        <div className="container-custom">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left Content */}
+            <div>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
+                Turn NPAs Into Cash—<span className="text-[#F59E0B]">Fast & Legally</span>
+              </h1>
+              <p className="text-xl mb-8 text-gray-300">
+                Trusted recovery partner for Banks, NBFCs & ARCs
+              </p>
+              
+              <div className="flex flex-wrap gap-6 mb-8">
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="text-[#F59E0B]" />
+                  <span className="text-white font-semibold">
+                    <AnimatedCounter end={1000} suffix="+ Cr" /> Transactions
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="text-[#F59E0B]" />
+                  <span className="text-white font-semibold">
+                    <AnimatedCounter end={25} suffix="+ Years" /> Experience
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="text-[#F59E0B]" />
+                  <span className="text-white font-semibold">SARFAESI | NCLT | DRT Experts</span>
+                </div>
+              </div>
+            </div>
+            
+            {/* Right Side - Professional 2x2 Grid Layout */}
+            <div className="hidden lg:block">
+              <div className="grid grid-cols-2 gap-4">
+                {heroImages.map((image, idx) => (
+                  <div 
+                    key={idx} 
+                    className="group relative rounded-xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-300 hover:-translate-y-1"
+                  >
+                    <img 
+                      src={image.src} 
+                      alt={image.alt} 
+                      className="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    {/* Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0A2540]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    {/* Label on Hover */}
+                    <div className="absolute bottom-0 left-0 right-0 p-3 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                      <p className="text-white text-sm font-semibold text-center bg-[#F59E0B]/80 py-1 px-2 rounded-full mx-auto w-fit">
+                        {image.label}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
-          <div className="flex items-center gap-2">
-            <CheckCircle className="text-[#F59E0B]" />
-            <span className="text-white font-semibold">
-              <AnimatedCounter end={25} suffix="+ Years" /> Experience
-            </span>
-          </div>
-          <div className="flex items-center gap-2">
-            <CheckCircle className="text-[#F59E0B]" />
-            <span className="text-white font-semibold">SARFAESI | NCLT | DRT Experts</span>
-          </div>
         </div>
-      </div>
-      
-      {/* Image Collage Section - Proper Overlap between Top and Bottom Rows */}
-      <div className="hidden md:block relative h-[550px] w-full">
-        {/* Top-Left Frame - overlaps bottom-left */}
-        <div className="absolute top-20 left-0 z-30 w-[300px] transform -rotate-6 hover:scale-105 transition-transform duration-300 shadow-2xl rounded-xl overflow-hidden">
-          <img 
-            src="src/images/home-1.jpeg" 
-            alt="Industrial Manufacturing" 
-            className="w-full h-[200px] object-cover"
-          />
-        </div>
-        
-        {/* Top-Right Frame - overlaps bottom-right */}
-        <div className="absolute top-20 right-0 z-30 w-[300px] transform rotate-3 hover:scale-105 transition-transform duration-300 shadow-2xl rounded-xl overflow-hidden">
-          <img 
-            src="src\images\home-2.jpeg"
-            alt="Sugar Mill Property" 
-            className="w-full h-[200px] object-cover"
-          />
-        </div>
-        
-        {/* Bottom-Left Frame - overlapped by top-left, counterclockwise rotation */}
-        <div className="absolute bottom-20 left-0 z-20 w-[300px] transform -rotate-3 hover:scale-105 transition-transform duration-300 shadow-2xl rounded-xl overflow-hidden">
-          <img 
-            src="src/images/home-3.jpeg" 
-            alt="Land Parcel" 
-            className="w-full h-[200px] object-cover"
-          />
-        </div>
-        
-        {/* Bottom-Right Frame - overlapped by top-right, clockwise rotation */}
-        <div className="absolute bottom-20 right-0 z-20 w-[300px] transform rotate-2 hover:scale-105 transition-transform duration-300 shadow-2xl rounded-xl overflow-hidden">
-          <img 
-            src="src/images/home-4.jpeg" 
-            alt="Battery Facility" 
-            className="w-full h-[200px] object-cover"
-          />
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+      </section>
 
       {/* Problems We Solve Section */}
       <section className="py-20 bg-white">
         <div className="container-custom">
           <SectionTitle 
-  title="Struggling with NPA Recovery?" 
-  subtitle="We understand the challenges you face in recovering stressed assets"
-  titleColor="#0A2540"
-  accentColor="#F59E0B"
-  subtitleColor="#4B5563"
-/>
+            title="Struggling with NPA Recovery?" 
+            subtitle="We understand the challenges you face in recovering stressed assets"
+            titleColor="#0A2540"
+            accentColor="#F59E0B"
+            subtitleColor="#4B5563"
+          />
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
             {problems.map((problem, idx) => (
@@ -188,6 +184,9 @@ const Home = () => {
           <SectionTitle 
             title="Our Services" 
             subtitle="Comprehensive solutions for all your NPA recovery needs"
+            titleColor="#0A2540"
+            accentColor="#F59E0B"
+            subtitleColor="#4B5563"
           />
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
@@ -218,6 +217,9 @@ const Home = () => {
           <SectionTitle 
             title="How We Work" 
             subtitle="A systematic approach to ensure successful recovery"
+            titleColor="#0A2540"
+            accentColor="#F59E0B"
+            subtitleColor="#4B5563"
           />
           
           {/* Desktop layout */}
@@ -279,6 +281,9 @@ const Home = () => {
           <SectionTitle 
             title="Proven Results That Speak" 
             subtitle="Real success stories from our valued clients"
+            titleColor="#0A2540"
+            accentColor="#F59E0B"
+            subtitleColor="#4B5563"
           />
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
@@ -310,6 +315,9 @@ const Home = () => {
           <SectionTitle 
             title="Institutional Associations" 
             subtitle="Trusted by leading financial institutions across India"
+            titleColor="#0A2540"
+            accentColor="#F59E0B"
+            subtitleColor="#4B5563"
           />
           
           <AnimatedSection direction="up" threshold={0.3}>
@@ -344,6 +352,9 @@ const Home = () => {
           <SectionTitle 
             title="Why Choose BFI-NPA?" 
             subtitle="We combine expertise, ethics, and execution to deliver exceptional results"
+            titleColor="#0A2540"
+            accentColor="#F59E0B"
+            subtitleColor="#4B5563"
           />
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
