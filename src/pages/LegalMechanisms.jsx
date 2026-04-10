@@ -1,4 +1,4 @@
-/* src/pages/LegalMechanisms.jsx - Navy + Amber with Full-Screen Hero & Unified Scroll */
+/* src/pages/LegalMechanisms.jsx - Navy + Amber with Proper Content Organization */
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { 
@@ -23,9 +23,9 @@ const LegalMechanisms = () => {
   const wheelDeltaRef = useRef(0);
   const contentScrollRefs = useRef([]);
 
-  // Combined content array - Legal Frameworks + Quasi-Judicial Bodies
+  // Combined content array - Organized by logical grouping
   const allContent = [
-    // Legal Frameworks
+    // RDDB Act with DRT and DRAT
     {
       id: "rddb-act",
       type: "framework",
@@ -64,12 +64,51 @@ const LegalMechanisms = () => {
       iconColor: "text-blue-600"
     },
     {
+      id: "drt",
+      type: "judicial",
+      parent: "rddb-act",
+      name: "DRT",
+      fullName: "Debt Recovery Tribunal",
+      establishedUnder: "Recovery of Debts and Bankruptcy Act, 1993",
+      jurisdiction: "Handles cases where debt amount is ₹20 Lakhs or more (threshold adjustable by government)",
+      primaryObjective: "To provide expeditious adjudication and recovery of debts due to banks and financial institutions",
+      keyPowers: [
+        "Issue 'Recovery Certificates' - final order for recovery officer to seize and sell assets",
+        "Handle applications under SARFAESI Act where borrowers challenge bank's possession measures"
+      ],
+      processDesc: "Cases are presided over by a 'Presiding Officer' (District Judge rank official). Procedure governed by principles of natural justice rather than strict Code of Civil Procedure (CPC).",
+      icon: Scale,
+      color: "bg-blue-50",
+      iconColor: "text-blue-600",
+      gradientColor: "from-blue-500 to-blue-600"
+    },
+    {
+      id: "drat",
+      type: "judicial",
+      parent: "rddb-act",
+      name: "DRAT",
+      fullName: "Debt Recovery Appellate Tribunal",
+      establishedUnder: "Recovery of Debts and Bankruptcy Act, 1993",
+      jurisdiction: "Appellate Authority for any person/institution aggrieved by an order passed by DRT",
+      primaryObjective: "To hear appeals against DRT orders",
+      keyPowers: [
+        "Pre-deposit requirement - appellant must deposit significant portion (often 50%) of debt amount before appeal is heard",
+        "Prevents frivolous appeals intended only to delay recovery"
+      ],
+      processDesc: "Headed by a 'Chairperson' (usually a person who has been a Judge of a High Court). Decisions can only be challenged further in High Court or Supreme Court.",
+      icon: Gavel,
+      color: "bg-amber-50",
+      iconColor: "text-amber-600",
+      gradientColor: "from-amber-500 to-amber-600"
+    },
+    // SARFAESI Act
+    {
       id: "sarfaesi",
       type: "framework",
       icon: Gavel,
-      title: "SARFAESI",
+      title: "SARFAESI Act",
       fullName: "Securitisation and Reconstruction of Financial Assets and Enforcement of Security Interest Act, 2002",
-      definition: "SARFAESI is a legal mechanism that enables lenders to enforce security interests and recover dues by taking possession and selling secured assets without court intervention.",
+      definition: "The SARFAESI Act is a legal mechanism that enables lenders to enforce security interests and recover dues by taking possession and selling secured assets without court intervention.",
       simpleExplanation: "When a borrower fails to repay a loan and it becomes an NPA, SARFAESI allows the lender to take possession of the secured asset and sell it to recover the loan amount.",
       keyFeatures: [
         "No need for lengthy court procedures",
@@ -94,6 +133,7 @@ const LegalMechanisms = () => {
       color: "bg-orange-50",
       iconColor: "text-orange-600"
     },
+    // IBC with NCLT
     {
       id: "ibc",
       type: "framework",
@@ -135,28 +175,10 @@ const LegalMechanisms = () => {
       color: "bg-red-50",
       iconColor: "text-red-600"
     },
-    // Quasi-Judicial Bodies
-    {
-      id: "drt",
-      type: "judicial",
-      name: "DRT",
-      fullName: "Debt Recovery Tribunal",
-      establishedUnder: "Recovery of Debts and Bankruptcy Act, 1993",
-      jurisdiction: "Handles cases where debt amount is ₹20 Lakhs or more (threshold adjustable by government)",
-      primaryObjective: "To provide expeditious adjudication and recovery of debts due to banks and financial institutions",
-      keyPowers: [
-        "Issue 'Recovery Certificates' - final order for recovery officer to seize and sell assets",
-        "Handle applications under SARFAESI Act where borrowers challenge bank's possession measures"
-      ],
-      processDesc: "Cases are presided over by a 'Presiding Officer' (District Judge rank official). Procedure governed by principles of natural justice rather than strict Code of Civil Procedure (CPC).",
-      icon: Scale,
-      color: "bg-blue-50",
-      iconColor: "text-blue-600",
-      gradientColor: "from-blue-500 to-blue-600"
-    },
     {
       id: "nclt",
       type: "judicial",
+      parent: "ibc",
       name: "NCLT",
       fullName: "National Company Law Tribunal",
       establishedUnder: "Companies Act, 2013 (prominence through IBC, 2016)",
@@ -172,24 +194,6 @@ const LegalMechanisms = () => {
       color: "bg-purple-50",
       iconColor: "text-purple-600",
       gradientColor: "from-purple-500 to-purple-600"
-    },
-    {
-      id: "drat",
-      type: "judicial",
-      name: "DRAT",
-      fullName: "Debt Recovery Appellate Tribunal",
-      establishedUnder: "Recovery of Debts and Bankruptcy Act, 1993",
-      jurisdiction: "Appellate Authority for any person/institution aggrieved by an order passed by DRT",
-      primaryObjective: "To hear appeals against DRT orders",
-      keyPowers: [
-        "Pre-deposit requirement - appellant must deposit significant portion (often 50%) of debt amount before appeal is heard",
-        "Prevents frivolous appeals intended only to delay recovery"
-      ],
-      processDesc: "Headed by a 'Chairperson' (usually a person who has been a Judge of a High Court). Decisions can only be challenged further in High Court or Supreme Court.",
-      icon: Gavel,
-      color: "bg-amber-50",
-      iconColor: "text-amber-600",
-      gradientColor: "from-amber-500 to-amber-600"
     }
   ];
 
@@ -339,6 +343,14 @@ const LegalMechanisms = () => {
     { feature: "Primary Focus", drt: "Debt recovery for banks & FIs", nclt: "Corporate revival or liquidation", drat: "Judicial review of DRT orders" }
   ];
 
+  // Helper to check if an item has a parent (is a child body)
+  const getDisplayTitle = (item) => {
+    if (item.type === "framework") return item.title;
+    if (item.parent === "rddb-act") return `${item.name} (under RDDB Act)`;
+    if (item.parent === "ibc") return `${item.name} (under IBC)`;
+    return item.name;
+  };
+
   return (
     <div className="animate-fade-in">
       {/* Hero Section - Full Screen Navy Blue */}
@@ -371,7 +383,7 @@ const LegalMechanisms = () => {
       <section className="py-16 bg-[#F3F4F6]">
         <div className="container-custom">
           <div className="flex flex-col lg:flex-row gap-8">
-            {/* Left Sidebar - All Items */}
+            {/* Left Sidebar - All Items with Hierarchical Display */}
             <div className="lg:w-1/3 xl:w-1/4">
               <AnimatedCard delay={100} direction="right" className="bg-white rounded-xl p-4 sticky top-24 shadow-md border border-gray-100">
                 <h3 className="font-bold text-lg mb-4 px-3 text-[#0A2540] border-b border-gray-200 pb-2">
@@ -386,10 +398,10 @@ const LegalMechanisms = () => {
                         activeIndex === idx 
                           ? "bg-[#F59E0B] text-white shadow-md" 
                           : "hover:bg-[#F59E0B]/10 text-gray-700"
-                      }`}
+                      } ${item.type === "judicial" ? "pl-8" : ""}`}
                     >
                       <item.icon size={20} />
-                      <span className="text-sm font-medium">{item.type === "framework" ? item.title : item.name}</span>
+                      <span className="text-sm font-medium">{getDisplayTitle(item)}</span>
                       {activeIndex === idx && (
                         <ArrowRight size={16} className="ml-auto" />
                       )}
@@ -629,7 +641,7 @@ const LegalMechanisms = () => {
                               )}
                             </>
                           ) : (
-                            // Quasi-Judicial Body Content
+                            // Quasi-Judicial Body Content - With proper lead
                             <>
                               <div className={`bg-gradient-to-r ${item.gradientColor} p-6 rounded-xl mb-6`}>
                                 <div className="flex items-center gap-4">
@@ -642,6 +654,25 @@ const LegalMechanisms = () => {
                                   </div>
                                 </div>
                               </div>
+                              
+                              {/* Lead paragraph explaining the context */}
+                              {item.parent === "rddb-act" && (
+                                <div className="mb-6 bg-[#F3F4F6] rounded-lg p-4 border-l-4 border-[#F59E0B]">
+                                  <p className="text-gray-700 text-sm md:text-base">
+                                    <strong className="text-[#0A2540]">Context:</strong> The {item.name} is established under the <strong className="text-[#F59E0B]">Recovery of Debts Due to Banks and Financial Institutions Act, 1993 (RDDB Act)</strong>. 
+                                    It is one of the key tribunals created under this Act to facilitate expeditious debt recovery.
+                                  </p>
+                                </div>
+                              )}
+                              
+                              {item.parent === "ibc" && (
+                                <div className="mb-6 bg-[#F3F4F6] rounded-lg p-4 border-l-4 border-[#F59E0B]">
+                                  <p className="text-gray-700 text-sm md:text-base">
+                                    <strong className="text-[#0A2540]">Context:</strong> The {item.name} is the adjudicating authority under the <strong className="text-[#F59E0B]">Insolvency and Bankruptcy Code, 2016 (IBC)</strong>. 
+                                    It plays a crucial role in the corporate insolvency resolution process.
+                                  </p>
+                                </div>
+                              )}
                               
                               <div className="space-y-4">
                                 <div>
@@ -668,6 +699,14 @@ const LegalMechanisms = () => {
                                   <p className="text-[#F59E0B] font-semibold mb-1">Process / Composition</p>
                                   <p className="text-gray-600">{item.processDesc}</p>
                                 </div>
+                              </div>
+                              
+                              {/* Closing paragraph */}
+                              <div className="mt-6 pt-4 border-t border-gray-200">
+                                <p className="text-gray-600 text-sm italic">
+                                  {item.name} serves as a critical component of India's debt recovery framework, ensuring {item.name === "DRT" ? "timely adjudication" : item.name === "DRAT" ? "appellate oversight" : "corporate insolvency resolution"} 
+                                  and contributing to the overall health of the financial system.
+                                </p>
                               </div>
                             </>
                           )}
@@ -725,8 +764,8 @@ const LegalMechanisms = () => {
                 <tr>
                   <th className="px-6 py-4 text-left">Feature</th>
                   <th className="px-6 py-4 text-left">IBC</th>
-                  <th className="px-6 py-4 text-left">SARFAESI</th>
-                  <th className="px-6 py-4 text-left">RDDB</th>
+                  <th className="px-6 py-4 text-left">SARFAESI Act</th>
+                  <th className="px-6 py-4 text-left">RDDB Act</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">

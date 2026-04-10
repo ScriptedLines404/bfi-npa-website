@@ -92,7 +92,7 @@ const Contact = () => {
                 Contact Us
               </h1>
               <p className="text-xl max-w-3xl mx-auto text-gray-300 leading-relaxed">
-                Get a Free Consultation Today. Our team of experts is ready to assist you with your NPA recovery needs.
+                Get a Consultation Today. Our team of experts is ready to assist you with your NPA recovery needs.
               </p>
               <div className="w-24 h-1 bg-[#F59E0B] rounded-full mx-auto mt-6"></div>
             </div>
@@ -212,13 +212,9 @@ const Contact = () => {
                 <div className="bg-white rounded-2xl p-8 shadow-md border border-gray-100">
                   <h2 className="text-2xl font-bold text-[#0A2540] mb-4">Office Hours</h2>
                   <div className="space-y-2">
-                    <div className="flex justify-between items-center py-2 border-b border-gray-200">
-                      <span className="text-gray-600">Monday - Friday</span>
-                      <span className="font-semibold text-[#0A2540]">9:00 AM - 6:00 PM</span>
-                    </div>
                     <div className="flex justify-between items-center py-2">
-                      <span className="text-gray-600">Saturday</span>
-                      <span className="font-semibold text-[#0A2540]">10:00 AM - 2:00 PM</span>
+                      <span className="text-gray-600">Monday - Saturday</span>
+                      <span className="font-semibold text-[#0A2540]">10:00 AM - 6:00 PM</span>
                     </div>
                     <div className="flex justify-between items-center py-2 border-t border-gray-200 mt-2 pt-2">
                       <span className="text-gray-600">Sunday</span>
